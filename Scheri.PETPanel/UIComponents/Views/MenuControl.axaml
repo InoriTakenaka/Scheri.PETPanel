@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:Scheri.PETPanel.UIComponents.ViewModels"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Scheri.PETPanel.UIComponents.Views.MenuControl"
+			 x:DataType="vm:MenuControlViewModel">
+	<DockPanel Width="240" Background="#1E1E1E">
+		<!-- Menu Header -->
+		<StackPanel DockPanel.Dock="Top" Margin="16" VerticalAlignment="Center">
+			<TextBlock Text="Menu" Foreground="White" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+		</StackPanel>
+
+		<!-- Menu Items Template-->
+		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding MenuItems}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button>
+							<StackPanel Orientation="Horizontal">
+								<PathIcon/>
+								<TextBlock Text="{Binding Text}"/>
+							</StackPanel>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+
+		<!-- Menu Footer -->
+		<StackPanel DockPanel.Dock="Bottom" Margin="16,8">
+			<TextBlock Text="系统状态" FontSize="14"/>
+			<StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+				<Ellipse Width="12" Height="12" Fill="Green" VerticalAlignment="Center"/>
+				<TextBlock Text=" 在线" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center"/>
+			</StackPanel>
+			<TextBlock Text="版本 1.0.0" FontSize="12"/>
+		</StackPanel>
+
+	</DockPanel>
+</UserControl>
