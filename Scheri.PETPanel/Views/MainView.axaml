@@ -1,8 +1,8 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:petpanel="using:Scheri.PETPanel"
+			 xmlns:petpanel="using:Scheri.PETPanel"
 			 xmlns:vm="using:Scheri.PETPanel.ViewModels"
 			 xmlns:cp="using:Scheri.PETPanel.UIComponents.Views"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -15,15 +15,10 @@
 	</Design.DataContext>
 
 	<Grid ColumnDefinitions="240,*">
-		<Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Padding="10">
-			<cp:MenuControl />
-		</Border>
-		<Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5">
-			<StackPanel>	
-				<cp:AppTitle />
-				<ContentControl x:Name="MainContent" Grid.Column="1" />
-			</StackPanel>			
-		</Border>
+		<cp:MenuControl Margin="0"/>
+		<StackPanel Grid.Column="1">
+			<cp:AppTitle />
+			<ContentControl x:Name="MainContent" Grid.Column="1" />
+		</StackPanel>
 	</Grid>
-
 </UserControl>
