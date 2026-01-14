@@ -1,16 +1,29 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Scheri.PETPanel.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Scheri.PETPanel.Views.MainView"
-             x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:petpanel="using:Scheri.PETPanel"
+			 xmlns:vm="using:Scheri.PETPanel.ViewModels"
+			 xmlns:cp="using:Scheri.PETPanel.UIComponents.Views"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Scheri.PETPanel.Views.MainView"
+			 x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	<Grid ColumnDefinitions="240,*">
+		<Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Padding="10">
+			<cp:MenuControl />
+		</Border>
+		<Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5">
+			<StackPanel>	
+				<cp:AppTitle />
+				<ContentControl x:Name="MainContent" Grid.Column="1" />
+			</StackPanel>			
+		</Border>
+	</Grid>
+
 </UserControl>
