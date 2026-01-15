@@ -1,47 +1,97 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Scheri.PETPanel.UIComponents.ViewModels"
-             xmlns:fluent="using:FluentIcons.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="450"
-             x:Class="Scheri.PETPanel.UIComponents.Views.MenuControl"
-             x:DataType="vm:MenuControlViewModel">
-    <DockPanel Width="240" Background="Black" LastChildFill="False">
-        <!-- Menu Header -->
-        <Grid x:Name="Header" DockPanel.Dock="Top" Margin="0" Height="60" Background="#282840"
-              VerticalAlignment="Center">
-            <TextBlock Text="Menu" Foreground="LightCyan" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
-                       HorizontalAlignment="Center" />
-        </Grid>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:Scheri.PETPanel.UIComponents.ViewModels"
+			 xmlns:fluent="using:FluentIcons.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="450"
+			 x:Class="Scheri.PETPanel.UIComponents.Views.MenuControl"
+			 x:DataType="vm:MenuControlViewModel">
+	<UserControl.Styles>
+		<!-- styles for menu items -->
+		<Style Selector="Button.menu-item">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="Width" Value="240"/>
+			<Setter Property="Height" Value="80"/>
+			  <Setter Property="Template">
+            <ControlTemplate>
+                <Border 
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
+                    <ContentPresenter 
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"/>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+		</Style>
+		<Style Selector="Button.menu-item StackPanel > fluent|FluentIcon">
+			<Setter Property="Foreground" Value="LightSlateGray"/>
+			<Setter Property="Width" Value="60"/>
+			<Setter Property="Height" Value="60"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Button.menu-item StackPanel > TextBlock">
+			<Setter Property="Foreground" Value="LightSlateGray"/>
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<!-- styles for menu items on pointer over -->
+		<Style Selector="Button.menu-item:pointerover">
+			<Setter Property="Background">
+				<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+					<GradientStop Color="#282840" Offset="0"/>
+					<GradientStop Color="#282828" Offset="1"/>
+				</LinearGradientBrush>
+			</Setter>
+			<Setter Property="BorderThickness" Value="3 0 0 0"/>
+			<Setter Property="BorderBrush" Value="LightCyan"/>
+		</Style>
+		<Style Selector="Button.menu-item:pointerover StackPanel > TextBlock">
+			<Setter Property="Foreground" Value="LightCyan"/>
+		</Style>
+		<Style Selector="Button.menu-item:pointerover StackPanel > fluent|FluentIcon">
+			<Setter Property="Foreground" Value="LightCyan"/>
+		</Style>
+	</UserControl.Styles>
+	<DockPanel Width="240" Background="Black" LastChildFill="False">
+		<!-- Menu Header -->
+		<Grid x:Name="Header" DockPanel.Dock="Top" Margin="0" Height="60" Background="#282828"
+			  VerticalAlignment="Center">
+			<TextBlock Text="Menu" Foreground="LightCyan" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
+					   HorizontalAlignment="Center" />
+		</Grid>
 
-        <!-- Menu Footer -->
-        <StackPanel x:Name="Footer" DockPanel.Dock="Bottom" Margin="16,8">
-            <TextBlock Text="系统状态" FontSize="14" Foreground="LightGray" />
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,0" Spacing="10">
-                <Ellipse Width="12" Height="12" Fill="Green" VerticalAlignment="Center" />
-                <TextBlock Text=" 在线" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="LightGray" />
-            </StackPanel>
-            <TextBlock Text="版本 1.0.0" FontSize="12" />
-        </StackPanel>
+		<!-- Menu Footer -->
+		<StackPanel x:Name="Footer" DockPanel.Dock="Bottom" Margin="16,8">
+			<TextBlock Text="系统状态" FontSize="14" Foreground="LightGray" />
+			<StackPanel Orientation="Horizontal" Margin="0,4,0,0" Spacing="10">
+				<Ellipse Width="12" Height="12" Fill="Green" VerticalAlignment="Center" />
+				<TextBlock Text=" 在线" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="LightGray" />
+			</StackPanel>
+			<TextBlock Text="版本 1.0.0" FontSize="12" />
+		</StackPanel>
 
-        <!-- Menu Items Template-->
-        <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding MenuItems}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Width="240" Height="80">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="30">
-                                <fluent:FluentIcon Width="60" Height="60" Icon="{Binding Icon}" Foreground="Cyan"
-                                                   VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding Text}" Foreground="Cyan" FontSize="24"
-                                           VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+		<!-- Menu Items Template-->
+		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding MenuItems}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Classes="menu-item">
+							<StackPanel Orientation="Horizontal">
+								<fluent:FluentIcon  Icon="{Binding Icon}" />
+								<TextBlock Text="{Binding Text}" />
+							</StackPanel>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
 
-    </DockPanel>
+	</DockPanel>
 </UserControl>
