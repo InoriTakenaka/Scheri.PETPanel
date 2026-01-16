@@ -84,7 +84,9 @@
 			<ItemsControl ItemsSource="{Binding MenuItems}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Button Classes="menu-item">
+						<Button Classes="menu-item" 
+								Command="{Binding $parent[ItemsControl].DataContext.NavigateToView}"
+								CommandParameter="{Binding}">
 							<StackPanel Orientation="Horizontal">
 								<fluent:FluentIcon  Icon="{Binding Icon}" />
 								<TextBlock Text="{Binding Text}" />

@@ -4,13 +4,13 @@ using System;
 
 namespace Scheri.PETPanel.UIComponents;
 
-    public partial class StatusPanelViewModel:ObservableObject
-    {
-        [ObservableProperty]
-        private bool _isConnected = true;     
-    }
+public partial class StatusPanelViewModel : ObservableObject
+{
+    [ObservableProperty]
+    private bool _isConnected = true;
+}
 
-public class BoolToBrushConverter: IValueConverter
+public class BoolToBrushConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
     {

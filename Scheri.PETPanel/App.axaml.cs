@@ -1,4 +1,4 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
@@ -6,11 +6,15 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Scheri.PETPanel.ViewModels;
 using Scheri.PETPanel.Views;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Scheri.PETPanel.UIComponents;
 
 namespace Scheri.PETPanel;
 
 public partial class App : Application
 {
+    public static IServiceProvider? ServiceProvider { get; private set; }
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -18,6 +22,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        ConfigureServices();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -50,5 +55,13 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
+    }
+
+    public static void ConfigureServices()
+    {
+        var services = new ServiceCollection();
+        services.AddSingleton<IMenuConfig, PETPanelMenuConfig>();
+        services.AddTransient<MenuControlViewModel>();
+        ServiceProvider = services.BuildServiceProvider();
     }
 }

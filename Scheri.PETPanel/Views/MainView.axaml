@@ -2,9 +2,9 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:petpanel="using:Scheri.PETPanel"
+			 xmlns:local="using:Scheri.PETPanel"
 			 xmlns:vm="using:Scheri.PETPanel.ViewModels"
-			 xmlns:cp="using:Scheri.PETPanel.UIComponents.Views"
+			 xmlns:cp="using:Scheri.PETPanel.UIComponents"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
 			 x:Class="Scheri.PETPanel.Views.MainView"
 			 x:DataType="vm:MainViewModel">
@@ -18,7 +18,10 @@
 		<cp:MenuControl Margin="0"/>
 		<StackPanel Grid.Column="1">
 			<cp:AppTitle />
-			<ContentControl x:Name="MainContent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+			<ContentControl x:Name="MainContent" 
+				   Content="{Binding CurrentView}"
+				   VerticalAlignment="Stretch" 
+				   HorizontalAlignment="Stretch"/>
 		</StackPanel>
 	</Grid>
 </UserControl>
