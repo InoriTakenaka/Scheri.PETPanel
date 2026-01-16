@@ -1,5 +1,6 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:Avalonia.Markup.Xaml.Converters"
              xmlns:local="using:Scheri.PETPanel"
              x:Class="Scheri.PETPanel.App"
              RequestedThemeVariant="Default">
@@ -15,6 +16,7 @@
 
     <Application.Resources>
         <FontFamily x:Key="DigitalNumbersFont">avares://Scheri.PETPanel/Assets/Fonts/#Digital Numbers</FontFamily>
+        <FontFamily x:Key="GOST">avares://Scheri.PETPanel/Assets/Fonts/#GOST 2.304-81</FontFamily>
     </Application.Resources>
 
 </Application>

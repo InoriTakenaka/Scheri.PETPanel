@@ -5,7 +5,7 @@
 			 xmlns:petpanel="using:Scheri.PETPanel"
 			 xmlns:vm="using:Scheri.PETPanel.ViewModels"
 			 xmlns:cp="using:Scheri.PETPanel.UIComponents.Views"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
 			 x:Class="Scheri.PETPanel.Views.MainView"
 			 x:DataType="vm:MainViewModel">
 	<Design.DataContext>
@@ -18,7 +18,7 @@
 		<cp:MenuControl Margin="0"/>
 		<StackPanel Grid.Column="1">
 			<cp:AppTitle />
-			<ContentControl x:Name="MainContent" Grid.Column="1" />
+			<ContentControl x:Name="MainContent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 		</StackPanel>
 	</Grid>
 </UserControl>

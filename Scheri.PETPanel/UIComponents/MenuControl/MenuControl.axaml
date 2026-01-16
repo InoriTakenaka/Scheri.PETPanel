@@ -2,10 +2,10 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="using:Scheri.PETPanel.UIComponents.ViewModels"
+			 xmlns:vm="using:Scheri.PETPanel.UIComponents"
 			 xmlns:fluent="using:FluentIcons.Avalonia"
-			 mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="450"
-			 x:Class="Scheri.PETPanel.UIComponents.Views.MenuControl"
+			 mc:Ignorable="d" d:DesignWidth="240" d:DesignHeight="600"
+			 x:Class="Scheri.PETPanel.UIComponents.MenuControl"
 			 x:DataType="vm:MenuControlViewModel">
 	<UserControl.Styles>
 		<!-- styles for menu items -->
@@ -16,19 +16,20 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch"/>
 			<Setter Property="Width" Value="240"/>
 			<Setter Property="Height" Value="80"/>
-			  <Setter Property="Template">
-            <ControlTemplate>
-                <Border 
-                    Background="{TemplateBinding Background}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    BorderBrush="{TemplateBinding BorderBrush}">
-                    <ContentPresenter 
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                        Content="{TemplateBinding Content}"/>
-                </Border>
-            </ControlTemplate>
-        </Setter>
+			<Setter Property="FontFamily" Value="{StaticResource GOST}"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border
+					Background="{TemplateBinding Background}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					BorderBrush="{TemplateBinding BorderBrush}">
+						<ContentPresenter
+						HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+						VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+						Content="{TemplateBinding Content}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
 		</Style>
 		<Style Selector="Button.menu-item StackPanel > fluent|FluentIcon">
 			<Setter Property="Foreground" Value="LightSlateGray"/>
@@ -50,31 +51,32 @@
 				</LinearGradientBrush>
 			</Setter>
 			<Setter Property="BorderThickness" Value="3 0 0 0"/>
-			<Setter Property="BorderBrush" Value="LightCyan"/>
+			<Setter Property="BorderBrush" Value="Cyan"/>
 		</Style>
 		<Style Selector="Button.menu-item:pointerover StackPanel > TextBlock">
-			<Setter Property="Foreground" Value="LightCyan"/>
+			<Setter Property="Foreground" Value="Cyan"/>
+			<Setter Property="FontWeight" Value="Bold"/>
 		</Style>
 		<Style Selector="Button.menu-item:pointerover StackPanel > fluent|FluentIcon">
-			<Setter Property="Foreground" Value="LightCyan"/>
+			<Setter Property="Foreground" Value="Cyan"/>
 		</Style>
 	</UserControl.Styles>
 	<DockPanel Width="240" Background="Black" LastChildFill="False">
 		<!-- Menu Header -->
 		<Grid x:Name="Header" DockPanel.Dock="Top" Margin="0" Height="60" Background="#282828"
 			  VerticalAlignment="Center">
-			<TextBlock Text="Menu" Foreground="LightCyan" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
-					   HorizontalAlignment="Center" />
+			<TextBlock Text="Menu" Foreground="Cyan" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource GOST}"
+			  VerticalAlignment="Center" HorizontalAlignment="Center" />
 		</Grid>
 
 		<!-- Menu Footer -->
 		<StackPanel x:Name="Footer" DockPanel.Dock="Bottom" Margin="16,8">
-			<TextBlock Text="系统状态" FontSize="14" Foreground="LightGray" />
+			<TextBlock Text="系统状态" FontSize="14" Foreground="LightCyan" FontWeight="Bold"/>
 			<StackPanel Orientation="Horizontal" Margin="0,4,0,0" Spacing="10">
 				<Ellipse Width="12" Height="12" Fill="Green" VerticalAlignment="Center" />
-				<TextBlock Text=" 在线" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="LightGray" />
+				<TextBlock Text=" 在线" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="LightCyan" />
 			</StackPanel>
-			<TextBlock Text="版本 1.0.0" FontSize="12" />
+			<TextBlock Text="版本 1.0.0" FontSize="12" Foreground="LightCyan"/>
 		</StackPanel>
 
 		<!-- Menu Items Template-->

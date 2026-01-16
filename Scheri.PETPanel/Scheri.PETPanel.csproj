@@ -27,5 +27,8 @@
     <AvaloniaResource Update="Assets\Fonts\DigitalNumbers-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaResource>
+    <AvaloniaResource Update="Assets\Fonts\GOST2.304-81TypeA-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AvaloniaResource>
   </ItemGroup>
 </Project>

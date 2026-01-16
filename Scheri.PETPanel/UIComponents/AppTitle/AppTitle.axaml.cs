@@ -1,10 +1,8 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 using Avalonia.Threading;
 using System;
 
-namespace Scheri.PETPanel.UIComponents.Views;
+namespace Scheri.PETPanel.UIComponents;
 
 public partial class AppTitle : UserControl
 {

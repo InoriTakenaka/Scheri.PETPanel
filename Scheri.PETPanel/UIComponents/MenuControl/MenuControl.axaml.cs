@@ -1,9 +1,7 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using FluentIcons.Common;
-using Scheri.PETPanel.UIComponents.ViewModels;
 
-namespace Scheri.PETPanel.UIComponents.Views;
+namespace Scheri.PETPanel.UIComponents;
 
 public partial class MenuControl : UserControl
 {

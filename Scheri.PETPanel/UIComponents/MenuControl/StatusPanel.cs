@@ -1,12 +1,10 @@
 ﻿using Avalonia.Data.Converters;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Scheri.PETPanel.UIComponents.ViewModels;
+namespace Scheri.PETPanel.UIComponents;
 
-    public partial class StatusPanel:ObservableObject
+    public partial class StatusPanelViewModel:ObservableObject
     {
         [ObservableProperty]
         private bool _isConnected = true;     
