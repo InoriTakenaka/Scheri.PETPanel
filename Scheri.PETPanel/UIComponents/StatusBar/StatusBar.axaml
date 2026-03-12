@@ -1,0 +1,15 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+             x:Class="Scheri.PETPanel.UIComponents.StatusBar">
+  <Grid Height="100" Background="#121A28">
+	  <TextBlock Text="Status Bar" 
+                    FontFamily="{StaticResource GOST}" 
+                    FontSize="24" 
+                    Foreground="Cyan" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"/>
+  </Grid>
+</UserControl>

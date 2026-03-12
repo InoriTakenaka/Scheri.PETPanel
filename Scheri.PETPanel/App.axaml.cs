@@ -2,13 +2,15 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using Scheri.PETPanel.UIComponents;
 using Scheri.PETPanel.ViewModels;
 using Scheri.PETPanel.Views;
 using System;
-using Microsoft.Extensions.DependencyInjection;
-using Scheri.PETPanel.UIComponents;
+using System.Linq;
 
 namespace Scheri.PETPanel;
 
@@ -62,6 +64,13 @@ public partial class App : Application
         var services = new ServiceCollection();
         services.AddSingleton<IMenuConfig, PETPanelMenuConfig>();
         services.AddTransient<MenuControlViewModel>();
+        services.AddLogging(loggingBuilder =>
+        {
+            loggingBuilder.ClearProviders();
+            loggingBuilder.AddNLog(new NLogProviderOptions {
+                IncludeScopes = true 
+            });
+        });
         ServiceProvider = services.BuildServiceProvider();
     }
 }

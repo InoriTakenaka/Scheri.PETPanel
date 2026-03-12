@@ -7,6 +7,7 @@
     <!-- Avalonia packages -->
     <!-- Important: keep version in sync! -->
     <PackageVersion Include="Avalonia" Version="11.3.9" />
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.3.9" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.9" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.9" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.9" />
@@ -17,7 +18,11 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageVersion Include="FluentIcons.Avalonia" Version="2.0.316.1" />
     <PackageVersion Include="FluentIcons.Avalonia.Fluent" Version="2.0.316.1" />
+    <PackageVersion Include="LibVLCSharp" Version="3.9.5" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+    <PackageVersion Include="NLog" Version="6.1.1" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="6.1.2" />
+    <PackageVersion Include="NModbus" Version="3.0.81" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
   </ItemGroup>
 </Project>

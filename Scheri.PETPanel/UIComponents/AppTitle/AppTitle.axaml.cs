@@ -25,6 +25,14 @@ public partial class AppTitle : UserControl
             _timer.Stop();
             _timer.Tick -= UpdateCurrentTime;
         };
+
+#if ANDROID 
+    Android.App.ApplicationLifeCycle += (s, e) => {
+        if (e.State == Android.App.ApplicationLifeCycleState.OnResume){
+            UpdateCurrentTime(s, EventArgs.Empty);
+        }
+    };
+#endif
     }
 
     private void UpdateCurrentTime(object? o,EventArgs e)

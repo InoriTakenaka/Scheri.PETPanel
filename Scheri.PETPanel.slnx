@@ -3,7 +3,9 @@
     <File Path=".editorconfig" />
     <File Path="Directory.Packages.props" />
   </Folder>
-  <Project Path="Scheri.PETPanel.Android/Scheri.PETPanel.Android.csproj" />
+  <Project Path="Scheri.PETPanel.Android/Scheri.PETPanel.Android.csproj">
+    <Deploy />
+  </Project>
   <Project Path="Scheri.PETPanel.Desktop/Scheri.PETPanel.Desktop.csproj" />
   <Project Path="Scheri.PETPanel/Scheri.PETPanel.csproj" />
 </Solution>

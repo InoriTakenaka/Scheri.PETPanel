@@ -9,6 +9,7 @@
 
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PublishAot>False</PublishAot>
   </PropertyGroup>
 
   <ItemGroup>
