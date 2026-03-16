@@ -13,4 +13,24 @@ public partial class SystemOverview : UserControl
         InitializeComponent();
         DataContext = _viewModel;
     }
+
+    private async void Backward_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+
+    }
+
+    private async void Backward_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    {
+
+    }
+
+    private async void Forward_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+
+    }
+
+    private async void Forward_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    {
+
+    }
 }

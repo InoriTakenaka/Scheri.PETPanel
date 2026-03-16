@@ -14,8 +14,6 @@ public class Navigate(string Text, Icon Icon,Type Route)
 }
 public partial class MenuControlViewModel:ObservableObject
 {
-    [ObservableProperty]
-    private StatusPanelViewModel _statusPanel = new();
     public ObservableCollection<Navigate> MenuItems { get; set; }
     public void NavigateToView(Navigate? navigate)
     {

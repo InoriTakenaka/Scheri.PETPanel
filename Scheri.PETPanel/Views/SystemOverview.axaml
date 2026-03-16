@@ -1,145 +1,259 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:collections="using:System.Collections"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="1680" d:DesignHeight="920"
-             xmlns:f="using:FluentIcons.Avalonia"
-             xmlns:viewModels="clr-namespace:Scheri.PETPanel.ViewModels"
-             x:DataType="viewModels:SystemOverviewViewModel"
-             x:Class="Scheri.PETPanel.SystemOverview">
-    <UserControl.Styles>
-        <!-- Button style for device control buttons -->
-        <Style Selector="Button.DeviceControl">
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />            
-            <Setter Property="Padding" Value="20" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-        </Style>        
-        <Style Selector="Button.DeviceControl > StackPanel">
-            <Setter Property="Spacing" Value="15" />
-        </Style>        
-        <Style Selector="Button.DeviceControl f|SymbolIcon">
-            <Setter Property="FontSize" Value="56" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>        
-        <Style Selector="Button.DeviceControl TextBlock">
-            <Setter Property="FontSize" Value="56" />
-            <Setter Property="FontFamily" Value="{StaticResource GOST}" />
-            <Setter Property="FontWeight" Value="SemiBold" /> 
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        <!-- end -->
+			 xmlns:collections="using:System.Collections"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="1680" d:DesignHeight="920"
+			 xmlns:f="using:FluentIcons.Avalonia"
+			 xmlns:viewModels="clr-namespace:Scheri.PETPanel.ViewModels"
+			 x:DataType="viewModels:SystemOverviewViewModel"
+			 x:Class="Scheri.PETPanel.SystemOverview">
+	<UserControl.Styles>
+		<!-- TextBlock foreground style for the entire control -->
+		<Style Selector="TextBlock">
+			<Setter Property="Foreground" Value="#5A7D9A" />
+			<Setter Property="FontFamily" Value="{StaticResource GOST}" />
+			<Setter Property="LetterSpacing" Value="1" />
+		</Style>
 
-    </UserControl.Styles>
+		<!-- Button style for device control buttons -->
+		<Style Selector="Button.DeviceControl">
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+			<Setter Property="Padding" Value="20" />
+			<Setter Property="BorderBrush" Value="#5A7D9A"/>
+			<Setter Property="Background" Value="#F0F4F8" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="BorderThickness" Value="2" />
+			<Setter Property="CornerRadius" Value="4" />
+		</Style>
+		<Style Selector="Button.DeviceControl > StackPanel">
+			<Setter Property="Spacing" Value="15" />
+		</Style>
+		<Style Selector="Button.DeviceControl f|SymbolIcon">
+			<Setter Property="FontSize" Value="56" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style Selector="Button.DeviceControl TextBlock">
+			<Setter Property="FontSize" Value="56" />
+			<Setter Property="FontFamily" Value="{StaticResource GOST}" />
+			<Setter Property="FontWeight" Value="SemiBold" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		
 
-    <!-- Root Grid with two rows: upper for camera and log, lower for buttons -->
-    <Grid x:Name="root" Background="#282828">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2.5*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+		<Style Selector="Button.DeviceControl > StackPanel">
+			<Setter Property="Spacing" Value="15" />
+		</Style>
+		<Style Selector="Button.DeviceControl f|SymbolIcon">
+			<Setter Property="FontSize" Value="56" />
+			<Setter Property="Foreground" Value="#5A7D9A" />
+		</Style>
+		<Style Selector="Button.DeviceControl TextBlock">
+			<Setter Property="FontSize" Value="56" />
+			<Setter Property="FontFamily" Value="{StaticResource GOST}" />
+			<Setter Property="FontWeight" Value="SemiBold" />
+		</Style>
 
-        <!-- Upper Section: Camera and System Log -->
-        <Grid Grid.Row="0" Margin="10 10 10 10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.5*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+		<Style Selector="Button.DeviceControl:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="#B3FFB86C" />
+			<Setter Property="BorderBrush" Value="#FF8C00" />
+			<Setter Property="BoxShadow" Value="0 2 10 0 #4D000000" /> 
+		</Style>
+		<Style Selector="Button.DeviceControl:pressed">
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect BlurRadius="25" Color="#FFB86C" Opacity="0.8" OffsetX="0" OffsetY="0" />
+				</Setter.Value>
+			</Setter>
+		</Style>
 
+		<Style Selector="Button.DeviceControl:pressed TextBlock">
+			<Setter Property="Foreground" Value="#FFFFFF" />
+		</Style>
+		<Style Selector="Button.DeviceControl:pressed f|SymbolIcon">
+			<Setter Property="Foreground" Value="#FFFFFF" />
+		</Style>
+		<!-- end -->
 
-            <Border Grid.Column="0" Background="Sienna" Margin="0 0 10 0" Padding="10">
-                <Grid>
-                    <TextBlock FontSize="36" FontFamily="{StaticResource GOST}" Text="CAMERA"
-                               Foreground="White" />
-                    <Viewbox />
-                </Grid>
+		<!-- Style for Border elements -->
+		<Style Selector="Border.Container">
+			<Setter Property="Background" Value="#F8F9FA"/>
+			<Setter Property="BorderBrush" Value="#805A7D9A"/> 
+			<Setter Property="BorderThickness" Value="1"/> 
+			<Setter Property="CornerRadius" Value="4"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="BoxShadow" Value="0 2 10 0 #1A000000"/> 
+		</Style>
 
-            </Border>
+		<!-- style for DataGrid -->
+		<Style Selector="DataGrid">
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderBrush" Value="#B0B8C1" />
+			<Setter Property="BorderThickness" Value="0,1,0,1" />
+			<Setter Property="GridLinesVisibility" Value="Horizontal" />
+			<Setter Property="HorizontalGridLinesBrush" Value="#D1D9E1" />
+			<Setter Property="RowHeight" Value="38" />
+			<Setter Property="ColumnHeaderHeight" Value="40" />
+		</Style>
+		<Style Selector="DataGridColumnHeader">
+			<Setter Property="Background" Value="#D1D9E1" />
+			<Setter Property="Foreground" Value="#5A6472" /> 
+			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="FontSize" Value="14" />
+			<Setter Property="Padding" Value="15,0" />
+			<Setter Property="SeparatorBrush" Value="Transparent" /> 
+		</Style>
+		<Style Selector="DataGridRow:nth-child(2n)">
+			<Setter Property="Background" Value="#08000000" />
+		</Style>
+		<Style Selector="DataGridCell">
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+			<Setter Property="Fill" Value="#26007BFF" />
+		</Style>
+		<Style Selector="DataGridRow:selected TextBlock">
+			<Setter Property="FontWeight" Value="SemiBold" />
+		</Style>
+		<!--end-->
 
-            <!-- System Log Section -->
-            <Border Grid.Column="1" Background="DarkBlue" Padding="2" MinHeight="200">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10 0 0 0" FontSize="36" FontFamily="{StaticResource GOST}"
-                               Text="SYSTEM LOG" Foreground="White" />
-                    <Border Grid.Row="1" Background="DarkCyan">
-                        <DataGrid BorderBrush="Black" BorderThickness="0,1,0,1"
-                                  MinHeight="30" ColumnHeaderHeight="30" RowHeight="30" VerticalAlignment="Stretch"
-                                  HorizontalAlignment="Stretch"
-                                  CanUserSortColumns="False" CornerRadius="0" Background="Red"
-                                  AutoGenerateColumns="False"
-                                  Focusable="False" GridLinesVisibility="Horizontal"
-                                  IsReadOnly="True" ItemsSource="{Binding LogRecords}"
-                                  SelectionMode="Single">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Width="Auto">
-                                    <DataGridTextColumn.Header>
-                                        <TextBlock FontSize="14" FontFamily="{StaticResource GOST}" Text="Timestamp"
-                                                   Foreground="Black" />
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="TimeOffset" StringFormat="yyyy-MM-dd HH:mm:ss" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Width="Auto">
-                                    <DataGridTextColumn.Header>
-                                        <TextBlock FontSize="14" FontFamily="{StaticResource GOST}" Text="Level"
-                                                   Foreground="Black" />
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Level" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Width="*">
-                                    <DataGridTextColumn.Header>
-                                        <TextBlock FontSize="14" FontFamily="{StaticResource GOST}" Text="Content"
-                                                   Foreground="Black" />
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Content" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
+	</UserControl.Styles>
 
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
+	<!-- Root Grid with two rows: upper for camera and log, lower for buttons -->
+	<Grid x:Name="root" Background="#E1E8ED">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2.5*" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
-        <!-- Lower Section: Control Buttons -->
-        <Border Grid.Row="1" Background="Aquamarine" Margin="10 0 10 10" Padding="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+		<!-- Upper Section: Camera and System Log -->
+		<Grid Grid.Row="0" Margin="10 10 10 10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="2.5*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Margin="0 0 5 0" Classes="DeviceControl">
-                    <StackPanel Orientation="Horizontal">
-                        <f:SymbolIcon Symbol="ArrowCircleLeft"/>
-                        <TextBlock Text="Backward"/>
-                    </StackPanel>
-                </Button>
-                <Button Grid.Column="1"  Margin="5 0 5 0" Classes="DeviceControl">
+			<Border Grid.Column="0" Margin="0 0 10 0" Padding="10" Classes="Container">
+				<Grid>
+					<TextBlock FontSize="36"
+							   FontFamily="{StaticResource GOST}"
+							   FontWeight="Bold"
+							   Text="CAMERA"
+							   Opacity="0.8"/>
+
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<TextBlock Text="NO SIGNAL"
+								   FontSize="32"
+								   FontWeight="Bold"
+								   FontFamily="{StaticResource GOST}"
+								   Foreground="#FFB86C">
+							<TextBlock.Effect>
+								<DropShadowEffect BlurRadius="10" Color="#FFB86C" Opacity="0.5" />
+							</TextBlock.Effect>
+						</TextBlock>
+
+						<TextBlock Text="CHECKING CONNECTION..."
+								   FontSize="24"
+								   HorizontalAlignment="Center"
+								   FontFamily="{StaticResource GOST}"
+								   FontWeight="SemiBold"
+								   Foreground="#80FFB86C"
+								   Margin="0,5,0,0"/>
+					</StackPanel>
+
+					<Viewbox />
+				</Grid>
+			</Border>
+
+			<!-- System Log Section -->
+			<Border Grid.Column="1" Padding="2" MinHeight="200" Classes="Container">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+					<TextBlock Grid.Row="0" Margin="10 0 0 0" FontSize="36"
+							   FontFamily="{StaticResource GOST}"
+							   Text="SYSTEM LOG"
+							   FontWeight="Bold" />
+					<Border Grid.Row="1">
+						<DataGrid BorderBrush="Black" BorderThickness="0,1,0,1"
+								  MinHeight="30" ColumnHeaderHeight="30" RowHeight="30"
+								  VerticalAlignment="Stretch"
+								  HorizontalAlignment="Stretch"
+								  CanUserSortColumns="False"
+								  CornerRadius="0"
+								  AutoGenerateColumns="False"
+								  Focusable="False" GridLinesVisibility="Horizontal"
+								  IsReadOnly="True" ItemsSource="{Binding LogRecords}"
+								  SelectionMode="Single">
+							<DataGrid.Columns>
+								<DataGridTextColumn Width="Auto">
+									<DataGridTextColumn.Header>
+										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Timestamp" />
+									</DataGridTextColumn.Header>
+									<DataGridTextColumn.Binding>
+										<Binding Path="TimeOffset" StringFormat="[HH:mm:ss]" />
+									</DataGridTextColumn.Binding>
+								</DataGridTextColumn>
+								<DataGridTextColumn Width="Auto">
+									<DataGridTextColumn.Header>
+										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Level"/>
+									</DataGridTextColumn.Header>
+									<DataGridTextColumn.Binding>
+										<Binding Path="Level" />
+									</DataGridTextColumn.Binding>
+								</DataGridTextColumn>
+								<DataGridTextColumn Width="*">
+									<DataGridTextColumn.Header>
+										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Content"/>
+									</DataGridTextColumn.Header>
+									<DataGridTextColumn.Binding>
+										<Binding Path="Content" />
+									</DataGridTextColumn.Binding>
+								</DataGridTextColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
+
+		<!-- Lower Section: Control Buttons -->
+		<Border Grid.Row="1" Margin="20 10 20 20" Padding="15" Classes="Container">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Column="0" Margin="0 0 10 0" Classes="DeviceControl"
+						Name="Backward" PointerPressed="Backward_PointerPressed"
+						PointerReleased="Backward_PointerReleased">
 					<StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Forward"/>
-                        <f:SymbolIcon Symbol="ArrowCircleRight"/>                        
-                    </StackPanel>
-                </Button>                        
-                <Button Grid.Column="2" Margin="5 0 0 0" Classes="DeviceControl">
-                    <StackPanel Orientation="Horizontal">
-                        <f:SymbolIcon Symbol="LockClosed"/>
-                        <TextBlock Text="Lock Screen"/>
-                    </StackPanel>
-                </Button>
-            </Grid>
-        </Border>
-    </Grid>
+						<f:SymbolIcon Symbol="ArrowCircleLeft"/>
+						<TextBlock Text="Backward"/>
+					</StackPanel>
+				</Button>
+				<Button Grid.Column="1"  Margin="10 0 10 0" Classes="DeviceControl"
+						Name="Forward" PointerPressed="Forward_PointerPressed"
+						PointerReleased="Forward_PointerReleased">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Forward"/>
+						<f:SymbolIcon Symbol="ArrowCircleRight"/>
+					</StackPanel>
+				</Button>
+				<Button Grid.Column="2" Margin="10 0 0 0" Classes="DeviceControl">
+					<StackPanel Orientation="Horizontal">
+						<f:SymbolIcon Symbol="LockClosed"/>
+						<TextBlock Text="Lock Screen"/>
+					</StackPanel>
+				</Button>
+			</Grid>
+		</Border>
+	</Grid>
 </UserControl>

@@ -44,14 +44,14 @@
 			<Setter Property="VerticalAlignment" Value="Center"/>
 		</Style>
 
-		<!-- styles for menu items on pointer over -->
+		<!-- styles for menu items on pointer focus -->
 		<Style Selector="Button.menu-item:focus">
-			<Setter Property="Background">
+		<!--	<Setter Property="Background">
 				<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
 					<GradientStop Color="#282840" Offset="0"/>
 					<GradientStop Color="#282828" Offset="1"/>
 				</LinearGradientBrush>
-			</Setter>
+			</Setter> -->
 			<Setter Property="BorderThickness" Value="3 0 0 0"/>
 			<Setter Property="BorderBrush" Value="Cyan"/>
 		</Style>
@@ -64,23 +64,13 @@
 		</Style>
 
 	</UserControl.Styles>
-	<DockPanel Width="250" Background="Black" LastChildFill="False">
+	<DockPanel Width="250" LastChildFill="False">
 		<!-- Menu Header -->
-		<Grid x:Name="Header" DockPanel.Dock="Top" Margin="0" Height="80" Background="#121A28"
+		<Grid x:Name="Header" DockPanel.Dock="Top" Margin="0" Height="60" Background="#121A28"
 			  VerticalAlignment="Center">
 			<TextBlock Text="Menu" Foreground="Cyan" FontSize="48" FontWeight="Bold" FontFamily="{StaticResource GOST}"
 			  VerticalAlignment="Center" HorizontalAlignment="Center" />
 		</Grid>
-
-		<!-- Menu Footer -->
-		<StackPanel x:Name="Footer" DockPanel.Dock="Bottom" Width="250">
-			<TextBlock Text="系统状态" FontSize="14" Foreground="LightCyan" FontWeight="Bold" HorizontalAlignment="Right"/>
-			<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-				<Ellipse Width="12" Height="12" Fill="Green" VerticalAlignment="Center" />
-				<TextBlock Text=" 在线" FontSize="12" VerticalAlignment="Center" Foreground="LightCyan" />
-			</StackPanel>
-			<TextBlock Text="版本 1.0.0" FontSize="12" Foreground="LightCyan" HorizontalAlignment="Right"/>
-		</StackPanel>
 
 		<!-- Menu Items Template-->
 		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
