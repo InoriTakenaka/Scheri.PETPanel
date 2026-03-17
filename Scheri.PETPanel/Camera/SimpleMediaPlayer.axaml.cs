@@ -8,93 +8,61 @@ using Avalonia.Threading;
 using LibVLCSharp.Shared;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Scheri.PETPanel.Camera;
 
 public partial class SimpleMediaPlayer : UserControl
 {
-    private readonly VLCVideoRenderer _videoRender = new();
+    //private readonly VLCVideoRenderer _videoRender = new();
     public string? MediaPath { get; private set; }
-    private IntPtr _buff = IntPtr.Zero;
-    private static int _width = 960;
-    private static int _height = 400;
+    private readonly LibVLC? _libVlc;
+    private readonly MediaPlayer? _mediaPlayer;
     public SimpleMediaPlayer()
     {
         InitializeComponent();
-        _videoRender.MediaPlayer.SetVideoFormat("BGRA", (uint)_width, (uint)_height, (uint)_width * 4);
-        _videoRender.MediaPlayer.SetVideoCallbacks(LockCallback, UnLockCallback, DisplayCallback);
-        _videoRender.MediaPlayer.Mute = true;
-        _videoRender.MediaPlayer.EncounteredError += (_, _) => {
-            if (string.IsNullOrEmpty(MediaPath))
-                return;
-            _videoRender.Play(MediaPath);
+        _libVlc = new LibVLC(enableDebugLogs: true);
+        _libVlc.Log += (sender, args) => {
+            System.Diagnostics.Debug.WriteLine($"[VLC Log]: {args.Message}");
         };
-        _videoRender.MediaPlayer.EndReached += (_, _) => {
-            if (string.IsNullOrEmpty(MediaPath))
-                return;
-            _videoRender.Play(MediaPath);
-        };
-        _videoRender.MediaPlayer.Playing += (_, _) => {
-        };
-        _videoRender.MediaPlayer.Buffering += (_, _) => {
-        };
-        _buff = Marshal.AllocHGlobal(1920 * 1080 * 4);
+        _mediaPlayer = new MediaPlayer(_libVlc);
+        VideoPlayer.MediaPlayer = _mediaPlayer;
     }
 
-    private void SetVlcState(string state)
+    public void Play(string url)
     {
-        Dispatcher.UIThread.Invoke(() => {
-          //  LabelConnectInfo.Text = state;
-        });
+        if (_libVlc == null || _mediaPlayer == null)
+        {
+            System.Diagnostics.Debug.WriteLine("Error: VLC not initialized!");
+            return;
+        }
+
+        try
+        {
+            // 确保使用正确的 Uri 格式
+            using var media = new Media(_libVlc, url, FromType.FromLocation);
+
+            // 关键：强制开启 TCP 模式（针对 RTSP）
+            media.AddOption(":rtsp-tcp");
+            media.AddOption(":network-caching=500");
+
+            System.Diagnostics.Debug.WriteLine($"Attempting to play: {url}");
+
+            bool success = _mediaPlayer.Play(media);
+            System.Diagnostics.Debug.WriteLine($"Play command sent. Success: {success}");
+        }
+        catch (Exception ex)
+        {
+            // 在 Android Logcat 中可以看到这个报错
+            System.Diagnostics.Debug.WriteLine($"VLC Init Failed: {ex.Message}");
+        }
     }
 
-
-    private IntPtr LockCallback(IntPtr opaque, IntPtr planes)
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        Marshal.WriteIntPtr(planes, _buff);
-        return IntPtr.Zero;
-    }
-
-    private void UnLockCallback(IntPtr opaque, IntPtr picture, IntPtr planes)
-    {
-        var writeableBitmap = new WriteableBitmap(PixelFormat.Bgra8888,
-            AlphaFormat.Opaque, _buff,
-            new PixelSize(_width, _height), new Vector(96, 96), _width * 4);
-        Dispatcher.UIThread.Post(() => {
-            SetVlcState(_videoRender.MediaPlayer.State == VLCState.Playing ? "" : "加载中");
-            ImgVideo.Source = writeableBitmap;
-        });
-    }
-
-    private void DisplayCallback(IntPtr opaque, IntPtr picture)
-    {
-
-    }
-
-
-    public void SetMediaPath(string mediaPath)
-    {
-        MediaPath = mediaPath;
-        _videoRender.Play(MediaPath);
-    }
-
-
-    protected override void OnLoaded(RoutedEventArgs e)
-    {
-        base.OnLoaded(e);
-        // if (Design.IsDesignMode)
-        //     return;
-        // if (string.IsNullOrEmpty(MediaPath))
-        //     return;
-        // if (_viewModel.MediaPlayer.IsPlaying)
-        //     _viewModel.Resume();
-        // else
-        //     _viewModel.Play(MediaPath);
-    }
-
-    protected override void OnUnloaded(RoutedEventArgs e)
-    {
-        // base.OnUnloaded(e);
-        // _viewModel.Pause();
+        base.OnDetachedFromVisualTree(e);
+        _mediaPlayer?.Stop();
+        _mediaPlayer?.Dispose();
+        _libVlc?.Dispose();
     }
 }

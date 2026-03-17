@@ -1,11 +1,20 @@
 <Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="Scheri.PETPanel.Android/Scheri.PETPanel.Android.csproj">
+    <Platform Solution="*|x64" Project="x64" />
     <Deploy />
   </Project>
-  <Project Path="Scheri.PETPanel.Desktop/Scheri.PETPanel.Desktop.csproj" />
-  <Project Path="Scheri.PETPanel/Scheri.PETPanel.csproj" />
+  <Project Path="Scheri.PETPanel.Desktop/Scheri.PETPanel.Desktop.csproj">
+    <Platform Solution="Debug|x64" Project="x64" />
+  </Project>
+  <Project Path="Scheri.PETPanel/Scheri.PETPanel.csproj">
+    <Platform Solution="Debug|x64" Project="x64" />
+  </Project>
 </Solution>

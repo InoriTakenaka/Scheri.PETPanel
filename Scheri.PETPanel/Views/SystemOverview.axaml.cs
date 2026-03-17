@@ -33,4 +33,9 @@ public partial class SystemOverview : UserControl
     {
 
     }
+
+    private void SystemOverviewLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        VlcPlayer.Play("rtsp://admin:admin@78.110.219.124:554/live/ch0");
+    }
 }
