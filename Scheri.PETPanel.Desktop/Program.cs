@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Scheri.PETPanel.Utils;
 
 namespace Scheri.PETPanel.Desktop;
 
@@ -9,8 +10,12 @@ sealed class Program
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
+    public static void Main(string[] args)
+    {
+        AppLogger.Initialize(new NLogDesktopConfig());
+        BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
+    }
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()

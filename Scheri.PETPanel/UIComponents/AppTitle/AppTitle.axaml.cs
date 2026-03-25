@@ -10,21 +10,21 @@ public partial class AppTitle : UserControl
     public AppTitle()
     {
         InitializeComponent();
-        _timer = new DispatcherTimer {
-            Interval = TimeSpan.FromSeconds(1)
-        };
+        //_timer = new DispatcherTimer {
+        //    Interval = TimeSpan.FromSeconds(1)
+        //};
 
-        _timer.Tick += UpdateCurrentTime;
+        //_timer.Tick += UpdateCurrentTime;
 
-        Loaded += (s, e) => {
-            UpdateCurrentTime(s, e);
-            _timer.Start();
-        };
+        //Loaded += (s, e) => {
+        //    UpdateCurrentTime(s, e);
+        //    _timer.Start();
+        //};
 
-        Unloaded += (s, e) => {
-            _timer.Stop();
-            _timer.Tick -= UpdateCurrentTime;
-        };
+        //Unloaded += (s, e) => {
+        //    _timer.Stop();
+        //    _timer.Tick -= UpdateCurrentTime;
+        //};
 
 #if ANDROID 
     Android.App.ApplicationLifeCycle += (s, e) => {
@@ -37,6 +37,6 @@ public partial class AppTitle : UserControl
 
     private void UpdateCurrentTime(object? o,EventArgs e)
     {
-        SystemTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+       // SystemTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
 }

@@ -26,10 +26,19 @@ public partial class StatusPanelViewModel : ObservableObject
         };
         timer.Tick += (sender, args) =>
         {
-            UpdateStatus();
+            TestData();
+          //  UpdateStatus();
         };
         timer.Start();
-        UpdateStatus();       
+        TestData();
+        //UpdateStatus();       
+    }
+
+    void TestData()
+    {
+        CrystalAvgTemprature = "34.7 ℃";
+        PromptCount = "100.13K";
+        IsConnected = true;
     }
 
     void UpdateStatus()

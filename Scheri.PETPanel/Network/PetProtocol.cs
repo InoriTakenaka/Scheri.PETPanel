@@ -17,8 +17,8 @@ namespace Scheri.PETPanel.Network
         public PetProtocol()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            OnRev += json => MsLogger.Debug("rev:" + json);
-            OnSend += json => MsLogger.Debug("send:" + json);
+            OnRev += json => AppLogger.Debug("rev:" + json);
+            OnSend += json => AppLogger.Debug("send:" + json);
         }
 
         public void Connect(string destIp, int destPort = 8066, int destUdpPort = 8055)

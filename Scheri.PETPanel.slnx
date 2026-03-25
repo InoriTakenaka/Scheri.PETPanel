@@ -1,6 +1,7 @@
 <Solution>
   <Configurations>
     <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/Solution Items/">
@@ -8,13 +9,16 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="Scheri.PETPanel.Android/Scheri.PETPanel.Android.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
     <Deploy />
   </Project>
   <Project Path="Scheri.PETPanel.Desktop/Scheri.PETPanel.Desktop.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="Debug|x64" Project="x64" />
   </Project>
   <Project Path="Scheri.PETPanel/Scheri.PETPanel.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="Debug|x64" Project="x64" />
   </Project>
 </Solution>

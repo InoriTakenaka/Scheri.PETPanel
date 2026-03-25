@@ -13,21 +13,65 @@
 		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
 		<vm:MainViewModel />
 	</Design.DataContext>
+	<Grid>
 
-	<Grid ColumnDefinitions="250,*">
-		<cp:MenuControl Margin="0"/>
-		<Grid Grid.Column="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<cp:AppTitle Grid.Row="0"/>
-			<ContentControl x:Name="MainContent" Grid.Row="1"
-							Content="{Binding CurrentView}"
-							VerticalAlignment="Stretch"
-							HorizontalAlignment="Stretch"/>
-			<cp:StatusBar Grid.Row="2"/>
+		<!-- The main layout of the application. -->
+		<Grid ColumnDefinitions="200,*">
+			<Border Grid.Column="0"
+					BorderBrush="#B0B8C1"
+					BorderThickness="0,0,1,0">
+				<cp:MenuControl Margin="0"/>
+			</Border>
+
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<cp:AppTitle Grid.Row="0"/>
+				<ContentControl x:Name="MainContent" Grid.Row="1"
+								Content="{Binding CurrentView}"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"/>
+				<cp:StatusBar Grid.Row="2"/>
+			</Grid>
 		</Grid>
+
+		<Border Name="UnlockOverlay" Background="#441E1E1E" IsVisible="{Binding IsUnlock}"
+				PointerPressed="Overlay_PointerPressed" ZIndex="100">
+
+			<Border Background="#D1D9E1"
+					CornerRadius="12"
+					Padding="30"
+					MinWidth="400"
+					BorderBrush="#B0B8C1"
+					BorderThickness="1"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					PointerPressed="StackPanel_PointerPressed">
+
+				<Border.BoxShadow>
+					<BoxShadows>0 10 30 5 #80000000</BoxShadows>
+				</Border.BoxShadow>
+
+				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+							Spacing="20" Width="400" >
+					<TextBlock Text="Unlock Password:" Foreground="#5A7D9A" FontWeight="Bold"
+							   FontSize="24" FontFamily="{StaticResource GOST}"/>
+					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
+							   IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+							   FontSize="18" FontWeight="DemiBold" FontFamily="{StaticResource GOST}"/>
+					<TextBox Name="PasswordBox" Text="{Binding InputPassword, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							 FontSize="18" FontFamily="{StaticResource GOST}" Watermark="Enter 6-digit PIN to unlock..."
+							 PasswordChar="●" RevealPassword="False" MaxLength="6"
+							 Background="#FF2E2E2E" Foreground="#5A7D9A"
+							 BorderBrush="#B0B8C1" BorderThickness="1">
+						<TextInputOptions.ContentType>Number</TextInputOptions.ContentType>						
+					</TextBox>	
+				</StackPanel>
+
+			</Border>
+		</Border>
 	</Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using Scheri.PETPanel.Utils;
 using System;
@@ -8,14 +9,15 @@ using System.Text;
 
 namespace Scheri.PETPanel.ViewModels
 {
-    public class SystemOverviewViewModel : ViewModelBase
+    public partial class SystemOverviewViewModel : ViewModelBase
     {
-        public ObservableCollection<LogRecord> LogRecords { get; } = [];
-
+        public ObservableCollection<LogRecord> LogRecords { get; } = [];     
         public SystemOverviewViewModel() 
         {
             LogRecords.Add(new LogRecord(DateTime.Now, NLog.LogLevel.Info, "test log 1"));
-            MsLogger.Log(new LogRecord(DateTime.Now, NLog.LogLevel.Info, "test log 2"));
+            AppLogger.Info("test log 2");
         }
+
+
     }
 }
