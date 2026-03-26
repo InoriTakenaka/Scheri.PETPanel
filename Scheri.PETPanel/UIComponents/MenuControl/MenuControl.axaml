@@ -32,8 +32,8 @@
 			</Setter>
 			<Setter Property="Transitions">
 				<Transitions>
-					<BrushTransition Property="Background" Duration="0:0:0.1" />
-					<BrushTransition Property="BorderBrush" Duration="0:0:0.1" />
+					<BrushTransition Property="Background" Duration="0:0:0.2" />
+					<BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
 					<BrushTransition Property="Foreground" Duration="0:0:0.1" />
 			</Transitions>
 			</Setter>
@@ -53,18 +53,18 @@
 		</Style>
 
 		<!-- styles for menu items on pointer pressed -->
-		<Style Selector="Button.menu-item:pressed">
+		<Style Selector="Button.menu-item.active">
 			<Setter Property="Background" Value="#335A7D9A" />
 			<Setter Property="BorderThickness" Value="4 0 0 0" />
 			<Setter Property="BorderBrush" Value="#5A7D9A" />
 		</Style>
 
 		<!-- styles for menu items on pointer focus -->
-		<Style Selector="Button.menu-item:pressed">
+		<Style Selector="Button.menu-item.active">
 			<Setter Property="BorderThickness" Value="5 0 0 0"/>
 			<Setter Property="BorderBrush" Value="#5A7D9A"/>
 		</Style>
-		<Style Selector="Button.menu-item:pressed StackPanel > TextBlock">
+		<Style Selector="Button.menu-item.active StackPanel > TextBlock">
 			<Setter Property="Foreground" Value="#00D1FF"/>
 			<Setter Property="FontWeight" Value="Bold"/>
 			<Setter Property="Effect">
@@ -73,7 +73,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<Style Selector="Button.menu-item:pressed StackPanel > fluent|FluentIcon">
+		<Style Selector="Button.menu-item.active StackPanel > fluent|FluentIcon">
 			<Setter Property="Foreground" Value="#00D1FF"/>
 			<Setter Property="Effect">
 				<Setter.Value>
@@ -84,31 +84,14 @@
 
 	</UserControl.Styles>
 	<DockPanel Width="200" LastChildFill="False" Background="#E1E8ED">
-		<!-- Menu Header -->
-		<Grid x:Name="Header"
-			  DockPanel.Dock="Top"
-			  Margin="0"
-			  Height="60"
-			  Background="#D1D9E1"
-			  VerticalAlignment="Center">
 
-			<Border BorderBrush="#B0B8C1" BorderThickness="0,0,0,1" VerticalAlignment="Bottom"/>
-
-			<TextBlock Text="MENU"
-					   Foreground="#5A7D9A"
-					   FontSize="36"
-					   FontWeight="Bold"
-					   FontFamily="{StaticResource GOST}"
-					   VerticalAlignment="Center"
-					   HorizontalAlignment="Center"
-					   LetterSpacing="2"/> 
-		</Grid>
 		<!-- Menu Items Template-->
 		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
 			<ItemsControl ItemsSource="{Binding MenuItems}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Button Classes="menu-item"
+								Classes.active="{Binding IsActive}"
 								Command="{Binding $parent[ItemsControl].DataContext.NavigateToView}"
 								CommandParameter="{Binding}">
 							<StackPanel Orientation="Horizontal" Margin="20 0 0 0">

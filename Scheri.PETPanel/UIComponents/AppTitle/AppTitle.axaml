@@ -6,10 +6,11 @@
 			 x:Class="Scheri.PETPanel.UIComponents.AppTitle">
 	<Grid Height="60" Background="#D1D9E1">
 		<Border BorderBrush="#B0B8C1" BorderThickness="0,0,0,1" VerticalAlignment="Bottom">
-		<StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Right"
-                    Orientation="Horizontal" Spacing="10">
-            
-        </StackPanel>
-		</Border>		
+			<Grid Margin="10,5,10,5">
+				<TextBlock Text="No patient registred." HorizontalAlignment="Left"
+						   VerticalAlignment="Top" LetterSpacing="2" Foreground="#5A7D9A"
+						   FontSize="36" FontFamily="{StaticResource GOST}" FontWeight="Bold"/>
+			</Grid>
+		</Border>
 	</Grid>
 </UserControl>

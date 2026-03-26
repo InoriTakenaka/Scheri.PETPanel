@@ -24,6 +24,9 @@ public class ScanTable : IDisposable
     public double SFaultId { get; set; }
 
     public float SActualSpeed { get; set; }
+    /// <summary>
+    /// 当前床位置
+    /// </summary>
     public float SActualPos { get; set; }
     public float SDisplayPos { get; set; }
     public float SAutoForwardPos { get; set; }
