@@ -18,35 +18,38 @@
 				<Button x:Name="PART_TileButton"
 						Background="Transparent"
 						BorderThickness="0"
-						CornerRadius="60"
+						CornerRadius="100"
 						Padding="0"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch">
 
 					<Grid ClipToBounds="True">
 
-						<Border CornerRadius="60">
+						<Border CornerRadius="100">
+							<Border.Background>
+								<SolidColorBrush Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
+							</Border.Background>
+						</Border>
+
+						<!-- 第二层：线性渐变 (产生明暗过渡) -->
+						<Border CornerRadius="100">
 							<Border.Background>
 								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
-									<GradientStop Offset="0" Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
-									<GradientStop Offset="0.4" Color="{TemplateBinding BackgroundEnd}"/>
-									<GradientStop Offset="1" Color="{TemplateBinding BackgroundEnd}"/>
+									<GradientStop Offset="0.0" Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
+									<GradientStop Offset="0.4" Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
 								</LinearGradientBrush>
 							</Border.Background>
 						</Border>
 
-
-						<Border Height="160"
+						<!-- 第三层：高光切面 (高度务必限制在 180 左右，不要 450) -->
+						<Border Height="180"
 								VerticalAlignment="Top"
-								HorizontalAlignment="Stretch"
-								CornerRadius="60,60,350,350"
-								Opacity="0.5"
-								Margin="4,2,4,0">
+								CornerRadius="100,100,500,500"
+								Opacity="0.35">
 							<Border.Background>
 								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
-									<GradientStop Color="White" Offset="0"/>
-									<GradientStop Color="#40FFFFFF" Offset="0.5"/>
-									<GradientStop Color="Transparent" Offset="0.8"/>
+									<GradientStop Color="White" Offset="0.0"/>
+									<GradientStop Color="Transparent" Offset="0.9"/>
 								</LinearGradientBrush>
 							</Border.Background>
 						</Border>
@@ -72,7 +75,8 @@
 								</TextBlock.Effect>
 							</TextBlock>
 						</Grid>
-					</Grid>
+
+				</Grid>
 				</Button>
 			</ControlTemplate>
 

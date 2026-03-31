@@ -6,7 +6,7 @@
 			 xmlns:cp ="using:Scheri.PETPanel.UIComponents"
 			 x:Class="Scheri.PETPanel.Features.HomeView">
 	<Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*" Margin="10">
-		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="设置"/>
+		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="设置" BackgroundEnd="#0D2C54"/>
 		<cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Label="设置"/>	
 	</Grid>
 </UserControl>
