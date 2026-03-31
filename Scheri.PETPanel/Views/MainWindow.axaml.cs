@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Scheri.PETPanel.Network;
 using Scheri.PETPanel.Utils;
 
 namespace Scheri.PETPanel.Views;
@@ -9,6 +10,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        //connect to PLC
         ScanTableManager.Init(_ip);
+        //connect to PetTools 
+        PetToolsManager.Init(_ip);
     }
 }

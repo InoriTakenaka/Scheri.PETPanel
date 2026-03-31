@@ -38,6 +38,7 @@
 			</Grid>
 		</Grid>
 
+		<!-- The unlock overlay that appears when the application is locked. -->
 		<Border Name="UnlockOverlay" Background="#441E1E1E" IsVisible="{Binding IsUnlock}"
 				PointerPressed="Overlay_PointerPressed" ZIndex="100">
 
@@ -73,5 +74,6 @@
 
 			</Border>
 		</Border>
+		<!-- End of the unlock overlay -->
 	</Grid>
 </UserControl>

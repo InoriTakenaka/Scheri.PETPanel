@@ -1,0 +1,81 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:componentmodel="using:System.ComponentModel"
+		xmlns:cp="using:Scheri.PETPanel.UIComponents">
+	<Design.PreviewWith>
+
+		<Border Padding="20">
+			<!-- Add Controls for Previewer Here -->
+		</Border>
+	</Design.PreviewWith>
+
+	<Style Selector="cp|TileControl">
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="Margin" Value="8"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Button x:Name="PART_TileButton"
+						Background="Transparent"
+						BorderThickness="0"
+						CornerRadius="60"
+						Padding="0"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch">
+
+					<Grid ClipToBounds="True">
+
+						<Border CornerRadius="60">
+							<Border.Background>
+								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+									<GradientStop Offset="0" Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
+									<GradientStop Offset="0.4" Color="{TemplateBinding BackgroundEnd}"/>
+									<GradientStop Offset="1" Color="{TemplateBinding BackgroundEnd}"/>
+								</LinearGradientBrush>
+							</Border.Background>
+						</Border>
+
+
+						<Border Height="160"
+								VerticalAlignment="Top"
+								HorizontalAlignment="Stretch"
+								CornerRadius="60,60,350,350"
+								Opacity="0.5"
+								Margin="4,2,4,0">
+							<Border.Background>
+								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+									<GradientStop Color="White" Offset="0"/>
+									<GradientStop Color="#40FFFFFF" Offset="0.5"/>
+									<GradientStop Color="Transparent" Offset="0.8"/>
+								</LinearGradientBrush>
+							</Border.Background>
+						</Border>
+
+						<!-- 3. 内容层 -->
+						<Grid RowDefinitions="*,Auto" Margin="40">
+							<!-- 放置图标 -->
+							<ContentPresenter Grid.Row="0"
+											  Content="{TemplateBinding Content}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"/>
+
+							<!-- 放置标签文字 -->
+							<TextBlock Grid.Row="1"
+									   Text="{TemplateBinding Label}"
+									   Foreground="White"
+									   FontSize="48"
+									   FontWeight="ExtraBold"
+									   HorizontalAlignment="Center"
+									   Margin="0,0,0,30">
+								<TextBlock.Effect>
+									<DropShadowEffect BlurRadius="15" Opacity="0.6" OffsetX="0" OffsetY="4"/>
+								</TextBlock.Effect>
+							</TextBlock>
+						</Grid>
+					</Grid>
+				</Button>
+			</ControlTemplate>
+
+		</Setter>
+	</Style>
+</Styles>

@@ -39,4 +39,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Camera\" />
+    <Folder Include="Features\Settings\" />
+    <Folder Include="Features\StateMonitor\" />
+  </ItemGroup>
 </Project>

@@ -20,18 +20,16 @@ public partial class StatusPanelViewModel : ObservableObject
 
     public StatusPanelViewModel()
     {
-        var timer = new DispatcherTimer
-        {
+        var timer = new DispatcherTimer {
             Interval = TimeSpan.FromSeconds(1)
         };
-        timer.Tick += (sender, args) =>
-        {
-            TestData();
-          //  UpdateStatus();
+        timer.Tick += (sender, args) => {
+            // TestData();
+            UpdateStatus();
         };
         timer.Start();
-        TestData();
-        //UpdateStatus();       
+        //TestData();
+        UpdateStatus();
     }
 
     void TestData()
@@ -67,6 +65,12 @@ public partial class StatusPanelViewModel : ObservableObject
 
             CrystalAvgTemprature = PetToolsManager.StatusInfo.temp_avg.ToString("0.0") + "℃";
             IsConnected = PetToolsManager.IsConnected && ScanTableManager.Instance.IsConnected;
+        }
+        else
+        {
+            IsConnected = false;
+            CrystalAvgTemprature = "N/A";
+            PromptCount = "N/A";
         }
     }
 }

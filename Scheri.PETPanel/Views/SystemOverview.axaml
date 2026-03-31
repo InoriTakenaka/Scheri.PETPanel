@@ -1,5 +1,5 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:camera="using:Scheri.PETPanel.Camera"
+			 xmlns:camera="using:Scheri.PETPanel.Camera"
 			 xmlns:collections="using:System.Collections"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -43,7 +43,7 @@
 			<Setter Property="FontWeight" Value="SemiBold" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 		</Style>
-		
+
 
 		<Style Selector="Button.DeviceControl > StackPanel">
 			<Setter Property="Spacing" Value="15" />
@@ -61,8 +61,8 @@
 		<Style Selector="Button.DeviceControl:pressed /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="Background" Value="#B3FFB86C" />
 			<Setter Property="BorderBrush" Value="#FF8C00" />
-			<Setter Property="BoxShadow" Value="0 2 10 0 #4D000000" /> 
-		</Style>
+			<Setter Property="BoxShadow" Value="0 2 10 0 #4D000000" />
+	</Style>
 		<Style Selector="Button.DeviceControl:pressed">
 			<Setter Property="Effect">
 				<Setter.Value>
@@ -82,12 +82,12 @@
 		<!-- Style for Border elements -->
 		<Style Selector="Border.Container">
 			<Setter Property="Background" Value="#F8F9FA"/>
-			<Setter Property="BorderBrush" Value="#805A7D9A"/> 
-			<Setter Property="BorderThickness" Value="1"/> 
+			<Setter Property="BorderBrush" Value="#805A7D9A"/>
+			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="CornerRadius" Value="4"/>
 			<Setter Property="Padding" Value="10"/>
-			<Setter Property="BoxShadow" Value="0 2 10 0 #1A000000"/> 
-		</Style>
+			<Setter Property="BoxShadow" Value="0 2 10 0 #1A000000"/>
+	</Style>
 
 		<!-- style for DataGrid -->
 		<Style Selector="DataGrid">
@@ -101,12 +101,12 @@
 		</Style>
 		<Style Selector="DataGridColumnHeader">
 			<Setter Property="Background" Value="#D1D9E1" />
-			<Setter Property="Foreground" Value="#5A6472" /> 
+			<Setter Property="Foreground" Value="#5A6472" />
 			<Setter Property="FontWeight" Value="Bold" />
 			<Setter Property="FontSize" Value="14" />
 			<Setter Property="Padding" Value="15,0" />
-			<Setter Property="SeparatorBrush" Value="Transparent" /> 
-		</Style>
+			<Setter Property="SeparatorBrush" Value="Transparent" />
+	</Style>
 		<Style Selector="DataGridRow:nth-child(2n)">
 			<Setter Property="Background" Value="#08000000" />
 		</Style>
@@ -139,13 +139,13 @@
 			</Grid.ColumnDefinitions>
 
 			<Border Grid.Column="0" Margin="0 0 10 0" Padding="10" Classes="Container">
-				<Grid>					
+				<Grid>
 					<TextBlock FontSize="36"
-				   FontFamily="{StaticResource GOST}"
-				   Foreground="#E1E8ED"
-				   FontWeight="Bold"
-				   Text="CAMERA"
-				   Opacity="0.8"/>
+							   FontFamily="{StaticResource GOST}"
+							   Foreground="#E1E8ED"
+							   FontWeight="Bold"
+							   Text="CAMERA"
+							   Opacity="0.8"/>
 					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 						<TextBlock Text="NO SIGNAL"
 								   FontSize="32"
@@ -171,53 +171,17 @@
 			<!-- System Log Section -->
 			<Border Grid.Column="1" Padding="2" MinHeight="200" Classes="Container">
 				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Row="0" Margin="10 0 0 0" FontSize="36"
-							   FontFamily="{StaticResource GOST}"
-							   Text="SYSTEM LOG"
-							   FontWeight="Bold" />
-					<Border Grid.Row="1">
-						<DataGrid BorderBrush="Black" BorderThickness="0,1,0,1"
-								  MinHeight="30" ColumnHeaderHeight="30" RowHeight="30"
-								  VerticalAlignment="Stretch"
-								  HorizontalAlignment="Stretch"
-								  CanUserSortColumns="False"
-								  CornerRadius="0"
-								  AutoGenerateColumns="False"
-								  Focusable="False" GridLinesVisibility="Horizontal"
-								  IsReadOnly="True" ItemsSource="{Binding LogRecords}"
-								  SelectionMode="Single">
-							<DataGrid.Columns>
-								<DataGridTextColumn Width="Auto">
-									<DataGridTextColumn.Header>
-										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Timestamp" />
-									</DataGridTextColumn.Header>
-									<DataGridTextColumn.Binding>
-										<Binding Path="TimeOffset" StringFormat="[HH:mm:ss]" />
-									</DataGridTextColumn.Binding>
-								</DataGridTextColumn>
-								<DataGridTextColumn Width="Auto">
-									<DataGridTextColumn.Header>
-										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Level"/>
-									</DataGridTextColumn.Header>
-									<DataGridTextColumn.Binding>
-										<Binding Path="Level" />
-									</DataGridTextColumn.Binding>
-								</DataGridTextColumn>
-								<DataGridTextColumn Width="*">
-									<DataGridTextColumn.Header>
-										<TextBlock FontSize="20" FontFamily="{StaticResource GOST}" Text="Content"/>
-									</DataGridTextColumn.Header>
-									<DataGridTextColumn.Binding>
-										<Binding Path="Content" />
-									</DataGridTextColumn.Binding>
-								</DataGridTextColumn>
-							</DataGrid.Columns>
-						</DataGrid>
-					</Border>
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+						<TextBlock Margin="10 0 0 0" FontSize="72"
+								   FontFamily="{StaticResource GOST}"
+								   Text="Offset" LetterSpacing="3"
+								   FontWeight="Bold" />
+								   <TextBlock Margin="10 0 0 0" FontSize="72"
+											  FontFamily="{StaticResource GOST}"
+											  Text="1008" LetterSpacing="2"
+											  FontWeight="Bold">
+								   </TextBlock>
+					</StackPanel>
 				</Grid>
 			</Border>
 		</Grid>

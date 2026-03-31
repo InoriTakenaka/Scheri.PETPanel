@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Scheri.PETPanel.Utils;
 using Scheri.PETPanel.ViewModels;
 using Scheri.PETPanel.Views;
 
@@ -21,25 +22,31 @@ public partial class SystemOverview : UserControl
         Backward.AddHandler(PointerReleasedEvent, Backward_PointerReleased, handledEventsToo: true);
     }
 
+    #region Move Device Handlers
     private async void Backward_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-
+       ScanTableManager.Instance.CheckFloat();
+        await ScanTableManager.Instance.ToBBackward(true);
     }
 
     private async void Backward_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
     {
-
+        ScanTableManager.Instance.CheckFloat();
+        await ScanTableManager.Instance.ToBBackward(false);
     }
 
     private async void Forward_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-
+        ScanTableManager.Instance.CheckFloat();
+        await ScanTableManager.Instance.ToBForward(true);
     }
 
     private async void Forward_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
     {
-
+        ScanTableManager.Instance.CheckFloat();
+        await ScanTableManager.Instance.ToBForward(false);
     }
+    #endregion
 
     private void SystemOverviewLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
