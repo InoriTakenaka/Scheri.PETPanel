@@ -3,83 +3,113 @@
 		xmlns:componentmodel="using:System.ComponentModel"
 		xmlns:cp="using:Scheri.PETPanel.UIComponents">
 	<Design.PreviewWith>
-
-		<Border Padding="20">
-			<!-- Add Controls for Previewer Here -->
-		</Border>
+		<cp:TileControl Label="XLive" Width="400" Height="400" BackgroundEnd="#107C10" BackgroundStart="#9BF00B"/>
 	</Design.PreviewWith>
 
 	<Style Selector="cp|TileControl">
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="Margin" Value="8"/>
+		<Setter Property="ClipToBounds" Value="False"/>
+
+		<!-- defalut styles for the tile frame-->
+		<Style Selector="^ /template/ Border#MainBorder">
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect BlurRadius="10" Opacity="0.7" OffsetX="0" OffsetY="8" Color="#FFF4E1"/>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Button x:Name="PART_TileButton"
 						Background="Transparent"
 						BorderThickness="0"
-						CornerRadius="100"
-						Padding="0"
+						CornerRadius="50"
+						Padding="0" ClipToBounds="False"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch">
+					<Grid ClipToBounds="False">
 
-					<Grid ClipToBounds="True">
-
-						<Border CornerRadius="100">
+						<Border Name="MainBorder" BorderThickness="4" BorderBrush="Transparent" CornerRadius="50" Margin="10">
 							<Border.Background>
-								<SolidColorBrush Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
+								<SolidColorBrush Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
 							</Border.Background>
+							<Border.Transitions>
+								<Transitions>
+									<EffectTransition Property="Effect" Duration="0:0:0.6" />
+									<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+								</Transitions>
+							</Border.Transitions>
+
+							<Grid>
+								<Border CornerRadius="50">
+									<Border.Background>
+										<SolidColorBrush Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
+									</Border.Background>
+								</Border>
+								<Border CornerRadius="50">
+									<Border.Background>
+										<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+											<GradientStop Offset="0.0" Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
+											<GradientStop Offset="0.4" Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+								<Border Height="180"
+										VerticalAlignment="Top"
+										CornerRadius="160,160,500,500"
+										Opacity="0.4">
+									<Border.Background>
+										<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+											<GradientStop Color="White" Offset="0.0"/>
+											<GradientStop Color="Transparent" Offset="0.9"/>
+										</LinearGradientBrush>
+									</Border.Background>
+								</Border>
+								<Grid RowDefinitions="*,Auto">
+									<ContentPresenter Grid.Row="0"
+													  Content="{TemplateBinding Content}"
+													  HorizontalAlignment="Center"
+													  VerticalAlignment="Center"/>
+
+									<TextBlock Grid.Row="1"
+											   Text="{TemplateBinding Label}"
+											   Foreground="White"
+											   FontFamily="{StaticResource GOST}"
+											   FontSize="24"
+											   HorizontalAlignment="Left"
+											   VerticalAlignment="Bottom"
+											   Margin="30,0,0,5">
+										<TextBlock.Effect>
+											<DropShadowEffect BlurRadius="15" Opacity="0.6" OffsetX="0" OffsetY="4"/>
+										</TextBlock.Effect>
+									</TextBlock>
+								</Grid>
+							</Grid>
 						</Border>
-
-						<!-- 第二层：线性渐变 (产生明暗过渡) -->
-						<Border CornerRadius="100">
-							<Border.Background>
-								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
-									<GradientStop Offset="0.0" Color="{Binding BackgroundStart, RelativeSource={RelativeSource TemplatedParent}}"/>
-									<GradientStop Offset="0.4" Color="{Binding BackgroundEnd, RelativeSource={RelativeSource TemplatedParent}}"/>
-								</LinearGradientBrush>
-							</Border.Background>
-						</Border>
-
-						<!-- 第三层：高光切面 (高度务必限制在 180 左右，不要 450) -->
-						<Border Height="180"
-								VerticalAlignment="Top"
-								CornerRadius="100,100,500,500"
-								Opacity="0.35">
-							<Border.Background>
-								<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
-									<GradientStop Color="White" Offset="0.0"/>
-									<GradientStop Color="Transparent" Offset="0.9"/>
-								</LinearGradientBrush>
-							</Border.Background>
-						</Border>
-
-						<!-- 3. 内容层 -->
-						<Grid RowDefinitions="*,Auto" Margin="40">
-							<!-- 放置图标 -->
-							<ContentPresenter Grid.Row="0"
-											  Content="{TemplateBinding Content}"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center"/>
-
-							<!-- 放置标签文字 -->
-							<TextBlock Grid.Row="1"
-									   Text="{TemplateBinding Label}"
-									   Foreground="White"
-									   FontSize="48"
-									   FontWeight="ExtraBold"
-									   HorizontalAlignment="Center"
-									   Margin="0,0,0,30">
-								<TextBlock.Effect>
-									<DropShadowEffect BlurRadius="15" Opacity="0.6" OffsetX="0" OffsetY="4"/>
-								</TextBlock.Effect>
-							</TextBlock>
-						</Grid>
-
-				</Grid>
+					</Grid>
 				</Button>
-			</ControlTemplate>
 
+			</ControlTemplate>
 		</Setter>
+
+		<Style Selector="^ /template/ Button#PART_TileButton:pressed Border#MainBorder">
+            <Setter Property="BorderBrush" Value="#FFF4E1" />
+            <!-- 参数含义：x偏移 y偏移 模糊半径 扩散半径 颜色 -->
+            <Setter Property="BoxShadow" Value="0 0 25 5  #FFF4E1" />
+            <Setter Property="RenderTransform" Value="scale(0.96)" />
+        </Style>
+
+		<!-- remove default hover and pressed background -->
+		<Style Selector="^ /template/ Button#PART_TileButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+
+		<Style Selector="^ /template/ Button#PART_TileButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+
 	</Style>
 </Styles>

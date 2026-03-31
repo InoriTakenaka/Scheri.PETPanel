@@ -55,15 +55,15 @@ public partial class SystemOverview : UserControl
 
     private void LockButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (!_isLocked)
-        {
-            MainView.Instance?.ViewModel?.StopAndResetIdleTimer();
-            SetLockState(true);
-        }
-        else
-        {
-            MainView.Instance?.ViewModel?.ShowUnlockDialog();
-        }
+        //if (!_isLocked)
+        //{
+        //    MainView.Instance?.ViewModel?.StopAndResetIdleTimer();
+        //    SetLockState(true);
+        //}
+        //else
+        //{
+        //    MainView.Instance?.ViewModel?.ShowUnlockDialog();
+        //}
     }
 
     /// <summary>

@@ -5,8 +5,11 @@
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:cp ="using:Scheri.PETPanel.UIComponents"
 			 x:Class="Scheri.PETPanel.Features.HomeView">
-	<Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*" Margin="10">
-		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="设置" BackgroundEnd="#0D2C54"/>
-		<cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Label="设置"/>	
+	<Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*" Margin="10" Background="#E1E8ED">
+		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54"/>
+		<cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Label="System Status" BackgroundEnd="#107C10" BackgroundStart="#9BF00B"/>	
+		<cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera"/>	
+		<cp:TileControl Grid.Row="1" Grid.Column="1" Label="Forward"/>
+		<cp:TileControl Grid.Row="1" Grid.Column="2" Label="Backward"/>
 	</Grid>
 </UserControl>

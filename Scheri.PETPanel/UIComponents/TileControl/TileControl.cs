@@ -15,15 +15,7 @@ namespace Scheri.PETPanel.UIComponents;
 //    Large
 //}
 public class TileControl : ContentControl
-{
-    //public static readonly StyledProperty<TileSize> SizeProperty =
-    //AvaloniaProperty.Register<TileControl, TileSize>(nameof(Size), TileSize.Small);
-
-    //public TileSize Size {
-    //    get => GetValue(SizeProperty);
-    //    set => SetValue(SizeProperty, value);
-    //}
-
+{ 
     public const double BaseSize = 450;
     public const double Spacing = 10;
 

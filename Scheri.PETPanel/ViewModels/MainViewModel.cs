@@ -2,6 +2,7 @@
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Scheri.PETPanel.Features;
 using Scheri.PETPanel.UIComponents;
 using Scheri.PETPanel.Utils;
 using System;
@@ -13,7 +14,9 @@ namespace Scheri.PETPanel.ViewModels;
 public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessage>
 {
     [ObservableProperty]
-    private UserControl _currentView = new SystemOverview();
+    private UserControl _currentView = new HomeView();
+    [ObservableProperty]
+    private string _appTitle = "PET PANEL";
     [ObservableProperty]
     private bool _isUnlock = false;
     [ObservableProperty]
@@ -29,11 +32,6 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
     public MainViewModel()
     {
         WeakReferenceMessenger.Default.Register(this);
-        _autolockTimer = new DispatcherTimer {
-            Interval = TimeSpan.FromSeconds(1)
-        };
-        _autolockTimer.Tick += AutolockTimer_Tick;
-        ResetTimer();
     }
 
     public void Receive(NavigateTypeMessage message)
@@ -46,64 +44,64 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
         }
     }
 
-    public void StopAndResetIdleTimer()
-    {
-        _autolockTimer.Stop();
-        _currentIdleSeconds = 0;
-    }
+//    public void StopAndResetIdleTimer()
+//    {
+//        _autolockTimer.Stop();
+//        _currentIdleSeconds = 0;
+//    }
 
-    public void ShowUnlockDialog() => IsUnlock = true;
+//    public void ShowUnlockDialog() => IsUnlock = true;
 
-    public async void UnlockScreen()
-    {
-        if (InputPassword == "000000")
-        {
-            IsUnlock = false;
-            await Task.Delay(200);
-            InputPassword = string.Empty;
-            if (CurrentView is SystemOverview overview) overview.SetLockState(false);
-            ResetTimer();
-        }
-        else
-        {
-            AppLogger.Warn($"Incorrect password attempt to unlock the screen: {InputPassword}.");
-            ErrorMessage = "Incorrect Password";
-            await Task.Delay(200);
-            InputPassword = string.Empty;         
-        }
-    }
+//    public async void UnlockScreen()
+//    {
+//        if (InputPassword == "000000")
+//        {
+//            IsUnlock = false;
+//            await Task.Delay(200);
+//            InputPassword = string.Empty;
+//            if (CurrentView is SystemOverview overview) overview.SetLockState(false);
+//            ResetTimer();
+//        }
+//        else
+//        {
+//            AppLogger.Warn($"Incorrect password attempt to unlock the screen: {InputPassword}.");
+//            ErrorMessage = "Incorrect Password";
+//            await Task.Delay(200);
+//            InputPassword = string.Empty;         
+//        }
+//    }
 
-    partial void OnInputPasswordChanged(string? oldValue, string newValue)
-    {
-        if (!string.IsNullOrEmpty(newValue) && newValue.Length == 6)
-        {
-            UnlockScreen();
-        }
-    }
+//    partial void OnInputPasswordChanged(string? oldValue, string newValue)
+//    {
+//        if (!string.IsNullOrEmpty(newValue) && newValue.Length == 6)
+//        {
+//            UnlockScreen();
+//        }
+//    }
 
 
-    private void AutolockTimer_Tick(object? sender, EventArgs e)
-    {
-        if (IsUnlock) return;
-        _currentIdleSeconds++;
-#if DEBUG
-        System.Diagnostics.Debug.WriteLine($"[Timer] Current Idle: {_currentIdleSeconds}s / {LockTimeoutSeconds}s");
-#endif 
-        if (_currentIdleSeconds >= LockTimeoutSeconds)
-        {
-            if(CurrentView is SystemOverview overview) overview.SetLockState(true);
-            _currentIdleSeconds = 0;
-            _autolockTimer.Stop();
-            AppLogger.Info("Screen auto-locked due to inactivity.");
-        }
-    }
+//    private void AutolockTimer_Tick(object? sender, EventArgs e)
+//    {
+//        if (IsUnlock) return;
+//        _currentIdleSeconds++;
+//#if DEBUG
+//        System.Diagnostics.Debug.WriteLine($"[Timer] Current Idle: {_currentIdleSeconds}s / {LockTimeoutSeconds}s");
+//#endif 
+//        if (_currentIdleSeconds >= LockTimeoutSeconds)
+//        {
+//            if(CurrentView is SystemOverview overview) overview.SetLockState(true);
+//            _currentIdleSeconds = 0;
+//            _autolockTimer.Stop();
+//            AppLogger.Info("Screen auto-locked due to inactivity.");
+//        }
+//    }
 
-    public void ResetTimer()
-    {
-        _currentIdleSeconds = 0;
-        if (!_autolockTimer.IsEnabled)
-        {
-            _autolockTimer.Start();
-        }
-    }
+//    public void ResetTimer()
+//    {
+//        _currentIdleSeconds = 0;
+//        if (!_autolockTimer.IsEnabled)
+//        {
+//            _autolockTimer.Start();
+//        }
+//    }
 }

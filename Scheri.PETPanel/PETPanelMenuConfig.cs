@@ -12,7 +12,7 @@ public class PETPanelMenuConfig : IMenuConfig
             new("Overview", Icon.Home, typeof(SystemOverview)),
             new("Device", Icon.DeviceMeetingRoom, typeof(DeviceInfo)),
             new("Camera", Icon.ScanCamera, typeof(CameraInfo)),
-            new("Settings", Icon.Settings, typeof(SystemSetting)),
+            //new("Settings", Icon.Settings, typeof(SystemSetting)),
             new("Logs", Icon.BookDatabase, typeof(SystemLog))
         };
     }
