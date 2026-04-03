@@ -15,7 +15,7 @@ public partial class MainWindow : Window
         //connect to PLC
         ScanTableManager.Init(_ip);
         //connect to PetTools 
-        PetToolsManager.Init(_ip);
+        PetToolsManager.Init("127.0.0.1");
 
         DataContext = _viewModel;
     }

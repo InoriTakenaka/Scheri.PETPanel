@@ -1,0 +1,69 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Scheri.PETPanel.Features.SystemStatusSummary">
+	<UserControl.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="Foreground" Value="#FFF4E1" />
+			<Setter Property="FontFamily" Value="{StaticResource GOST}" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="LetterSpacing" Value="2" />
+		</Style>
+		<Style Selector="TextBlock.Label">
+			<Setter Property="FontSize" Value="48" />
+			<Setter Property="FontWeight" Value="SemiBold" />
+		</Style>
+		<Style Selector="TextBlock.Value">
+			<Setter Property="FontSize" Value="84" />
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+		<Style Selector="Border.Split">
+			<Setter Property="Width" Value="3" />
+			<Setter Property="Height" Value="100"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="#FFF4E1" />		
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect Color="White"
+									  BlurRadius="10"
+									  OffsetX="0"
+									  OffsetY="0"
+									  Opacity="0.5" />
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Margin" Value="0,50,0,40" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+	</UserControl.Styles>
+	<Border BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
+			Padding="20,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+		<Grid ColumnDefinitions="1*,100,1*,100,1*" RowDefinitions="1*,2*">
+			<!-- Crystal Temperature -->
+			<TextBlock Grid.Row="0" Grid.Column="0" Classes="Label" Text="Temperature " />
+			<TextBlock Grid.Row="1" Grid.Column="0" Classes="Value" Text="41 ℃"/>
+
+			<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Classes="Split"/>
+			<!-- Count Rate -->
+			<TextBlock Grid.Row="0" Grid.Column="2" Classes="Label" Text="Count Rate " />
+			<TextBlock Grid.Row="1" Grid.Column="2" Classes="Value"  Text="120%" />
+
+			<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Classes="Split"/>
+			<!-- Network Status -->
+			<TextBlock Grid.Row="0" Grid.Column="4"  Classes="Label" Text="Workstation"/>
+			<StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Classes="Value" FontSize="56" Text="Online"/>
+				<Ellipse Width="30" Height="30" Fill="#50fa7b" Margin="15,0,0,0">
+					<Ellipse.Effect>
+						<DropShadowEffect Color="#50fa7b" BlurRadius="20" OffsetX="0" OffsetY="0"/>
+					</Ellipse.Effect>
+				</Ellipse>
+			</StackPanel>
+		</Grid>
+
+	</Border>
+</UserControl>

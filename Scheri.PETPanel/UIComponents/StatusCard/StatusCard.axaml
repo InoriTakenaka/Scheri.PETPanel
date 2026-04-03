@@ -1,0 +1,65 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:f="using:FluentIcons.Avalonia"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:cp="clr-namespace:Scheri.PETPanel.UIComponents"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Scheri.PETPanel.UIComponents.StatusCard">
+	<UserControl.Styles>
+		<!-- Style for the vertical split line -->
+		<Style Selector="Border.Split">
+			<Setter Property="Width" Value="3" />
+			<Setter Property="Height" Value="100"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="#FFF4E1" />
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect Color="White"
+									  BlurRadius="10"
+									  OffsetX="0"
+									  OffsetY="0"
+									  Opacity="0.5" />
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Margin" Value="0,50,0,40" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+
+	</UserControl.Styles>
+
+	<Border x:Name="root" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
+			Padding="10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+		<Grid  ColumnDefinitions="1*,50,1.4*" Margin="10">
+			<f:SymbolIcon Grid.Column="0"
+						  Symbol="{Binding Symbol, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
+						  Foreground="#FFF4E1"
+						  FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+			<Border Grid.Column="1" Classes="Split" Margin="10,0"/>
+
+			<StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
+						   FontSize="36" FontFamily="{StaticResource GOST}"
+						   FontWeight="SemiBold" Foreground="#FFF4E1" Margin="0,0,15,0"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding StatusText, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
+							   FontSize="48" FontFamily="{StaticResource GOST}"
+							   FontWeight="SemiBold" Foreground="#FFF4E1"/>
+					<Ellipse Width="30" Height="30" Margin="25,0,0,0">
+						<Ellipse.Fill>
+							<SolidColorBrush Color="{Binding StatusColor, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"/>
+						</Ellipse.Fill>
+						<Ellipse.Effect>
+							<DropShadowEffect Color="{Binding StatusColor, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
+											  BlurRadius="20" OffsetX="2" OffsetY="2"/>
+						</Ellipse.Effect>
+					</Ellipse>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
+
+	</Border>
+</UserControl>

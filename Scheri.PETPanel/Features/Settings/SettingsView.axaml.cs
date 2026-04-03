@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Scheri.PETPanel.Features;
 
-public partial class SystemSetting : UserControl
+public partial class SettingsView : UserControl
 {
-    public SystemSetting()
+    public SettingsView()
     {
         InitializeComponent();
     }

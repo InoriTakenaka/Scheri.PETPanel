@@ -1,0 +1,17 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:cp="using:Scheri.PETPanel.UIComponents"
+			 cp:ViewProps.Title="BED MOVEMENT CONTROL"
+			 x:Class="Scheri.PETPanel.Features.BedMovementView">
+	<Grid ColumnDefinitions="*,2*,2*">
+		<StackPanel Grid.Column="1" Margin="10" Spacing="10" VerticalAlignment="Center">
+			<TextBlock Text="Bed Position" FontFamily="{StaticResource GOST}"
+					   FontWeight="Bold" FontSize="24"/>
+			<TextBlock Text="109" FontFamily="{StaticResource GOST}" FontSize="20"/>
+		</StackPanel>
+
+	</Grid>
+</UserControl>

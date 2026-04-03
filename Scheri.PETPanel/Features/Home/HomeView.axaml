@@ -1,15 +1,33 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:f="using:FluentIcons.Avalonia"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:sap="using:Scheri.PETPanel.Features"
+			 xmlns:vm="using:Scheri.PETPanel.Features.Home"
 			 xmlns:cp ="using:Scheri.PETPanel.UIComponents"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="sap:HomeViewModel"
 			 x:Class="Scheri.PETPanel.Features.HomeView">
 	<Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*" Margin="10" Background="#E1E8ED">
-		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54"/>
-		<cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Label="System Status" BackgroundEnd="#107C10" BackgroundStart="#9BF00B"/>	
-		<cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera"/>	
-		<cp:TileControl Grid.Row="1" Grid.Column="1" Label="Forward"/>
-		<cp:TileControl Grid.Row="1" Grid.Column="2" Label="Backward"/>
+		<cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54"
+						Command="{Binding NavigateCommand}" 						CommandParameter="{x:Type sap:SettingsView}"
+						>
+			<f:SymbolIcon Symbol="Settings" FontSize="140" Foreground="White"/>
+		</cp:TileControl>
+		<cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+						Label="System Status" BackgroundEnd="#107C10" BackgroundStart="#9BF00B">
+			<sap:SystemStatusSummary HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+		</cp:TileControl>
+		<cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera">
+			<cp:StatusCard Symbol="Camera" Header="Camera" StatusText="Online" StatusColor="#50fa7b"/>
+		</cp:TileControl>
+		<cp:TileControl Grid.Row="1" Grid.Column="1" Label="Bed Movement Control"
+						Command="{Binding NavigateCommand}" CommandParameter="{x:Type sap:BedMovementView}">
+			<cp:StatusCard Symbol="Bed" Header="Bed Movement" StatusText="Online" StatusColor="#50fa7b"/>
+		</cp:TileControl>
+		<cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock">
+			<f:SymbolIcon Symbol="LockClosed" FontSize="140" Foreground="White"/>
+		</cp:TileControl>
 	</Grid>
 </UserControl>

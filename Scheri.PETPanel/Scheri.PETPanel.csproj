@@ -42,5 +42,12 @@
 
   <ItemGroup>
     <Folder Include="Features\Camera\" />
+    <Folder Include="Features\SystemStatus\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Features\Settings\SettingsView.axaml.cs">
+      <DependentUpon>SettingsView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

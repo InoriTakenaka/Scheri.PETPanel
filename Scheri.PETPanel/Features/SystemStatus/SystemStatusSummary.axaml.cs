@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Scheri.PETPanel.Features;
 
-public partial class SystemStatusCard : UserControl
+public partial class SystemStatusSummary : UserControl
 {
-    public SystemStatusCard()
+    public SystemStatusSummary()
     {
         InitializeComponent();
     }

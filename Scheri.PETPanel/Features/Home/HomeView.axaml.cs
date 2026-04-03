@@ -6,8 +6,10 @@ namespace Scheri.PETPanel.Features;
 
 public partial class HomeView : UserControl
 {
+    private readonly HomeViewModel _viewModel = new HomeViewModel();
     public HomeView()
     {
         InitializeComponent();
+        DataContext = _viewModel;
     }
 }
