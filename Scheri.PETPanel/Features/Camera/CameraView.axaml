@@ -3,10 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:cp="using:Scheri.PETPanel.UIComponents"
-             cp:ViewProps.Title="SYSTEM SETTINGS"
-             Background="#D1D9E0"
-             x:Class="Scheri.PETPanel.Features.SettingsView">
-  <TextBlock Text="System Settings" FontFamily="{StaticResource GOST}" 
-             FontWeight="ExtraBold" FontSize="24" Margin="10"/>
+             xmlns:cp="clr-namespace:Scheri.PETPanel.UIComponents"
+             cp:ViewProps.Title="CAMERA"
+             x:Class="Scheri.PETPanel.Features.CameraView">
+  Camera
 </UserControl>

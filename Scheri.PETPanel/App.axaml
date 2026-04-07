@@ -14,6 +14,7 @@
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://Scheri.PETPanel/UIComponents/TileControl/TileControlStyles.axaml"/>
+        <StyleInclude Source="avares://Scheri.PETPanel/UIComponents/Styles/ButtonStyles.axaml"/>
     </Application.Styles>
 
     <Application.Resources>

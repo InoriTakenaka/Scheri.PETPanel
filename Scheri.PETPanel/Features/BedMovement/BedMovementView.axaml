@@ -1,17 +1,36 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:f="using:FluentIcons.Avalonia"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:cp="using:Scheri.PETPanel.UIComponents"
 			 cp:ViewProps.Title="BED MOVEMENT CONTROL"
+			 Background="#D1D9E0"
 			 x:Class="Scheri.PETPanel.Features.BedMovementView">
-	<Grid ColumnDefinitions="*,2*,2*">
-		<StackPanel Grid.Column="1" Margin="10" Spacing="10" VerticalAlignment="Center">
-			<TextBlock Text="Bed Position" FontFamily="{StaticResource GOST}"
-					   FontWeight="Bold" FontSize="24"/>
-			<TextBlock Text="109" FontFamily="{StaticResource GOST}" FontSize="20"/>
-		</StackPanel>
-
+	<Grid ColumnDefinitions="*,*,*" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="300" Margin="100">
+			<StackPanel Orientation="Vertical" Spacing="20" Grid.Column="0" VerticalAlignment="Center">
+				<TextBlock Text="Bed Position" FontFamily="{StaticResource GOST}" Foreground="#5A7D9A"
+						   FontWeight="Bold" FontSize="36" LetterSpacing="2"/>
+				<TextBlock Text="109" FontFamily="{StaticResource DigitalNumbersFont}" Foreground="#0D2C54"
+						   FontWeight="ExtraBold" FontSize="120" LetterSpacing="2"/>
+			</StackPanel>
+			<cp:TileControl Grid.Column="1" Label="" Name="Backward" BackgroundStart="#0D2C54" BackgroundEnd="#1E3F66"
+							Margin="20" Height="300" PointerPressed="Backward_PointerPressed" PointerReleased="Backward_PointerReleased">
+				<StackPanel Orientation="Vertical" Spacing="10">
+					<f:SymbolIcon Symbol="ArrowLeft" FontSize="140" Foreground="#FFF4E1"/>
+					<TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="#FFF4E1"
+							   FontWeight="Bold" Text="BACKWARD" LetterSpacing="2" FontFamily="{StaticResource GOST}"/>
+				</StackPanel>
+				
+			</cp:TileControl>
+				<cp:TileControl Grid.Column="2" Label="" Name="Forward" BackgroundStart="#0D2C54" BackgroundEnd="#1E3F66"
+							Margin="20" Height="300" PointerPressed="Forward_PointerPressed" PointerReleased="Forward_PointerReleased">
+				<StackPanel Orientation="Vertical" Spacing="10">
+					<f:SymbolIcon Symbol="ArrowRight" FontSize="140" Foreground="#FFF4E1"/>
+					<TextBlock HorizontalAlignment="Center" FontSize="32" Foreground="#FFF4E1"
+							   FontWeight="Bold" Text="FORWARD" LetterSpacing="2" FontFamily="{StaticResource GOST}"/>
+				</StackPanel>
+			</cp:TileControl>
 	</Grid>
 </UserControl>

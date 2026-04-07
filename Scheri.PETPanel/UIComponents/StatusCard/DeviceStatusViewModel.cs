@@ -16,7 +16,7 @@ public partial class DeviceStatusViewModel:ViewModelBase
     [NotifyPropertyChangedFor(nameof(StatusText))]
     [NotifyPropertyChangedFor(nameof(StatusColor))]
     private bool _isConnected;
-    private DispatcherTimer _statusUpdateTimer;
+    private readonly DispatcherTimer _statusUpdateTimer;
     private readonly Func<bool> _statusIndicatorFunc;
     public string StatusText => IsConnected ? "Online" : "Offline";
     public Color StatusColor => IsConnected ? Color.Parse("#50fa7b") : Colors.Red;

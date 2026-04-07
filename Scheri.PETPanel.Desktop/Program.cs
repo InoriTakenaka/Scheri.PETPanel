@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Diagnostics;
 using Scheri.PETPanel.Utils;
 
 namespace Scheri.PETPanel.Desktop;

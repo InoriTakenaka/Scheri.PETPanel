@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using System;
 using System.Collections.Generic;
@@ -58,5 +60,33 @@ public class TileControl : ContentControl
     public object? CommandParameter {
         get => GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+
+        var button = e.NameScope.Find<Button>("PART_TileButton");
+        if (button != null)
+        {
+            button.AddHandler(PointerPressedEvent, (s, e) => {
+                var currentPoint = e.GetCurrentPoint(this);
+
+                var newArgs = new PointerPressedEventArgs(
+                  this,                 // Source
+                  e.Pointer,          // Pointer
+                  this,                 // Visual
+                  currentPoint.Position, // Point
+                  e.Timestamp,        // Timestamp
+                  currentPoint.Properties, // Properties 
+                  e.KeyModifiers,     // KeyModifiers
+                  e.ClickCount        // ClickCount
+              );
+            },RoutingStrategies.Bubble,true);
+
+                button.AddHandler(PointerReleasedEvent, (s, e) => {
+                    RaiseEvent(e);
+            },RoutingStrategies.Bubble,true);
+        }
     }
 }

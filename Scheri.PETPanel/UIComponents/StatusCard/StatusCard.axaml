@@ -27,6 +27,9 @@
 			<Setter Property="HorizontalAlignment" Value="Center" />
 		</Style>
 
+		<Style Selector="cp|TileControl:disabled Ellipse">
+    <Setter Property="Opacity" Value="1.0" />
+</Style>
 	</UserControl.Styles>
 
 	<Border x:Name="root" BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
@@ -42,11 +45,11 @@
 
 			<StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
-						   FontSize="36" FontFamily="{StaticResource GOST}"
+						   FontSize="36" FontFamily="{StaticResource GOST}" LetterSpacing="2"
 						   FontWeight="SemiBold" Foreground="#FFF4E1" Margin="0,0,15,0"/>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="{Binding StatusText, RelativeSource={RelativeSource AncestorType=cp:StatusCard}}"
-							   FontSize="48" FontFamily="{StaticResource GOST}"
+							   FontSize="48" FontFamily="{StaticResource GOST}" LetterSpacing="2"
 							   FontWeight="SemiBold" Foreground="#FFF4E1"/>
 					<Ellipse Width="30" Height="30" Margin="25,0,0,0">
 						<Ellipse.Fill>

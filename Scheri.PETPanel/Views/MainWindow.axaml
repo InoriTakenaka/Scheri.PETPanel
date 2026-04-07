@@ -62,7 +62,7 @@
 					   VerticalAlignment="Center"/>
 		</Grid>
 	</Grid>
-	<TransitioningContentControl Content="{Binding CurrentView}" Background="DarkGray">
+	<TransitioningContentControl Content="{Binding CurrentView}">
 		<TransitioningContentControl.PageTransition>
 			<PageSlide Duration="0:0:0.4" Orientation="Horizontal"/>
 		</TransitioningContentControl.PageTransition>

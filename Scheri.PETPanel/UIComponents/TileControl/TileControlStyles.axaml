@@ -3,9 +3,9 @@
 		xmlns:componentmodel="using:System.ComponentModel"
 		xmlns:cp="using:Scheri.PETPanel.UIComponents"
 		xmlns:f="using:FluentIcons.Avalonia"
-        xmlns:fluent="using:.Avalonia">
+		xmlns:fluent="using:.Avalonia">
 	<Design.PreviewWith>
-		<cp:TileControl Label="XLive" Width="400" Height="400" BackgroundEnd="#107C10" 
+		<cp:TileControl Label="XLive" Width="400" Height="400" BackgroundEnd="#107C10"
 						BackgroundStart="#9BF00B">
 			<f:SymbolIcon Symbol="XboxController" FontSize="240" Foreground="White"/>
 		</cp:TileControl>
@@ -104,11 +104,11 @@
 		</Setter>
 
 		<Style Selector="^ /template/ Button#PART_TileButton:pressed Border#MainBorder">
-            <Setter Property="BorderBrush" Value="#FFF4E1" />
-            <!-- 参数含义：x偏移 y偏移 模糊半径 扩散半径 颜色 -->
-            <Setter Property="BoxShadow" Value="0 0 25 5  #FFF4E1" />
-            <Setter Property="RenderTransform" Value="scale(0.96)" />
-        </Style>
+			<Setter Property="BorderBrush" Value="#FFF4E1" />
+			<!-- 参数含义：x偏移 y偏移 模糊半径 扩散半径 颜色 -->
+			<Setter Property="BoxShadow" Value="0 0 25 5  #FFF4E1" />
+			<Setter Property="RenderTransform" Value="scale(0.96)" />
+		</Style>
 
 		<!-- remove default hover and pressed background -->
 		<Style Selector="^ /template/ Button#PART_TileButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -117,6 +117,13 @@
 
 		<Style Selector="^ /template/ Button#PART_TileButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="Background" Value="Transparent" />
+		</Style>
+		<!-- remove default :disable styles -->
+		<Style Selector="^ /template/ Button#PART_TileButton:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+		<Style Selector="^:disabled /template/ Border#MainBorder">
+			<Setter Property="Effect" Value="{x:Null}" />
 		</Style>
 
 	</Style>
