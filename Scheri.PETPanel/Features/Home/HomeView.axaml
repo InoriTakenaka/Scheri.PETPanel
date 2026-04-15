@@ -8,31 +8,31 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="sap:HomeViewModel"
              x:Class="Scheri.PETPanel.Features.HomeView">
-    <Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*"  Background="#D1D9E0">
-        <cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54"
+    <Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*"  Background="Transparent">
+        <cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54" Margin="30,30,15,15"
                         Command="{Binding NavigateCommand}" CommandParameter="{x:Type sap:SettingsView}">
-            <f:SymbolIcon Symbol="Settings" FontSize="140" Foreground="White" />
+            <f:SymbolIcon Symbol="Settings" FontSize="72" Foreground="White" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+        <cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,30,30,15"
                         Label="System Status" BackgroundEnd="#107C10" BackgroundStart="#9BF00B">
             <sap:SystemStatusSummary HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera" 
+        <cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera" Margin="30,15,15,30"
                         IsEnabled="{Binding CameraStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
-                        CommandParameter="{x:Type sap:CameraView}">
+                        CommandParameter="{x:Type sap:CameraPlay}">
             <cp:StatusCard Symbol="Camera" Header="Camera" 
                            StatusText="{Binding CameraStatus.StatusText}" 
                            StatusColor="{Binding CameraStatus.StatusColor}" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="1" Grid.Column="1" Label="PLC Status"
+        <cp:TileControl Grid.Row="1" Grid.Column="1" Label="PLC Status" Margin="15,15,15,30"
                         IsEnabled="{Binding PlcStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
                         CommandParameter="{x:Type sap:BedMovementView}">
-            <cp:StatusCard Symbol="Bed" Header="Bed Movement" StatusText="Online" StatusColor="#50fa7b" />
+            <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="Online" StatusColor="#50fa7b" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock">
-            <f:SymbolIcon Symbol="LockClosed" FontSize="140" Foreground="White" />
+        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock" Margin="15,15,30,30">
+            <f:SymbolIcon Symbol="LockClosed" FontSize="72" Foreground="White" />
         </cp:TileControl>
     </Grid>
 </UserControl>

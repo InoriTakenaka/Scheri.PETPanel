@@ -1,52 +1,71 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0-android36.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ApplicationId>com.Scheri.PETPanel</ApplicationId>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <SupportedOSPlatformVersion>29.0</SupportedOSPlatformVersion>
-    <Platforms>AnyCPU;x64;ARM64</Platforms>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0-android36.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ApplicationId>com.scheri.petpanel</ApplicationId>
+		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+		<SupportedOSPlatformVersion>29.0</SupportedOSPlatformVersion>		
+		<Platforms>AnyCPU;x64;ARM64</Platforms>
+		<PlatformTarget>ARM64</PlatformTarget>
+		<RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <AndroidResource Include="Icon.png">
-      <Link>Resources\drawable\Icon.png</Link>
-    </AndroidResource>
-  </ItemGroup>
+	<ItemGroup>
+		<AndroidResource Include="Icon.png">
+			<Link>Resources\drawable\Icon.png</Link>
+		</AndroidResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Android" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-    <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Android" />
+		<PackageReference Include="LibVLCSharp" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="VideoLAN.LibVLC.Android" />
+		<PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Scheri.PETPanel\Scheri.PETPanel.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Scheri.PETPanel\Scheri.PETPanel.csproj" />
+	</ItemGroup>
 </Project>

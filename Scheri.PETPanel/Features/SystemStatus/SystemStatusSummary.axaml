@@ -2,7 +2,9 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 mc:Ignorable="d"
+			 xmlns:vm="clr-namespace:Scheri.PETPanel.UIComponents"
+			 x:DataType="vm:StatusPanelViewModel"
 			 x:Class="Scheri.PETPanel.Features.SystemStatusSummary">
 	<UserControl.Styles>
 		<Style Selector="TextBlock">
@@ -12,13 +14,17 @@
 			<Setter Property="LetterSpacing" Value="2" />
 		</Style>
 		<Style Selector="TextBlock.Label">
-			<Setter Property="FontSize" Value="48" />
+			<Setter Property="FontSize" Value="24" />
 			<Setter Property="FontWeight" Value="SemiBold" />
+			<Setter Property="VerticalAlignment" Value="Bottom"/>
+			<Setter Property="Margin" Value="0,0,0,15"/>
 		</Style>
 		<Style Selector="TextBlock.Value">
-			<Setter Property="FontSize" Value="84" />
+			<Setter Property="FontSize" Value="36" />
 			<Setter Property="Foreground" Value="White"/>
 			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			
 		</Style>
 		<Style Selector="Border.Split">
 			<Setter Property="Width" Value="3" />
@@ -34,30 +40,32 @@
 									  Opacity="0.5" />
 				</Setter.Value>
 			</Setter>
-			<Setter Property="Margin" Value="0,50,0,40" />
+			<Setter Property="Margin" Value="0,30,0,30" />
 			<Setter Property="VerticalAlignment" Value="Stretch" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
 		</Style>
 	</UserControl.Styles>
 	<Border BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
-			Padding="20,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			Padding="10,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-		<Grid ColumnDefinitions="1*,100,1*,100,1*" RowDefinitions="1*,2*">
+		<Grid ColumnDefinitions="1*,80,1*,80,1*" RowDefinitions="Auto,Auto">
 			<!-- Crystal Temperature -->
-			<TextBlock Grid.Row="0" Grid.Column="0" Classes="Label" Text="Temperature " />
-			<TextBlock Grid.Row="1" Grid.Column="0" Classes="Value" Text="41 ℃"/>
+			<TextBlock Grid.Row="0" Grid.Column="0" Classes="Label" Text="Temperature" />
+			<TextBlock Grid.Row="1" Grid.Column="0" Classes="Value" Text="{Binding CrystalAvgTemprature}"/>
 
 			<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Classes="Split"/>
 			<!-- Count Rate -->
 			<TextBlock Grid.Row="0" Grid.Column="2" Classes="Label" Text="Count Rate " />
-			<TextBlock Grid.Row="1" Grid.Column="2" Classes="Value"  Text="120%" />
+			<TextBlock Grid.Row="1" Grid.Column="2" Classes="Value"  Text="{Binding PromptCount}" />
 
 			<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Classes="Split"/>
 			<!-- Network Status -->
 			<TextBlock Grid.Row="0" Grid.Column="4"  Classes="Label" Text="Workstation"/>
-			<StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center">
-				<TextBlock Classes="Value" FontSize="56" Text="Online"/>
-				<Ellipse Width="30" Height="30" Fill="#50fa7b" Margin="15,0,0,0">
+			<StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal" 
+						VerticalAlignment="Top"
+						HorizontalAlignment="Center">
+				<TextBlock Classes="Value" FontSize="36" Text="Online"/>
+				<Ellipse Width="15" Height="15" Fill="#50fa7b" Margin="15,0,0,0">
 					<Ellipse.Effect>
 						<DropShadowEffect Color="#50fa7b" BlurRadius="20" OffsetX="0" OffsetY="0"/>
 					</Ellipse.Effect>

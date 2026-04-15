@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using LibVLCSharp;
+using LibVLCSharp.Shared;
 
 namespace Scheri.PETPanel.Features;
 

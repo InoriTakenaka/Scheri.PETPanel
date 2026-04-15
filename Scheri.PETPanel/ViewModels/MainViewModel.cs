@@ -30,9 +30,6 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
     
     public bool IsReturnButtonVisible => CurrentView is not HomeView;
 
-    private int _currentIdleSeconds = 0;
-    private readonly DispatcherTimer _autolockTimer;
-
     public MainViewModel()
     {
         WeakReferenceMessenger.Default.Register(this);
@@ -53,7 +50,7 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
         if (view != null)
         {
             CurrentView = view;
-            AppTitle = $"PET PANEL - {ViewProps.GetTitle(view)}";
+            AppTitle = $"{ViewProps.GetTitle(view)}";
         }
     }
 }

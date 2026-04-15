@@ -23,19 +23,8 @@ public class MainActivity : AvaloniaMainActivity<App>
 {
     protected override void OnCreate(Bundle? savedInstanceState)
     {
-        AppLogger.Initialize(new NLogAndroidConfig());
-        /*
-        try
-        {
-            // Java.Lang.JavaSystem.LoadLibrary("vlc");
-        }
-        catch (Java.Lang.UnsatisfiedLinkError e)
-        {
-            System.Diagnostics.Debug.WriteLine($"Native library load failed: {e.Message}");
-        }
-        // LibVLCSharp.Shared.Core.Initialize();
-        */
-
+        LibVLCSharp.Shared.Core.Initialize();
+        AppLogger.Initialize(new NLogAndroidConfig());      
         base.OnCreate(savedInstanceState);
     }
     public override bool OnKeyDown([GeneratedEnum] Keycode keyCode, KeyEvent? e)

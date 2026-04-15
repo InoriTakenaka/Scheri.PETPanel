@@ -14,14 +14,17 @@
 	<Style Selector="cp|TileControl">
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-		<Setter Property="Margin" Value="8"/>
+		<Setter Property="Margin" Value="10"/>
 		<Setter Property="ClipToBounds" Value="False"/>
 
 		<!-- defalut styles for the tile frame-->
 		<Style Selector="^ /template/ Border#MainBorder">
 			<Setter Property="Effect">
 				<Setter.Value>
-					<DropShadowEffect BlurRadius="10" Opacity="0.7" OffsetX="0" OffsetY="8" Color="#FFF4E1"/>
+					<DropShadowEffect BlurRadius="18" 
+									  Opacity="0.9" 
+									  OffsetX="0" 
+									  OffsetY="12" Color="#FFF4E1"/>
 				</Setter.Value>
 			</Setter>
 		</Style>
@@ -105,7 +108,7 @@
 
 		<Style Selector="^ /template/ Button#PART_TileButton:pressed Border#MainBorder">
 			<Setter Property="BorderBrush" Value="#FFF4E1" />
-			<!-- 参数含义：x偏移 y偏移 模糊半径 扩散半径 颜色 -->
+			<!-- offeset-x offset-y blur radius color -->
 			<Setter Property="BoxShadow" Value="0 0 25 5  #FFF4E1" />
 			<Setter Property="RenderTransform" Value="scale(0.96)" />
 		</Style>
@@ -125,6 +128,9 @@
 		<Style Selector="^:disabled /template/ Border#MainBorder">
 			<Setter Property="Effect" Value="{x:Null}" />
 		</Style>
-
+		<Style Selector="^:disabled">
+			<Setter Property="BackgroundStart" Value="#FF8C00"/>
+			<Setter Property="BackgroundEnd" Value="#CC7A00"/>
+		</Style>
 	</Style>
 </Styles>

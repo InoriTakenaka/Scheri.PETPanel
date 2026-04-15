@@ -13,7 +13,10 @@ sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // Enable Avalonia diagnostics in debug mode
         AppLogger.Initialize(new NLogDesktopConfig());
+        // Initialize LibVLCSharp before starting the application
+        LibVLCSharp.Shared.Core.Initialize();
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
     }

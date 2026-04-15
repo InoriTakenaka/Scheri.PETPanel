@@ -1,6 +1,7 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:f="using:FluentIcons.Avalonia"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:local="using:Scheri.PETPanel"
 			 xmlns:vm="using:Scheri.PETPanel.ViewModels"
@@ -8,72 +9,87 @@
 			 mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
 			 x:Class="Scheri.PETPanel.Views.MainView"
 			 x:DataType="vm:MainViewModel">
-	<Design.DataContext>
-		<!-- This only sets the DataContext for the previewer in an IDE,
-		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:MainViewModel />
-	</Design.DataContext>
 	<Grid>
-
-		<!-- The main layout of the application. -->
-		<Grid ColumnDefinitions="200,*">
-			<Border Grid.Column="0"
-					BorderBrush="#B0B8C1"
-					BorderThickness="0,0,1,0">
-				<cp:MenuControl Margin="0"/>
-			</Border>
-
-			<Grid Grid.Column="1">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<cp:AppTitle Grid.Row="0"/>
-				<ContentControl x:Name="MainContent" Grid.Row="1"
-								Content="{Binding CurrentView}"
-								VerticalAlignment="Stretch"
-								HorizontalAlignment="Stretch"/>
-				<cp:StatusBar Grid.Row="2"/>
-			</Grid>
-		</Grid>
-
-		<!-- The unlock overlay that appears when the application is locked. -->
-		<Border Name="UnlockOverlay" Background="#441E1E1E" IsVisible="{Binding IsUnlock}"
-				PointerPressed="Overlay_PointerPressed" ZIndex="100">
-
-			<Border Background="#D1D9E1"
-					CornerRadius="12"
-					Padding="30"
-					MinWidth="400"
-					BorderBrush="#B0B8C1"
-					BorderThickness="1"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"
-					PointerPressed="StackPanel_PointerPressed">
-
-				<Border.BoxShadow>
-					<BoxShadows>0 10 30 5 #80000000</BoxShadows>
-				</Border.BoxShadow>
-
-				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-							Spacing="20" Width="400" >
-					<TextBlock Text="Unlock Password:" Foreground="#5A7D9A" FontWeight="Bold"
-							   FontSize="24" FontFamily="{StaticResource GOST}"/>
-					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
-							   IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-							   FontSize="18" FontWeight="DemiBold" FontFamily="{StaticResource GOST}"/>
-					<TextBox Name="PasswordBox" Text="{Binding InputPassword, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-							 FontSize="18" FontFamily="{StaticResource GOST}" Watermark="Enter 6-digit PIN to unlock..."
-							 PasswordChar="●" RevealPassword="False" MaxLength="6"
-							 Background="#FF2E2E2E" Foreground="#5A7D9A"
-							 BorderBrush="#B0B8C1" BorderThickness="1">
-						<TextInputOptions.ContentType>Number</TextInputOptions.ContentType>						
-					</TextBox>	
-				</StackPanel>
-
-			</Border>
+		<!-- App background -->
+		<Border Name="BreathingLayer" Background="#C3CFD9" Opacity="0.1">
+			<Border.Effect>
+				<DropShadowEffect Color="#C3CFD9" BlurRadius="50" Opacity="0.8" OffsetX="0" OffsetY="0"/>
+			</Border.Effect>
+			<Border.Styles>
+				<Style Selector="Border#BreathingLayer">
+					<Style.Animations>
+						<Animation Duration="0:0:4"
+								   IterationCount="Infinite"
+								   PlaybackDirection="Alternate">
+							<KeyFrame Cue="0%">
+								<Setter Property="Opacity" Value="0.1"/>
+							</KeyFrame>
+							<KeyFrame Cue="100%">
+								<Setter Property="Opacity" Value="0.7"/>
+							</KeyFrame>
+						</Animation>
+					</Style.Animations>
+				</Style>
+			</Border.Styles>
 		</Border>
-		<!-- End of the unlock overlay -->
+
+		<DockPanel>
+			<!-- App Title -->
+			<Grid DockPanel.Dock="Top" Height="80" Background="Transparent">
+
+				<Grid Background="Transparent">
+					<Button IsVisible="{Binding IsReturnButtonVisible}"
+							Command="{Binding NavigateBackCommand}"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
+							Margin="30,0"
+							Padding="10"
+							Background="Transparent"
+							BorderThickness="0">
+
+
+						<StackPanel Orientation="Horizontal" Spacing="10">
+							<f:SymbolIcon Symbol="DoorArrowLeft" Foreground="DarkCyan" FontSize="24"/>
+							<TextBlock Text="Return"  FontFamily="{StaticResource GOST}" Foreground="DarkCyan"
+									   VerticalAlignment="Center" FontSize="24" LetterSpacing="2" FontWeight="SemiBold">
+							</TextBlock>
+						</StackPanel>
+					</Button>
+					<TextBlock Text="{Binding AppTitle}"
+							   Foreground="DarkCyan" LetterSpacing="2"
+							   FontSize="28" FontFamily="{StaticResource GOST}"
+							   FontWeight="Bold"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+
+					<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Spacing="10">
+						<TextBlock Text="泰州源悟医疗器械有限公司"
+								   Foreground="DarkCyan"
+								   LetterSpacing="1" Margin="0,10,20,0"
+								   VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+						<TextBlock Text="安徽医科大学第一附属医院核医学科"
+								   Foreground="DarkCyan"
+								   LetterSpacing="1" Margin="0,0,20,5"
+								   VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18"/>
+					</StackPanel>
+				</Grid>
+			</Grid>
+
+			<!-- App bottom status bar -->
+			<Grid DockPanel.Dock="Bottom" Height="40" Background="Transparent">
+				<TextBlock Text="App Version - 1.0.0" FontFamily="{StaticResource GOST}" Foreground="DarkCyan"
+						   LetterSpacing="2" Margin="0,0,20,5"
+						   VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="18" FontWeight="Bold"/>
+			</Grid>
+
+			<!-- content -->
+			<TransitioningContentControl Content="{Binding CurrentView}" Background="Transparent">
+				<TransitioningContentControl.PageTransition>
+					<PageSlide Duration="0:0:0.4" Orientation="Horizontal"/>
+				</TransitioningContentControl.PageTransition>
+			</TransitioningContentControl>
+
+		</DockPanel>
 	</Grid>
+
 </UserControl>

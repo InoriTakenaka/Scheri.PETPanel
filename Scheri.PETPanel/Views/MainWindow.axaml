@@ -5,67 +5,12 @@
 		xmlns:features="using:Scheri.PETPanel.Features"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:petpanel="using:Scheri.PETPanel"
-		xmlns:views="using:Scheri.PETPanel.Views"
+		xmlns:v="using:Scheri.PETPanel.Views"
 		xmlns:f="using:FluentIcons.Avalonia"
 		mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
 		x:Class="Scheri.PETPanel.Views.MainWindow"
 		x:DataType="vm:MainViewModel"
 		Icon="/Assets/avalonia-logo.ico"
 		Title="Scheri.PETPanel">
-	<DockPanel>
-	<Grid DockPanel.Dock="Top" Height="80" Background="Transparent">
-
-		<Border Name="BreathingLayer" Background="#FFF4E1" Opacity="0.1">
-			<Border.Effect>
-				<DropShadowEffect Color="#FFF4E1" BlurRadius="50" Opacity="0.8" OffsetX="0" OffsetY="0"/>
-			</Border.Effect>
-			<Border.Styles>
-				<Style Selector="Border#BreathingLayer">
-					<Style.Animations>
-						<Animation Duration="0:0:3"
-								   IterationCount="Infinite"
-								   PlaybackDirection="Alternate">
-							<KeyFrame Cue="0%">
-								<Setter Property="Opacity" Value="0.2"/> 
-							</KeyFrame>
-							<KeyFrame Cue="100%">
-								<Setter Property="Opacity" Value="0.8"/> 
-							</KeyFrame>
-						</Animation>
-					</Style.Animations>
-				</Style>
-			</Border.Styles>
-		</Border>
-
-		<Grid Background="Transparent">
-			<Button IsVisible="{Binding IsReturnButtonVisible}" 
-					Command="{Binding NavigateBackCommand}"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Center"
-			Margin="30,0"
-			Padding="10"
-			Background="Transparent"
-			BorderThickness="0">
-				<StackPanel Orientation="Horizontal" Spacing="10">
-					<f:SymbolIcon Symbol="DoorArrowLeft" Foreground="DarkCyan"/>
-					<TextBlock Text="Return"  FontFamily="{StaticResource GOST}" Foreground="DarkCyan"
-							   VerticalAlignment="Center" FontSize="18" LetterSpacing="2"/>
-				</StackPanel>
-			</Button>
-
-
-			<TextBlock Text="{Binding AppTitle}"
-					   Foreground="DarkCyan" LetterSpacing="2"
-					   FontSize="20" FontFamily="{StaticResource GOST}"
-					   FontWeight="SemiBold"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"/>
-		</Grid>
-	</Grid>
-	<TransitioningContentControl Content="{Binding CurrentView}">
-		<TransitioningContentControl.PageTransition>
-			<PageSlide Duration="0:0:0.4" Orientation="Horizontal"/>
-		</TransitioningContentControl.PageTransition>
-	</TransitioningContentControl>
-</DockPanel>
+	<v:MainView/>
 </Window>
