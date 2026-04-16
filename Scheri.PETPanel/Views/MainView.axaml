@@ -33,6 +33,7 @@
 			</Border.Styles>
 		</Border>
 
+		<!-- Mainview content -->
 		<DockPanel>
 			<!-- App Title -->
 			<Grid DockPanel.Dock="Top" Height="80" Background="Transparent">
@@ -90,6 +91,52 @@
 			</TransitioningContentControl>
 
 		</DockPanel>
+		<!-- Lock screen overlay -->
+		<Border Name="UnlockOverlay" Background="#441E1E1E" IsVisible="{Binding IsShowLockOverlay}"
+			    IsHitTestVisible="True" ZIndex="100" PointerPressed="Overlay_PointerPressed">
+
+			<Grid>
+				<TextBlock Text="Screen is LOCKED, tap anywhere to UNLOCK" Foreground="#FFF4E1" FontSize="36" 
+						   FontFamily="{StaticResource GOST}" LetterSpacing="2"
+						   FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
+			
+
+			<Border Background="#D1D9E1"
+					CornerRadius="12"
+					Padding="30"
+					MinWidth="400"
+					BorderBrush="#B0B8C1"
+					BorderThickness="1"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					IsVisible="{Binding IsUnlock}">
+
+				<Border.BoxShadow>
+					<BoxShadows>0 10 30 5 #80000000</BoxShadows>
+				</Border.BoxShadow>
+
+				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+							Spacing="20" Width="400" >
+					<TextBlock Text="Unlock Password:" Foreground="#5A7D9A" FontWeight="Bold"
+							   FontSize="24" FontFamily="{StaticResource GOST}"/>
+					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
+							   IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+							   FontSize="18" FontWeight="DemiBold" FontFamily="{StaticResource GOST}"/>
+					<TextBox Name="PasswordBox" Text="{Binding InputPassword, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+							 FontSize="18" FontFamily="{StaticResource GOST}" Watermark="Enter 6-digit PIN to unlock..."
+							 PasswordChar="●" RevealPassword="False" MaxLength="6"
+							 Background="#FF2E2E2E" Foreground="#5A7D9A"
+							 BorderBrush="#B0B8C1" BorderThickness="1">
+						<TextInputOptions.ContentType>Number</TextInputOptions.ContentType>						
+					</TextBox>	
+				</StackPanel>
+
+			</Border>
+				</Grid>
+
+		</Border>
+
+
 	</Grid>
 
 </UserControl>

@@ -1,8 +1,11 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Scheri.PETPanel.Features;
+using Scheri.PETPanel.UIComponents;
 using Scheri.PETPanel.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Scheri.PETPanel;
 
@@ -34,4 +37,14 @@ public class ViewLocator : IDataTemplate
     {
         return data is ViewModelBase;
     }
+}
+
+public static class ViewRoute
+{
+    public static readonly Dictionary<NavigateType, Func<UserControl>> ViewRoutes = new() {
+        {NavigateType.Home, () => new HomeView()},
+        {NavigateType.BedPosAdjust, () => new BedMovementView()},
+        {NavigateType.Camera, () => new CameraPlay()},
+        {NavigateType.Settings, () => new SettingsView()}
+    };
 }

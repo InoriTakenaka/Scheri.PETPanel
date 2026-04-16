@@ -18,6 +18,7 @@ public partial class MainView : UserControl
     {
         InitializeComponent();
         Instance = this;
+
         //AddHandler(PointerPressedEvent, (s, e) => {
         //    ViewModel?.ResetTimer();
         //}, RoutingStrategies.Tunnel);
@@ -56,13 +57,23 @@ public partial class MainView : UserControl
 
     private void Overlay_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {
-        //if (DataContext is MainViewModel viewModel)
-        //{
-        //    viewModel.IsUnlock = false;
-        //    viewModel.InputPassword = string.Empty;
-        //    viewModel.ErrorMessage = string.Empty;
-        //    AppLogger.Info("User canceled the unlock process.", nameof(MainView));
-        //}
+        if (DataContext is MainViewModel viewModel && viewModel.IsShowLockOverlay)
+        {
+            if (!viewModel.IsUnlock)
+            {
+                viewModel.IsUnlock = true;
+                viewModel.InputPassword = string.Empty;
+                viewModel.ErrorMessage = string.Empty;
+                AppLogger.Info("Attempting to unlock the screen.", nameof(MainView));
+            }
+            else
+            {
+                viewModel.IsUnlock = false;
+                viewModel.InputPassword = string.Empty;
+                viewModel.ErrorMessage = string.Empty;
+                AppLogger.Info("User canceled unlocking the screen.", nameof(MainView));
+            }
+        }
     }
 
     private void StackPanel_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)

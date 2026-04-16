@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace Scheri.PETPanel.UIComponents;
 
-public partial class Navigate(string Text, Icon Icon,Type Route):ObservableObject
+public partial class Navigate(string Text, Icon Icon, NavigateType Route):ObservableObject
 {
     public string Text { get; set; } = Text;
     public Icon Icon { get; set; } = Icon;
-    public Type Route { get; set; } = Route;
+    public NavigateType Type { get; set; } = Route;
     [ObservableProperty]
     private bool _isActive;
 }
@@ -24,7 +24,8 @@ public partial class MenuControlViewModel:ObservableObject
         {
             item.IsActive = (item == navigate);
         }
-        WeakReferenceMessenger.Default.Send(new NavigateTypeMessage(navigate.Route));
+        if (!ViewRoute.ViewRoutes.TryGetValue(navigate.Type, out var viewFactory)) return;
+        WeakReferenceMessenger.Default.Send(new NavigateTypeMessage(viewFactory));
     }
     public MenuControlViewModel(IMenuConfig menuConfig)
     {

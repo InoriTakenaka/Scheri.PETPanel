@@ -68,13 +68,13 @@ public static class AppLogger
         Logger.Log(LevelMap[record.Level], 0, record, null, (state, ex) => state.ToString());
     }
 
-    public static void Debug(string msg) => Log(new LogRecord(DateTime.Now, LogLevel.Debug, msg));
+    public static void Debug(string message, string? source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Debug, message, source));
 
-    public static void Info(string message, string source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Info, message, source));
+    public static void Info(string message, string? source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Info, message, source));
 
-    public static void Warn(string message, string source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Warn, message, source));
+    public static void Warn(string message, string? source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Warn, message, source));
 
-    public static void Error(string message, string source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Error, message, source));
+    public static void Error(string message, string? source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Error, message, source));
 }
 
 public record LogRecord(

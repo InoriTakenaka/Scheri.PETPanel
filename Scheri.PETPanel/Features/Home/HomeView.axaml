@@ -6,11 +6,12 @@
              xmlns:sap="using:Scheri.PETPanel.Features"
              xmlns:cp="using:Scheri.PETPanel.UIComponents"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             cp:ViewProps.Title="HOME"
              x:DataType="sap:HomeViewModel"
              x:Class="Scheri.PETPanel.Features.HomeView">
     <Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*"  Background="Transparent">
         <cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54" Margin="30,30,15,15"
-                        Command="{Binding NavigateCommand}" CommandParameter="{x:Type sap:SettingsView}">
+                        Command="{Binding NavigateCommand}" CommandParameter="{x:Static cp:NavigateType.Settings}">
             <f:SymbolIcon Symbol="Settings" FontSize="72" Foreground="White" />
         </cp:TileControl>
         <cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,30,30,15"
@@ -20,7 +21,7 @@
         <cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera" Margin="30,15,15,30"
                         IsEnabled="{Binding CameraStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
-                        CommandParameter="{x:Type sap:CameraPlay}">
+                        CommandParameter="{x:Static cp:NavigateType.Camera}">
             <cp:StatusCard Symbol="Camera" Header="Camera" 
                            StatusText="{Binding CameraStatus.StatusText}" 
                            StatusColor="{Binding CameraStatus.StatusColor}" />
@@ -28,10 +29,11 @@
         <cp:TileControl Grid.Row="1" Grid.Column="1" Label="PLC Status" Margin="15,15,15,30"
                         IsEnabled="{Binding PlcStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
-                        CommandParameter="{x:Type sap:BedMovementView}">
+                        CommandParameter="{x:Static cp:NavigateType.BedPosAdjust}">
             <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="Online" StatusColor="#50fa7b" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock" Margin="15,15,30,30">
+        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock" Margin="15,15,30,30"
+                        Command="{Binding LockScreenCommand}">
             <f:SymbolIcon Symbol="LockClosed" FontSize="72" Foreground="White" />
         </cp:TileControl>
     </Grid>

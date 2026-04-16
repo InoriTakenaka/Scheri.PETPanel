@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Scheri.PETPanel.UIComponents;
 using Scheri.PETPanel.Utils;
+using Scheri.PETPanel.Views;
 using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -11,17 +14,23 @@ using System.Threading.Tasks;
 
 namespace Scheri.PETPanel.Features;
 
-public partial class HomeViewModel:ObservableObject
+public partial class HomeViewModel : ObservableObject
 {
-    public DeviceStatusViewModel PlcStatus { get;} =  new DeviceStatusViewModel("PLC", CheckPlcStatus);
+    public DeviceStatusViewModel PlcStatus { get; } = new DeviceStatusViewModel("PLC", CheckPlcStatus);
     public DeviceStatusViewModel CameraStatus { get; } = new DeviceStatusViewModel("Camera", CheckCameraStatus);
 
     [RelayCommand]
-    private static void Navigate(Type? viewType)
+    private static void Navigate(NavigateType type)
     {
-        if (viewType == null) return;
-        WeakReferenceMessenger.Default.Send(new NavigateTypeMessage(viewType)); 
-    }  
+        if (!ViewRoute.ViewRoutes.TryGetValue(type, out var viewFactory)) return;
+        WeakReferenceMessenger.Default.Send(new NavigateTypeMessage(viewFactory));
+    }
+
+    [RelayCommand]
+    private static void LockScreen()
+    {
+        MainView.Instance?.ViewModel?.LockScreen();
+    }
 
     private static async Task<bool> CheckPlcStatus()
     {
@@ -46,14 +55,13 @@ public partial class HomeViewModel:ObservableObject
 
             using var client = new TcpClient();
             using var cts = new CancellationTokenSource();
-            await client.ConnectAsync(host, port, cts.Token);            
+            await client.ConnectAsync(host, port, cts.Token);
             return client.Connected;
         }
         catch (Exception ex)
         {
-            AppLogger.Error(ex.Message,nameof(CheckCameraStatus));
+            AppLogger.Error(ex.Message, nameof(CheckCameraStatus));
             return false;
         }
     }
-
 }
