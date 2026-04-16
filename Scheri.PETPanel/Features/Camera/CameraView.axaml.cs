@@ -48,21 +48,21 @@ public partial class CameraView : UserControl
             await Task.Delay(1000);
             _vm.Play(MediaPath);
         };
-        
+
 
     }
 
     private IntPtr LockCallback(IntPtr opaque, IntPtr planes)
     {
-        Marshal.WriteIntPtr(planes, 0,_buff);
+        Marshal.WriteIntPtr(planes, 0, _buff);
         return _buff;
     }
 
     private unsafe void UnlockCallback(IntPtr opaque, IntPtr picture, IntPtr planes)
     {
-       using (var locked = _bitmap.Lock())
+        using (var locked = _bitmap.Lock())
         {
-           var size = _height * _width * 4;
+            var size = _height * _width * 4;
             Buffer.MemoryCopy(_buff.ToPointer(), locked.Address.ToPointer(), size, size);
         }
         Dispatcher.UIThread.Post(() => VideoFrame.InvalidateVisual(), DispatcherPriority.Render);
@@ -74,8 +74,8 @@ public partial class CameraView : UserControl
         if (currentTime - _lastFrameTime < _frameInterval) return; // skip frame to maintain target FPS
         _lastFrameTime = currentTime;
 
-        Dispatcher.UIThread.Post(() => { 
-            if(_buff ==IntPtr.Zero || _bitmap == null) return;
+        Dispatcher.UIThread.Post(() => {
+            if (_buff == IntPtr.Zero || _bitmap == null) return;
 
             try
             {
@@ -89,32 +89,31 @@ public partial class CameraView : UserControl
                 }
             }
             catch { }
-        },DispatcherPriority.Render);
+        }, DispatcherPriority.Render);
     }
 
     public void SetMediaPath(string path)
     {
-        MediaPath = path;       
+        MediaPath = path;
         _vm.Play(path);
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnDetachedFromVisualTree(e);
-        if(_vm.MediaPlayer.IsPlaying)
+        if (_vm.MediaPlayer.IsPlaying)
         {
             _vm.MediaPlayer.Stop();
         }
-        _vm.MediaPlayer.SetVideoCallbacks(null!, null, null);
 
         if (_buff != IntPtr.Zero)
         {
             Marshal.FreeHGlobal(_buff);
             _buff = IntPtr.Zero;
-        }       
+        }
 
         VideoFrame.Source = null;
-        _bitmap=null!;
+        _bitmap = null!;
     }
 
 }
