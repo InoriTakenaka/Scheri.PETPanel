@@ -15,7 +15,7 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
@@ -24,29 +24,29 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>

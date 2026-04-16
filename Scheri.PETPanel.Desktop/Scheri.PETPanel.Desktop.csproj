@@ -15,7 +15,7 @@
 
 	<PropertyGroup>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<PublishAot>False</PublishAot>
+		<PublishAot>True</PublishAot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,4 +32,12 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Scheri.PETPanel\Scheri.PETPanel.csproj" />
 	</ItemGroup>
+
+	<Target Name="ExcludeVlcX86" BeforeTargets="ComputeFilesToPublish">
+		<ItemGroup>
+			<!-- 过滤掉所有路径中包含 libvlc\x86 的文件 -->
+			<ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
+								   Condition="$([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Contains('libvlc\win-x86'))" />
+		</ItemGroup>
+	</Target>
 </Project>
