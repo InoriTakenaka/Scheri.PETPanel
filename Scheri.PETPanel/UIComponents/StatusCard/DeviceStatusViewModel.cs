@@ -11,16 +11,23 @@ namespace Scheri.PETPanel.UIComponents;
 
 public partial class DeviceStatusViewModel:ViewModelBase
 {
+    public const string CONNECTED_COLOR_HEX = "#50fa7b";
+    public const string DISCONNECTED_COLOR_HEX = "#ffff0000";
+    public const string CONNECTED_STATUS_TEXT = "Online";
+    public const string DISCONNECTED_STATUS_TEXT = "Offline";
+    public readonly static Color CONNECTED = Color.Parse(CONNECTED_COLOR_HEX);
+    public readonly static Color DISCONNECTED = Color.Parse(DISCONNECTED_COLOR_HEX);   
     [ObservableProperty]
     private string _header;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(StatusText))]
     [NotifyPropertyChangedFor(nameof(StatusColor))]
     private bool _isConnected;
+    public string StatusText => IsConnected ? CONNECTED_STATUS_TEXT: DISCONNECTED_STATUS_TEXT;  
+    public Color StatusColor => IsConnected ? CONNECTED : DISCONNECTED;
+
     private readonly DispatcherTimer _statusUpdateTimer;
     private readonly Func<Task<bool>> _statusIndicatorFunc;
-    public string StatusText => IsConnected ? "Online" : "Offline";
-    public Color StatusColor => IsConnected ? Color.Parse("#50fa7b") : Colors.Red;
 
     public async void UpdateDeviceStatus()
     {

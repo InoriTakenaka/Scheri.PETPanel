@@ -72,7 +72,7 @@ public partial class StatusPanelViewModel : ObservableObject
             CrystalAvgTemprature = "N/A";
             PromptCount = "N/A";
         }
-    }
+    } 
 }
 
 public class BoolToBrushConverter : IValueConverter

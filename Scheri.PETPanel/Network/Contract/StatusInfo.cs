@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Scheri.PETPanel.Network.Contract;
 
@@ -82,3 +83,5 @@ public class StatusInfo
 
 }
 
+[JsonSerializable(typeof(StatusInfo))]
+public partial class AppJsonContext : JsonSerializerContext { }

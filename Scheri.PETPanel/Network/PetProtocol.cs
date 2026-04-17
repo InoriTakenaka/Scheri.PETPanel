@@ -17,8 +17,10 @@ namespace Scheri.PETPanel.Network
         public PetProtocol()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            OnRev += json => AppLogger.Debug("rev:" + json);
-            OnSend += json => AppLogger.Debug("send:" + json);
+#if DEBUG
+            OnRev += json => AppLogger.Debug("rev:" + json, nameof(PetProtocol));
+            OnSend += json => AppLogger.Debug("send:" + json, nameof(PetProtocol));
+#endif
         }
 
         public void Connect(string destIp, int destPort = 8066, int destUdpPort = 8055)
@@ -67,9 +69,10 @@ namespace Scheri.PETPanel.Network
             await _socketSlim.WaitAsync();
             try
             {
-                _tcpClient = new TcpClient();
-                _tcpClient.ReceiveTimeout = 10000;
-                _tcpClient.SendTimeout = 10000;
+                _tcpClient = new TcpClient {
+                    ReceiveTimeout = 10000,
+                    SendTimeout = 10000
+                };
                 await _tcpClient.ConnectAsync(IPAddress.Parse(_destIp), _destPort);
             }
             finally
@@ -85,7 +88,7 @@ namespace Scheri.PETPanel.Network
             cmd.InsertRange(1, CmdGetStatus.ToAsciiBytes());
             var revCmd = await SendAndRev(cmd.ToArray(), RevGetStatus, false);
             var json = GetJsonFromRevBytes(revCmd, 6);
-            var status = JsonSerializer.Deserialize<StatusInfo>(json);
+            var status = JsonSerializer.Deserialize(json, AppJsonContext.Default.StatusInfo);
             if (status != null)
             {
                 if (status.collect_prompt_count < 0)
@@ -102,7 +105,6 @@ namespace Scheri.PETPanel.Network
                 }
                 status.Cache.Add(status);
             }
-
             StatusInfo = status;
             //OnRev?.Invoke(json);
         }

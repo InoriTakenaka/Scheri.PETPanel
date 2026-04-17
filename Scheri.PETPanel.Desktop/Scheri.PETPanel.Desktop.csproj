@@ -5,7 +5,7 @@
     See https://docs.avaloniaui.net/docs/guides/platforms/platform-specific-code/dotnet for more details.-->
 		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<Platforms>AnyCPU;x64;ARM64</Platforms>
+		<Platforms>AnyCPU;x64</Platforms>
 
 		<PublishTrimmed>true</PublishTrimmed>
 		<TrimMode>full</TrimMode>
@@ -15,7 +15,7 @@
 
 	<PropertyGroup>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<PublishAot>True</PublishAot>
+		<PublishAot>False</PublishAot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,8 +36,7 @@
 	<Target Name="ExcludeVlcX86" BeforeTargets="ComputeFilesToPublish">
 		<ItemGroup>
 			<!-- 过滤掉所有路径中包含 libvlc\x86 的文件 -->
-			<ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
-								   Condition="$([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Contains('libvlc\win-x86'))" />
+			<ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="$([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Contains('libvlc\win-x86'))" />
 		</ItemGroup>
 	</Target>
 </Project>

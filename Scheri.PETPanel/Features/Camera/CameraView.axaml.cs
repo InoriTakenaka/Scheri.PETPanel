@@ -115,5 +115,4 @@ public partial class CameraView : UserControl
         VideoFrame.Source = null;
         _bitmap = null!;
     }
-
 }

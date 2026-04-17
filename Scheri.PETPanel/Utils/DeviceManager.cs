@@ -18,7 +18,7 @@ public class DeviceManager
 
     private DeviceManager()
     {
-        _connection = new TcpConnection(System.Net.IPAddress.Parse("127.0.0.1"), 6001);
+        _connection = new TcpConnection(System.Net.IPAddress.Parse("127.0.0.1"), 8066);
     }
 
     public async Task InitializeAsync(CancellationToken ct = default)

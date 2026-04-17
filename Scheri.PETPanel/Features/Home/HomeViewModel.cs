@@ -34,17 +34,11 @@ public partial class HomeViewModel : ObservableObject
 
     private static async Task<bool> CheckPlcStatus()
     {
-#if DEBUG
-        return true;
-#endif 
         return await ScanTableManager.IsConnected();
     }
 
     private static async Task<bool> CheckCameraStatus()
     {
-#if DEBUG
-        return true;
-#endif 
         //string testingUri = "rtsp://127.0.0.1:8554/test";
         string rtsp = "rtsp://192.168.1.244:554";
         try

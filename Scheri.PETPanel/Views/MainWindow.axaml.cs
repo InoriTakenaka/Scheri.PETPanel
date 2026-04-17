@@ -20,7 +20,7 @@ public partial class MainWindow : Window
         //connect to PLC
         ScanTableManager.Init(_plc);
         //connect to PetTools 
-        PetToolsManager.Init("127.0.0.1");
+        PetToolsManager.Init(_workstation);
         if(PetToolsManager.IsConnected)
             System.Diagnostics.Debug.WriteLine("Connected to PetTools successfully.");
         else

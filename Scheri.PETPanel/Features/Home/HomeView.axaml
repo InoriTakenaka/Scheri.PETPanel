@@ -30,7 +30,7 @@
                         IsEnabled="{Binding PlcStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
                         CommandParameter="{x:Static cp:NavigateType.BedPosAdjust}">
-            <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="Online" StatusColor="#50fa7b" />
+            <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="{Binding PlcStatus.StatusText}" StatusColor="{Binding PlcStatus.StatusColor}" />
         </cp:TileControl>
         <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock" Margin="15,15,30,30"
                         Command="{Binding LockScreenCommand}">
