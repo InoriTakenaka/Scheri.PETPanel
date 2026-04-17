@@ -5,7 +5,7 @@ namespace Scheri.PETPanel.Interfaces
 {
     public interface IDeviceInterface
     {
-        Task Login();
+        Task<bool> Login();
         Task<StatusInfo> GetStates();
         Task GetConfig();
         Task SetConfig();

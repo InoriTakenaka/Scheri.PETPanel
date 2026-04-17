@@ -3,14 +3,24 @@ using Scheri.PETPanel.Network.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Scheri.PETPanel.Utils;
 
+public class DeviceCommand
+{
+    public const string CMD_LOGIN = "CM00";
+    public const string RESP_LOGIN = "SM00";
+    public const string CMD_GET_STATUS = "CM01";
+    public const string RESP_GET_STATUS = "SM01";
+}
+
 public class DeviceManager
 {
     private static readonly Lazy<DeviceManager> _instance = new(() => new DeviceManager());
+    private static List<StatusInfo> _cache = [];
     public static DeviceManager Instance=> _instance.Value;
     public bool IsConnected => _connection.IsConnected;
     private TcpConnection _connection;
@@ -21,7 +31,7 @@ public class DeviceManager
         _connection = new TcpConnection(System.Net.IPAddress.Parse("127.0.0.1"), 8066);
     }
 
-    public async Task InitializeAsync(CancellationToken ct = default)
+    public async Task<bool> InitializeAsync(CancellationToken ct = default)
     {
         if (_isInitialezed) return;
 
@@ -41,5 +51,9 @@ public class DeviceManager
 
         return await _connection.SendAndReceiveAsync(encodeData, onResponse, timeoutMs); 
     }
+
+    
+
+   
 }
 

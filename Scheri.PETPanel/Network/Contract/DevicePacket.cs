@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Scheri.PETPanel.Network.Contract;
 /** Packet Structure:
@@ -19,7 +22,13 @@ public readonly ref struct DevicePacket
     public ReadOnlySpan<byte> Command { get; }
     public ReadOnlySpan<byte> Payload { get; }
 
-    public DevicePacket(ReadOnlySpan<byte> command, ReadOnlySpan<byte> payload)
+    /// <summary>
+    /// Initializes a new instance of the DevicePacket class with the specified command and optional payload.
+    /// </summary>
+    /// <param name="command">A read-only span of bytes representing the command to be sent to the device. Cannot be empty.</param>
+    /// <param name="payload">An optional read-only span of bytes containing the payload data associated with the command. If not specified,
+    /// the payload is empty.</param>
+    public DevicePacket(ReadOnlySpan<byte> command, ReadOnlySpan<byte> payload = default)
     {
         Command = command;
         Payload = payload;
@@ -58,3 +67,8 @@ public readonly ref struct DevicePacket
     }
 }
 
+
+[JsonSerializable(typeof(StatusInfo))]
+internal partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
