@@ -1,12 +1,126 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:cp="using:Scheri.PETPanel.UIComponents"
-             cp:ViewProps.Title="SYSTEM SETTINGS"
-             Background="#D1D9E0"
-             x:Class="Scheri.PETPanel.Features.SettingsView">
-  <TextBlock Text="System Settings" FontFamily="{StaticResource GOST}" 
-             FontWeight="ExtraBold" FontSize="24" Margin="10"/>
+             xmlns:avalonia="using:FluentIcons.Avalonia"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+			 xmlns:cp="clr-namespace:Scheri.PETPanel.UIComponents"
+			 xmlns:sap="clr-namespace:Scheri.PETPanel.Features"
+			 cp:ViewProps.Title="SYSTEM SETTINGS"
+			 x:DataType="sap:SettingsViewModel"
+			 Background="Transparent"
+			 x:Class="Scheri.PETPanel.Features.SettingsView">
+	<Design.DataContext>
+		<!-- 方便預覽時查看效果 -->
+		<sap:SettingsViewModel/>
+	</Design.DataContext>
+
+	<DockPanel Margin="30">
+		<!-- Bottom button group -->
+		<Grid DockPanel.Dock="Bottom"			  Margin="0,30,0,0">
+			<Grid HorizontalAlignment="Right"           ColumnSpacing="20"           Height="60" MaxWidth="400">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" MinWidth="150"/>
+					<ColumnDefinition Width="*" MinWidth="150"/>
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Column="0"
+						Content="DISCARD"
+						Click="OnExitClicked"
+						Height="60"
+						Background="#95A5A6"
+						Foreground="White"
+						CornerRadius="8"
+						HorizontalAlignment="Stretch"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"/>
+
+				<Button Grid.Column="1"
+						Content="SAVE SETTINGS"
+						Command="{Binding UpdateAppSettingsCommand}"
+						Height="60"
+						Background="DarkCyan"
+						Foreground="White"
+						FontWeight="Bold"
+						CornerRadius="8"
+						HorizontalAlignment="Stretch"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"/>
+			</Grid>
+		</Grid>
+
+		<!-- 中間配置卡片區 -->
+		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+			<WrapPanel Orientation="Horizontal" ItemWidth="450">
+				<!-- 卡片風格通用的 Style 可以在資源中定義，這裡為了直觀直接寫 -->
+
+
+
+				<!-- Workstation
+				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
+				<StackPanel Spacing="15">
+				<StackPanel Orientation="Horizontal" Spacing="10">
+				<PathIcon Data="{StaticResource ComputerIcon}" Width="24" Height="24" Foreground="#3498DB"/>
+				<TextBlock Text="WORKSTATION" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+				</StackPanel>
+				<Separator Background="#F0F2F5"/>
+				<TextBlock Text="IP Address" FontSize="14" Foreground="Gray"/>
+				<TextBox Text="{Binding Settings.Workstation.Address}" FontSize="18" Height="50" VerticalContentAlignment="Center"/>
+				<TextBlock Text="Service Port" FontSize="14" Foreground="Gray"/>
+				<NumericUpDown Value="{Binding Settings.Workstation.Port}" FontSize="18" Height="50"/>
+				</StackPanel>
+				</Border>
+				-->
+				<!-- PLC
+				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
+				<StackPanel Spacing="15">
+				<StackPanel Orientation="Horizontal" Spacing="10">
+				<PathIcon Data="{StaticResource CpuIcon}" Width="24" Height="24" Foreground="#E67E22"/>
+				<TextBlock Text="PLC CONNECTION" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+				</StackPanel>
+				<Separator Background="#F0F2F5"/>
+				<TextBlock Text="PLC IP Address" FontSize="14" Foreground="Gray"/>
+				<TextBox Text="{Binding Settings.Plc.Address}" FontSize="18" Height="50" VerticalContentAlignment="Center"/>
+				<TextBlock Text="Modbus Port" FontSize="14" Foreground="Gray"/>
+				<NumericUpDown Value="{Binding Settings.Plc.Port}" FontSize="18" Height="50"/>
+				</StackPanel>
+				</Border>
+				-->
+
+
+				<!-- App Info -->
+				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
+					<StackPanel Spacing="15">
+						<StackPanel Orientation="Horizontal" Spacing="10">
+							<avalonia:SymbolIcon Symbol="BookInformation" Width="24" Height="24" Foreground="#9B59B6"/>
+							<TextBlock Text="APPLICATION INFO" Foreground="DarkCyan" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+						</StackPanel>
+						<Separator Background="#F0F2F5"/>
+						<Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto" ColumnSpacing="20" RowSpacing="15">
+							<StackPanel Grid.Row="0" Grid.Column="0">
+								<TextBlock Text="Organization" FontSize="14" Foreground="DarkCyan" Margin="0,0,0,5"/>
+								<TextBox Text="{Binding Settings.AppInfo.Organization}" FontSize="18" Height="50"/>
+							</StackPanel>
+							<StackPanel Grid.Row="0" Grid.Column="1">
+								<TextBlock Text="Customer" FontSize="14" Foreground="DarkCyan" Margin="0,0,0,5"/>
+								<TextBox Text="{Binding Settings.AppInfo.Customer}" FontSize="18" Height="50"/>
+							</StackPanel>
+							<StackPanel Grid.Row="1" Grid.Column="0">
+								<TextBlock Text="Screen Unlock Password" FontSize="14" Foreground="DarkCyan" Margin="0,0,0,5"/>
+								<TextBox Text="{Binding Settings.AppInfo.Password}" PasswordChar="*" FontSize="18" Height="50"/>
+							</StackPanel>
+							<StackPanel Grid.Row="1" Grid.Column="1">
+								<TextBlock Text="Idle Timeout (s)" FontSize="14" Foreground="DarkCyan" Margin="0,0,0,5"/>
+								<TextBox Text="{Binding Settings.AppInfo.IdleTime}" FontSize="18" Height="50">
+									<TextInputOptions.ContentType>Number</TextInputOptions.ContentType>
+								</TextBox>
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+				</Border>
+			</WrapPanel>
+		</ScrollViewer>
+	</DockPanel>
+
+
 </UserControl>

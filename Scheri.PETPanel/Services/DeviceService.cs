@@ -27,7 +27,6 @@ namespace Scheri.PETPanel.Services
             _connection = new TcpConnection(address, port);
             _connection.OnConnected += () => AppLogger.Info("Device connected!");
             _connection.OnDisconnected += () => AppLogger.Info("Device disconnected!");
-
         }
 
         public async void InitializeDeviceService()

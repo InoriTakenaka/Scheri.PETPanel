@@ -29,10 +29,13 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" />
 		<PackageReference Include="FluentIcons.Avalonia" />
 		<PackageReference Include="LibVLCSharp" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="NModbus" />
+		<PackageReference Include="Splat" />
 	</ItemGroup>
 
 	<ItemGroup>

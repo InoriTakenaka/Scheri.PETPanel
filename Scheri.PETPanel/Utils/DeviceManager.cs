@@ -31,7 +31,7 @@ public class DeviceManager
         _connection = new TcpConnection(System.Net.IPAddress.Parse("127.0.0.1"), 8066);
     }
 
-    public async Task<bool> InitializeAsync(CancellationToken ct = default)
+    public async Task InitializeAsync(CancellationToken ct = default)
     {
         if (_isInitialezed) return;
 
@@ -50,10 +50,6 @@ public class DeviceManager
         byte[] encodeData = request.ToBytes();
 
         return await _connection.SendAndReceiveAsync(encodeData, onResponse, timeoutMs); 
-    }
-
-    
-
-   
+    }  
 }
 

@@ -8,9 +8,9 @@
 			 xmlns:cp="using:Scheri.PETPanel.UIComponents"
 			 mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
 			 x:Class="Scheri.PETPanel.Views.MainView"
-			 x:DataType="vm:MainViewModel">
+			 x:DataType="vm:MainViewModel" Background="#F0F4F8">
 	<Grid>
-		<!-- App background -->
+		<!-- App background 
 		<Border Name="BreathingLayer" Background="#C3CFD9" Opacity="0.1">
 			<Border.Effect>
 				<DropShadowEffect Color="#C3CFD9" BlurRadius="50" Opacity="0.8" OffsetX="0" OffsetY="0"/>
@@ -31,7 +31,7 @@
 					</Style.Animations>
 				</Style>
 			</Border.Styles>
-		</Border>
+		</Border>  -->
 
 		<!-- Mainview content -->
 		<DockPanel>
@@ -86,7 +86,7 @@
 			<!-- content -->
 			<TransitioningContentControl Content="{Binding CurrentView}" Background="Transparent">
 				<TransitioningContentControl.PageTransition>
-					<PageSlide Duration="0:0:0.4" Orientation="Horizontal"/>
+					<PageSlide Duration="0:0:0.2" Orientation="Horizontal"/>
 				</TransitioningContentControl.PageTransition>
 			</TransitioningContentControl>
 

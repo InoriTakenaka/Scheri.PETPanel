@@ -10,14 +10,17 @@
              x:DataType="sap:HomeViewModel"
              x:Class="Scheri.PETPanel.Features.HomeView">
     <Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*"  Background="Transparent">
-        <cp:TileControl Grid.Row="0" Grid.Column="0" Label="Settings" BackgroundEnd="#0D2C54" Margin="30,30,15,15"
-                        Command="{Binding NavigateCommand}" CommandParameter="{x:Static cp:NavigateType.Settings}">
-            <f:SymbolIcon Symbol="Settings" FontSize="72" Foreground="White" />
-        </cp:TileControl>
-        <cp:TileControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,30,30,15"
+                
+        <cp:TileControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="30,30,15,15"
                         Label="System Status" BackgroundEnd="#107C10" BackgroundStart="#9BF00B">
             <sap:SystemStatusSummary HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         </cp:TileControl>
+
+        <cp:TileControl Grid.Row="0" Grid.Column="2" Label="Screen Lock" Margin="15,30,30,15"
+                        Command="{Binding LockScreenCommand}">
+            <f:SymbolIcon Symbol="LockClosed" FontSize="72" Foreground="White" />
+        </cp:TileControl>
+
         <cp:TileControl Grid.Row="1" Grid.Column="0" Label="Camera" Margin="30,15,15,30"
                         IsEnabled="{Binding CameraStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
@@ -26,15 +29,18 @@
                            StatusText="{Binding CameraStatus.StatusText}" 
                            StatusColor="{Binding CameraStatus.StatusColor}" />
         </cp:TileControl>
+
         <cp:TileControl Grid.Row="1" Grid.Column="1" Label="PLC Status" Margin="15,15,15,30"
                         IsEnabled="{Binding PlcStatus.IsConnected}"
                         Command="{Binding NavigateCommand}" 
                         CommandParameter="{x:Static cp:NavigateType.BedPosAdjust}">
-            <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="{Binding PlcStatus.StatusText}" StatusColor="{Binding PlcStatus.StatusColor}" />
+            <cp:StatusCard Symbol="Bed" Header="Bed Pos Adjust" StatusText="{Binding PlcStatus.StatusText}"
+                           StatusColor="{Binding PlcStatus.StatusColor}" />
         </cp:TileControl>
-        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Screen Lock" Margin="15,15,30,30"
-                        Command="{Binding LockScreenCommand}">
-            <f:SymbolIcon Symbol="LockClosed" FontSize="72" Foreground="White" />
+
+        <cp:TileControl Grid.Row="1" Grid.Column="2" Label="Settings" BackgroundEnd="#0D2C54" Margin="30,15,30,30"
+                        Command="{Binding NavigateCommand}" CommandParameter="{x:Static cp:NavigateType.Settings}">
+            <f:SymbolIcon Symbol="Settings" FontSize="72" Foreground="White" />
         </cp:TileControl>
     </Grid>
 </UserControl>

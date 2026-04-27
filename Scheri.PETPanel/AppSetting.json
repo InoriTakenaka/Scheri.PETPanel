@@ -1,0 +1,16 @@
+﻿{
+  "workstation": {
+    "address": "192.168.1.80",
+    "port": 8066
+  },
+  "plc": {
+    "address": "192.168.1.88",
+    "port": 502
+  },
+  "appinfo": {
+    "password": "000000",
+    "idleTime": 300,
+    "organization": "xxxxxx",
+    "customer": "xxxxx"
+  }
+}

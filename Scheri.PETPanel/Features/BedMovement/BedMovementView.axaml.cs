@@ -1,7 +1,5 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Scheri.PETPanel.Utils;
 using System;
@@ -13,6 +11,7 @@ namespace Scheri.PETPanel.Features;
 public partial class BedMovementView : UserControl
 {
     private bool _isClosed = false;
+    private BedMovementViewModel _viewModel = new();
     public BedMovementView()
     {
         InitializeComponent();
@@ -23,6 +22,7 @@ public partial class BedMovementView : UserControl
 
         Loaded+= BedMovementView_Loaded;   
         Unloaded += BedMovementView_Unloaded;
+        DataContext = _viewModel;
     }
 
     private void BedMovementView_Unloaded(object? sender, RoutedEventArgs e)

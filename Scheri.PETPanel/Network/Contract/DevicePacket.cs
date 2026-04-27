@@ -55,7 +55,7 @@ public readonly ref struct DevicePacket
 
     public byte[] ToBytes()
     {
-        int totalLength = 1 + 4 + Payload.Length + 1;
+        int totalLength = 1 + Command.Length + Payload.Length + 1;
         byte[] packet = new byte[totalLength];
 
         packet[0] = StartMarker; // 0x0F

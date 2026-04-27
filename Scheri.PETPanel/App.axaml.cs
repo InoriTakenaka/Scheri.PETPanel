@@ -1,16 +1,15 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using Scheri.PETPanel.UIComponents;
+using Scheri.PETPanel.Utils;
 using Scheri.PETPanel.ViewModels;
 using Scheri.PETPanel.Views;
 using System;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Scheri.PETPanel;
 
@@ -24,12 +23,10 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        InitNetworkConnections();
         ConfigureServices();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
-            DisableAvaloniaDataAnnotationValidation();
+        {           
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainViewModel()
@@ -46,19 +43,6 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void DisableAvaloniaDataAnnotationValidation()
-    {
-        // Get an array of plugins to remove
-        var dataValidationPluginsToRemove =
-            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
-
-        // remove each entry found
-        foreach (var plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
-    }
-
     public static void ConfigureServices()
     {
         var services = new ServiceCollection();
@@ -73,4 +57,21 @@ public partial class App : Application
         });
         ServiceProvider = services.BuildServiceProvider();
     }
+
+    private void InitNetworkConnections()
+    {
+        try
+        {
+            string plc = "192.168.1.88";
+            string workstation = "192.168.1.80";
+            Task.Run(() => {
+                ScanTableManager.Init(plc);
+                PetToolsManager.Init(workstation);                
+            });
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Error(ex.Message, nameof(App));
+        }
+    }    
 }

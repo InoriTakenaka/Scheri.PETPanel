@@ -82,6 +82,3 @@ public class StatusInfo
     }
 
 }
-
-[JsonSerializable(typeof(StatusInfo))]
-public partial class AppJsonContext : JsonSerializerContext { }

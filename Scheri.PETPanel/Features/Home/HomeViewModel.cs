@@ -16,7 +16,7 @@ namespace Scheri.PETPanel.Features;
 
 public partial class HomeViewModel : ObservableObject
 {
-    public DeviceStatusViewModel PlcStatus { get; } = new DeviceStatusViewModel("PLC", CheckPlcStatus);
+    public DeviceStatusViewModel PlcStatus { get; } = new DeviceStatusViewModel("PLC",()=> Task.FromResult(true));
     public DeviceStatusViewModel CameraStatus { get; } = new DeviceStatusViewModel("Camera", CheckCameraStatus);
 
     [RelayCommand]

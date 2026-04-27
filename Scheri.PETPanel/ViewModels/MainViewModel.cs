@@ -36,13 +36,14 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
 
     public MainViewModel()
     {
+        
         WeakReferenceMessenger.Default.Register(this);
-
         _autolockTimer = new DispatcherTimer {
             Interval = TimeSpan.FromSeconds(1)
         };
         _autolockTimer.Tick += AutolockTimer_Tick;    
         _autolockTimer.Start();
+        AppTitle = "HOME";
     }
 
     [RelayCommand]
