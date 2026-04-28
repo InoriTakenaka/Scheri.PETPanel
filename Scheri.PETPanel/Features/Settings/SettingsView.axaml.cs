@@ -10,8 +10,7 @@ public partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
-        DataContext = _viewModel;
-        
+        DataContext = _viewModel;        
     }
 
     private void OnExitClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

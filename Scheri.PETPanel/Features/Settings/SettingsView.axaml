@@ -11,7 +11,7 @@
 			 Background="Transparent"
 			 x:Class="Scheri.PETPanel.Features.SettingsView">
 	<Design.DataContext>
-		<!-- 方便預覽時查看效果 -->
+		<!-- Preview -->
 		<sap:SettingsViewModel/>
 	</Design.DataContext>
 
@@ -49,13 +49,10 @@
 			</Grid>
 		</Grid>
 
-		<!-- 中間配置卡片區 -->
+		<!-- configuration card area -->
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 			<WrapPanel Orientation="Horizontal" ItemWidth="450">
-				<!-- 卡片風格通用的 Style 可以在資源中定義，這裡為了直觀直接寫 -->
-
-
-
+			
 				<!-- Workstation
 				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
 				<StackPanel Spacing="15">

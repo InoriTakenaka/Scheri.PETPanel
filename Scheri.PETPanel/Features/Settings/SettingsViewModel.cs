@@ -3,11 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Scheri.PETPanel.Interfaces;
 using Scheri.PETPanel.Utils;
 using Splat;
-using System;
-using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Runtime;
-using System.Text;
 
 namespace Scheri.PETPanel.Features
 {
