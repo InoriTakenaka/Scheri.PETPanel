@@ -7,6 +7,7 @@ using Android.Views;
 using Avalonia;
 using Avalonia.Android;
 using Scheri.PETPanel.Interfaces;
+using Scheri.PETPanel.Services;
 using Scheri.PETPanel.Utils;
 using Splat;
 
@@ -38,6 +39,7 @@ public class MainActivity : AvaloniaMainActivity<App>
 
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
+        Locator.CurrentMutable.RegisterLazySingleton<INotificationService>(() => new AppNotificationService());
         Locator.CurrentMutable.RegisterLazySingleton<IConfigurationService>(() => new AppConfigurationService());
         return base.CustomizeAppBuilder(builder)
             .WithInterFont();

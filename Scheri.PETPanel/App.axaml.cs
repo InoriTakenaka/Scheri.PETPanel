@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Notifications;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ namespace Scheri.PETPanel;
 
 public partial class App : Application
 {
+    public static WindowNotificationManager? NotificationManager;
     public static IServiceProvider? ServiceProvider { get; private set; }
     public override void Initialize()
     {

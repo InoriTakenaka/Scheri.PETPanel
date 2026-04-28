@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Scheri.PETPanel.Utils;
@@ -12,6 +13,7 @@ namespace Scheri.PETPanel.Views;
 
 public partial class MainView : UserControl
 {
+    public WindowNotificationManager? _notificationManager;
     public static MainView? Instance { get; private set; }
     public MainViewModel? ViewModel => DataContext as MainViewModel;
     public MainView()
@@ -19,6 +21,11 @@ public partial class MainView : UserControl
         InitializeComponent();
         Instance = this;
 
+        var topLevel = TopLevel.GetTopLevel(this);
+        _notificationManager = new WindowNotificationManager(topLevel) {
+            Position = NotificationPosition.TopRight,
+            MaxItems = 2
+        };
         //AddHandler(PointerPressedEvent, (s, e) => {
         //    ViewModel?.ResetTimer();
         //}, RoutingStrategies.Tunnel);
@@ -32,6 +39,7 @@ public partial class MainView : UserControl
     {
         base.OnAttachedToVisualTree(e);
         if (DataContext is MainViewModel viewModel) viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        App.NotificationManager = _notificationManager;
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
