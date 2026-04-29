@@ -43,8 +43,7 @@ public partial class BedMovementView : UserControl
             {
                 await Task.Delay(100);
                 await Dispatcher.UIThread.InvokeAsync(() => {
-                    BedPosition.Text = ((int)Math.Round(ScanTableManager.Instance.SActualPos, MidpointRounding.AwayFromZero))
-                                     .ToString(CultureInfo.InvariantCulture);
+                    BedPosition.Text = ScanTableManager.Instance.SActualPos.ToString("F2", CultureInfo.InvariantCulture);
                 });
             }
             catch 
