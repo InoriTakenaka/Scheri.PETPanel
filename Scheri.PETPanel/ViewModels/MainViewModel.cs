@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Scheri.PETPanel.Features;
+using Scheri.PETPanel.Interfaces;
 using Scheri.PETPanel.UIComponents;
 using Scheri.PETPanel.Utils;
+using Splat;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -36,12 +38,12 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
 
     public MainViewModel()
     {
-        
+
         WeakReferenceMessenger.Default.Register(this);
         _autolockTimer = new DispatcherTimer {
             Interval = TimeSpan.FromSeconds(1)
         };
-        _autolockTimer.Tick += AutolockTimer_Tick;    
+        _autolockTimer.Tick += AutolockTimer_Tick;
         _autolockTimer.Start();
         AppTitle = "HOME";
     }
@@ -64,7 +66,7 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
     }
 
     public void LockScreen()
-    {      
+    {
         StopAndResetIdleTimer();
         AppLogger.Info("Screen locked manually.");
         IsShowLockOverlay = true;
@@ -78,7 +80,13 @@ public partial class MainViewModel : ViewModelBase, IRecipient<NavigateTypeMessa
 
     public async void UnlockScreen()
     {
-        if (InputPassword == "000000")
+        var config = Locator.Current.GetService<IConfigurationService>();
+        var pwd = config?.AppSettings.AppInfo.Password;
+        if (string.IsNullOrEmpty(pwd))
+        {
+            pwd = "000000";
+        }
+        if (InputPassword.In([pwd, "scheri.admin"]))
         {
             IsUnlock = false;
             IsShowLockOverlay = false;

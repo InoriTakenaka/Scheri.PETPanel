@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Xml;
@@ -26,6 +27,11 @@ namespace Scheri.PETPanel.Utils
         public static string ToJsonWithFormat(this object obj,JsonSerializerOptions options)
         {
             return JsonSerializer.Serialize(obj, options);
+        }
+
+        public static bool In(this string str, string[] values)
+        {
+            return values.Contains(str);
         }
     }
 }
