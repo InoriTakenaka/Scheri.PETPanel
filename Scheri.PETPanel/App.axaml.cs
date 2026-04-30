@@ -65,10 +65,10 @@ public partial class App : Application
         try
         {
             string plc = "192.168.1.88";
-            string workstation = "192.168.1.80";
-            Task.Run(() => {
+            
+            Task.Run(async () => {
                 ScanTableManager.Init(plc);
-                PetToolsManager.Init(workstation);                
+                await DeviceManager.Instance.InitializeAsync();                
             });
         }
         catch (Exception ex)

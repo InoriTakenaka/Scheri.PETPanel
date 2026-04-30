@@ -41,30 +41,32 @@ public partial class StatusPanelViewModel : ObservableObject
 
     void UpdateStatus()
     {
-        if (PetToolsManager.StatusInfo != null)
+        var cachedStatus = DeviceManager.Instance.Cache.ToArray();
+        int count = cachedStatus.Length;
+        if (count > 0)
         {
-            var lastedState = PetToolsManager.StatusInfo.Cache.Take(3);
-            var statusInfos = lastedState as StatusInfo[] ?? lastedState.ToArray();
-            if (statusInfos.Length == 3)
+            var latest = cachedStatus[count - 1];
+            CrystalAvgTemprature = latest.temp_avg.ToString("0.0") + " ℃";
+            IsConnected = DeviceManager.Instance.IsConnected;
+
+            if (count >= 3)
             {
-                var promptCountSum = statusInfos.LastOrDefault().collect_prompt_count -
-                                     statusInfos.FirstOrDefault().collect_prompt_count;
-                var randomCountSum = statusInfos.LastOrDefault().collect_random_count -
-                                     statusInfos.FirstOrDefault().collect_random_count;
-                var duration =
-                    (statusInfos.LastOrDefault().last_update_ts - statusInfos.FirstOrDefault().last_update_ts) / 1000;
-
-                PromptCountValue = promptCountSum / duration / 1000f;
-
-                if (PromptCountValue < 0)
-                    PromptCountValue = 0;
-
-                PromptCount = PromptCountValue.ToString("0.00") + "K";
-
+                var first = cachedStatus[count - 3];
+                var last = cachedStatus[count - 1];
+                var duration = (last.last_update_ts - first.last_update_ts) / 1000.0;
+                if (duration > 0)
+                {
+                    var promptCountSum = last.collect_prompt_count - first.collect_prompt_count;
+                    PromptCountValue = (float)(promptCountSum / duration / 1000.0);
+                    if (PromptCountValue < 0) PromptCountValue = 0;
+                    PromptCount = PromptCountValue.ToString("0.00") + " K/s";
+                }
             }
-
-            CrystalAvgTemprature = PetToolsManager.StatusInfo.temp_avg.ToString("0.0") + "℃";
-            IsConnected = PetToolsManager.IsConnected && ScanTableManager.Instance.IsConnected;
+            else
+            {
+                PromptCount = "0.00 K/s";
+            }
+            IsConnected = DeviceManager.Instance.IsConnected;
         }
         else
         {
@@ -72,7 +74,7 @@ public partial class StatusPanelViewModel : ObservableObject
             CrystalAvgTemprature = "N/A";
             PromptCount = "N/A";
         }
-    } 
+    }
 }
 
 public class BoolToBrushConverter : IValueConverter

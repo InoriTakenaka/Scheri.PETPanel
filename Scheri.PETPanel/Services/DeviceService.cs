@@ -3,7 +3,9 @@ using Scheri.PETPanel.Network;
 using Scheri.PETPanel.Network.Contract;
 using Scheri.PETPanel.Utils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,63 +21,99 @@ namespace Scheri.PETPanel.Services
     {
         private TcpConnection _connection;
         private bool _isLogin;
-
-        public List<StatusInfo> Cache { get; private set; } = [];
+        private readonly SemaphoreSlim _loginLock = new SemaphoreSlim(1, 1);
+        public bool IsConnected { get => _isLogin; }
+        public ConcurrentQueue<StatusInfo> StatusCache { get; private set; } = [];
+        public const int MAX_CACHE_COUNT = 10;
 
         public DeviceService(IPAddress address, int port)
         {
             _connection = new TcpConnection(address, port);
-            _connection.OnConnected += () => AppLogger.Info("Device connected!");
-            _connection.OnDisconnected += () => AppLogger.Info("Device disconnected!");
+            _connection.OnConnected += async () => {
+
+                AppLogger.Info("Device connected, Attempting login...");
+                await TryLoginAsync();
+            };
+            _connection.OnDisconnected += async () => {
+                _isLogin = false;
+                AppLogger.Info("Device disconnected!");
+            };
         }
 
         public async void InitializeDeviceService()
         {
             await _connection.StartAsync();
-            try
-            {
-                _isLogin = await Login(5000);
-                if (_isLogin)
-                {
-                    StartPollingDeviceStatus();
-                }
-            }
-            catch (Exception)
-            {
-                AppLogger.Error("Failed to login to device after connecting.", nameof(DeviceService));
-            }
+
+            StartPollingDeviceStatus();
         }
 
         public async Task<bool> Login(int timeout)
         {
-            if (!_connection.IsConnected) throw new InvalidOperationException("Device is not connected.");
-
-            using var cst = new CancellationTokenSource(timeout);
-            var tcs = new TaskCompletionSource<bool>();
-            using var registration = cst.Token.Register(() => tcs.TrySetCanceled(), useSynchronizationContext: false);
-
-            var encodeData = BuildCommand(DeviceCommand.CMD_LOGIN, [0x30]);
-
-            bool success = await _connection.SendAndReceiveAsync(
-                data: encodeData,
-                onResponse: response => {
-                    bool loginResult = false;
-                    if (response.Command.SequenceEqual(Encoding.ASCII.GetBytes(DeviceCommand.RESP_LOGIN)))
-                    {
-                        loginResult = true;
-                        tcs.TrySetResult(loginResult);
-                        AppLogger.Info("Login successful.");
-                    }
-                });
-
-            if (!success)
+            await _loginLock.WaitAsync();
+            try
             {
-                AppLogger.Warn("Failed to send login command.");
-                return false;
-            }
-            return await tcs.Task;
-        }
+                if (!_connection.IsConnected) throw new InvalidOperationException("Device is not connected.");
 
+                using var cst = new CancellationTokenSource(timeout);
+                var tcs = new TaskCompletionSource<bool>();
+                using var registration = cst.Token.Register(() => tcs.TrySetCanceled(), useSynchronizationContext: false);
+
+                var encodeData = BuildCommand(DeviceCommand.CMD_LOGIN, [0x30]);
+
+                bool anyResponse = await _connection.SendAndReceiveAsync(
+                    data: encodeData,
+                    onResponse: response => {
+                        if (response.Command.SequenceEqual(Encoding.ASCII.GetBytes(DeviceCommand.RESP_LOGIN)))
+                        {
+                            tcs.TrySetResult(true);
+                            AppLogger.Info("Login successful.");
+                        }
+                    });
+
+                if (!anyResponse)
+                {
+                    AppLogger.Warn("Failed to send login command.");
+                    return false;
+                }
+
+                try
+                {
+                    return await tcs.Task;
+                }
+                catch (TaskCanceledException)
+                {
+                    AppLogger.Warn("Login response timed out.");
+                    return false;
+                }
+            }
+            finally
+            {
+                _loginLock.Release();
+            }
+
+        }
+        public async Task TryLoginAsync()
+        {
+            try
+            {
+                if (_isLogin) return;
+                int retryCount = 0;
+                while (!_isLogin && _connection.IsConnected && retryCount < 3)
+                {
+                    _isLogin = await Login(5000);
+                    if (_isLogin && _connection.IsConnected) break;
+                    retryCount++;
+                    await Task.Delay(2000);
+                }
+                if (!_isLogin)
+                    AppLogger.Warn("Login failed after multiple attempts."); return;
+
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Error($"Login attempt failed: {ex.Message}");
+            }
+        }
         public void StartPollingDeviceStatus(int intervalMs = 200)
         {
             Task.Run(async () => {
@@ -83,15 +121,27 @@ namespace Scheri.PETPanel.Services
                 {
                     try
                     {
-                        if (_connection.IsConnected)
+                        if (!_connection.IsConnected)
                         {
-                            await GetStatusAsync();
-                            await Task.Delay(intervalMs);
-                        }
-                        else
-                        {
+                            _isLogin= false;
                             await Task.Delay(1000);
+                            continue;
                         }
+                        if (!_isLogin)
+                        {
+                            AppLogger.Warn("Not logged in, attempting to login...");
+                            _isLogin = await Login(5000);
+                            if(!_isLogin)
+                            {
+                                AppLogger.Warn("Login failed, will retry in 3s.");
+                                await Task.Delay(3000);
+                                continue;
+                            }
+                        }
+
+                        //after login, get status every 200ms
+                        await GetStatusAsync(3000);
+                        await Task.Delay(intervalMs);
                     }
                     catch (Exception ex)
                     {
@@ -102,7 +152,7 @@ namespace Scheri.PETPanel.Services
             });
         }
 
-        private async Task GetStatusAsync(int timeoutMs = 5000)
+        public async Task GetStatusAsync(int timeoutMs = 5000)
         {
             if (!_connection.IsConnected) throw new InvalidOperationException("Device is not connected.");
 
@@ -140,8 +190,12 @@ namespace Scheri.PETPanel.Services
                 }
                 else
                 {
-                    Cache.Add(statusInfo);
-                    AppLogger.Info($"Status info cached. Total: {Cache.Count}");
+                    StatusCache.Enqueue(statusInfo);
+                    while (StatusCache.Count>MAX_CACHE_COUNT)
+                    {
+                        StatusCache.TryDequeue(out _);
+                    }
+                    AppLogger.Info($"Status info cached. Total: {StatusCache.Count}");
                 }
             }
             catch (JsonException ex)
@@ -150,29 +204,19 @@ namespace Scheri.PETPanel.Services
             }
         }
 
-        public static byte[] BuildCommand(string command, byte[]? payload = null)
+        private static byte[] BuildCommand(string command, byte[]? payload = null)
         {
             ReadOnlySpan<byte> cmd = Encoding.ASCII.GetBytes(command);
             var packet = new DevicePacket(cmd, payload ?? Array.Empty<byte>());
             return packet.ToBytes();
         }
 
-        public Task<bool> Login()
+        public Task GetDeviceConfig()
         {
             throw new NotImplementedException();
         }
 
-        public Task<StatusInfo> GetStates()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetConfig()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SetConfig()
+        public Task SetDeviceConfig()
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,11 @@
-﻿using Scheri.PETPanel.Network;
+﻿using Scheri.PETPanel.Interfaces;
+using Scheri.PETPanel.Network;
 using Scheri.PETPanel.Network.Contract;
+using Scheri.PETPanel.Services;
+using Splat;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -20,36 +24,25 @@ public class DeviceCommand
 public class DeviceManager
 {
     private static readonly Lazy<DeviceManager> _instance = new(() => new DeviceManager());
-    private static List<StatusInfo> _cache = [];
-    public static DeviceManager Instance=> _instance.Value;
-    public bool IsConnected => _connection.IsConnected;
-    private TcpConnection _connection;
-    private bool _isInitialezed = false;
+    private DeviceService _deviceService;
+    public static DeviceManager Instance => _instance.Value;
+    public IEnumerable<StatusInfo> Cache => Instance._deviceService.StatusCache;
+    public bool IsConnected => Instance._deviceService.IsConnected;
+    private DeviceManager() { }
 
-    private DeviceManager()
+    public async Task InitializeAsync()
     {
-        _connection = new TcpConnection(System.Net.IPAddress.Parse("127.0.0.1"), 8066);
+        //workstation IP address
+        string ip = "192.168.1.80";
+        int port = 8066;
+        var config = Locator.Current.GetService<IConfigurationService>();
+        if (config!=null)
+        {
+            ip = config.AppSettings.Workstation.Address;
+            port = config.AppSettings.Workstation.Port;
+        }
+        _deviceService = new DeviceService(IPAddress.Parse(ip), port);
+        _deviceService.InitializeDeviceService();
     }
-
-    public async Task InitializeAsync(CancellationToken ct = default)
-    {
-        if (_isInitialezed) return;
-
-        _connection.OnConnected += () => AppLogger.Info("Device connected!");
-        _connection.OnDisconnected += () => AppLogger.Info("Device disconnected!");
-
-        await _connection.StartAsync(ct);
-        _isInitialezed = true;
-    }
-
-    public async Task<bool> ExcuteCommandAsync(byte[] command, byte[] payload, Action<DevicePacket> onResponse, int timeoutMs = 5000)
-    {
-        if(!_connection.IsConnected) return false;
-
-        var request = new DevicePacket(command,payload);
-        byte[] encodeData = request.ToBytes();
-
-        return await _connection.SendAndReceiveAsync(encodeData, onResponse, timeoutMs); 
-    }  
 }
 
