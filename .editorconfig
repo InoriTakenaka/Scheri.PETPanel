@@ -156,23 +156,36 @@ csharp_style_unused_value_expression_statement_preference = discard_variable
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace
 
-# New line preferences
-csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true
-csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true
-csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true
-csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true
+# --- 核心紧凑风格 (大括号不换行) ---
+
+# 所有的左大括号 { 都不再另起一行，而是跟在语句后面 (K&R 风格)
+csharp_new_line_before_open_brace = none
+
+# catch, else, finally 紧跟在结束大括号 } 后面，不另起一行
+csharp_new_line_before_catch = false
+csharp_new_line_before_else = false
+csharp_new_line_before_finally = false
+
+# --- 初始化与查询紧凑化 ---
+
+# 匿名类型和对象初始化成员允许放在同一行
+csharp_new_line_before_members_in_anonymous_types = false
+csharp_new_line_before_members_in_object_initializers = false
+
+# LINQ 查询子句尽量放在同一行
+csharp_new_line_between_query_expression_clauses = false
+
+# --- 进阶紧凑技巧 (强烈推荐) ---
+
+# 允许简单的属性、方法写在同一行
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false
 csharp_style_allow_embedded_statements_on_same_line_experimental = true
 
-#### C# Formatting Rules ####
+# 允许单行的代码块（比如 { return; }）不被自动拆分成多行
+csharp_preserve_single_line_blocks = true
 
-# New line preferences
-csharp_new_line_before_catch = true
-csharp_new_line_before_else = true
-csharp_new_line_before_finally = true
-csharp_new_line_before_members_in_anonymous_types = true
-csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_open_brace = types,methods,control_blocks
-csharp_new_line_between_query_expression_clauses = true
+# 允许单行的表达式（如 => x）不换行
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false
 
 # Indentation preferences
 csharp_indent_block_contents = true

@@ -25,19 +25,17 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        InitNetworkConnections();
         ConfigureServices();
+        InitNetworkConnections();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {           
-            desktop.MainWindow = new MainWindow
-            {
+        {
+            desktop.MainWindow = new MainWindow {
                 DataContext = new MainViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
-            {
+            singleViewPlatform.MainView = new MainView {
                 DataContext = new MainViewModel()
             };
         }
@@ -50,11 +48,10 @@ public partial class App : Application
         var services = new ServiceCollection();
         services.AddSingleton<IMenuConfig, PETPanelMenuConfig>();
         services.AddTransient<MenuControlViewModel>();
-        services.AddLogging(loggingBuilder =>
-        {
+        services.AddLogging(loggingBuilder => {
             loggingBuilder.ClearProviders();
             loggingBuilder.AddNLog(new NLogProviderOptions {
-                IncludeScopes = true 
+                IncludeScopes = true
             });
         });
         ServiceProvider = services.BuildServiceProvider();
@@ -62,18 +59,19 @@ public partial class App : Application
 
     private void InitNetworkConnections()
     {
-        try
-        {
-            string plc = "192.168.1.88";
-            
-            Task.Run(async () => {
+
+        string plc = "192.168.1.88";
+
+        Task.Run(async () => {
+            try
+            {
                 ScanTableManager.Init(plc);
-                await DeviceManager.Instance.InitializeAsync();                
-            });
-        }
-        catch (Exception ex)
-        {
-            AppLogger.Error(ex.Message, nameof(App));
-        }
-    }    
+                await DeviceManager.Instance.InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Error(ex.Message, nameof(App));
+            }
+        });
+    }
 }

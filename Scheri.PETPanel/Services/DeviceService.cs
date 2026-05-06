@@ -181,9 +181,12 @@ namespace Scheri.PETPanel.Services
                 return;
             }
 
+            var cleanJson = jsonResult[1..^2];
+
             try
             {
-                var statusInfo = JsonSerializer.Deserialize(jsonResult, AppJsonSerializerContext.Default.StatusInfo);
+                
+                var statusInfo = JsonSerializer.Deserialize(cleanJson, AppJsonSerializerContext.Default.StatusInfo);
                 if (statusInfo == null)
                 {
                     AppLogger.Warn("Failed to deserialize status info from JSON.");
@@ -200,7 +203,7 @@ namespace Scheri.PETPanel.Services
             }
             catch (JsonException ex)
             {
-                AppLogger.Error($"JSON deserialization error: {ex.Message}");
+                AppLogger.Error($"JSON deserialization error: {ex.Message}, json data: {cleanJson}");
             }
         }
 

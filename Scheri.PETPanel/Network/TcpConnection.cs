@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace Scheri.PETPanel.Network;
 
-class TcpConnection : IDisposable
-{
+class TcpConnection : IDisposable {
     public event Action<string> OnSend;
     public event Action<string> OnReceive;
     public event Action? OnStartConnect;
@@ -47,21 +46,18 @@ class TcpConnection : IDisposable
     private readonly IPEndPoint _endPoint;
     private TcpClient? _client;
 
-    public TcpConnection(IPAddress address, int port)
-    {
+    public TcpConnection(IPAddress address, int port) {
         _endPoint = new IPEndPoint(address, port);
         OnSend += s => Console.WriteLine($"{DateTime.Now.ToShortTimeString}|SEND|{s}");
         OnReceive += s => Console.WriteLine($"{DateTime.Now.ToShortTimeString}|RECEIVE|{s}");
     }
 
-    public async Task StartAsync(CancellationToken token = default)
-    {
+    public async Task StartAsync(CancellationToken token = default) {
         _connectionCTS = CancellationTokenSource.CreateLinkedTokenSource(token);
         await BeginConnectAsync(_connectionCTS.Token);
     }
 
-    public void Stop()
-    {
+    public void Stop() {
         _connectionCTS?.Cancel();
         _connectionCTS = null;
         _healthCheckCTS?.Cancel();
@@ -69,12 +65,9 @@ class TcpConnection : IDisposable
         Disconnect();
     }
 
-    private async Task BeginConnectAsync(CancellationToken token)
-    {
-        while (!token.IsCancellationRequested)
-        {
-            try
-            {
+    private async Task BeginConnectAsync(CancellationToken token) {
+        while (!token.IsCancellationRequested) {
+            try {
                 await _connectLock.WaitAsync(token);
                 if (_isConnected) return;
                 using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(token);
@@ -82,34 +75,25 @@ class TcpConnection : IDisposable
 
                 await ConnectAsync(timeoutCts.Token);
                 OnConnected?.Invoke();
-                if (_enableHealthCheck)
-                {
+                if (_enableHealthCheck) {
                     _healthCheckCTS = new CancellationTokenSource();
                     _ = Task.Run(() => HealthCheckAsync(_healthCheckCTS.Token), token);
                 }
 
                 return;
-            }
-            catch (OperationCanceledException) when (!token.IsCancellationRequested)
-            {
+            } catch (OperationCanceledException) when (!token.IsCancellationRequested) {
                 await Task.Delay(ReconnectDelay, token);
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 OnConnectionFailed?.Invoke(ex);
                 await Task.Delay(ReconnectDelay, token);
-            }
-            finally
-            {
+            } finally {
                 _connectLock.Release();
             }
         }
     }
 
-    private async Task ConnectAsync(CancellationToken token)
-    {
-        try
-        {
+    private async Task ConnectAsync(CancellationToken token) {
+        try {
             Disconnect();
 
             var client = new TcpClient();
@@ -119,47 +103,38 @@ class TcpConnection : IDisposable
 
             _client = client;
             _isConnected = true;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             _isConnected = false;
             AppLogger.Error(ex.Message, ToString());
             throw new Exception($"Failed to connect to {_endPoint.Address}:{_endPoint.Port}. {ex.Message}", ex);
         }
     }
 
-    private async Task HealthCheckAsync(CancellationToken token)
-    {
+    private async Task HealthCheckAsync(CancellationToken token) {
 
     }
 
-    public async Task<bool> SendAndReceiveAsync(ReadOnlyMemory<byte> data, Action<DevicePacket> onResponse, int timeoutMS = 5000)
-    {
+    public async Task<bool> SendAndReceiveAsync(ReadOnlyMemory<byte> data, Action<DevicePacket> onResponse, int timeoutMS = 5000) {
         if (!_isConnected || _client == null) return false;
 
         using var cts = new CancellationTokenSource(timeoutMS);
         var stream = _client.GetStream();
 
         await _streamLock.WaitAsync(cts.Token);
-        try
-        {
+        try {
             await stream.WriteAsync(data).ConfigureAwait(false);
 
-            while (!cts.IsCancellationRequested)
-            {
+            while (!cts.IsCancellationRequested) {
                 // read existing data in buffer
                 var currentSpan = _sharedBuffer.AsSpan(0, _bufferCount);
                 int consumed = DevicePacket.TryParse(currentSpan, out var packet);
-                if(consumed > 0)
-                {
-                  int remaining = _bufferCount - consumed;
-                    if (remaining > 0)
-                    {
+                if (consumed > 0) {
+                    int remaining = _bufferCount - consumed;
+                    if (remaining > 0) {
                         _sharedBuffer.AsSpan(consumed, remaining).CopyTo(_sharedBuffer);
                     }
                     _bufferCount = remaining;
-                    if(!packet.Command.IsEmpty)
-                    {
+                    if (!packet.Command.IsEmpty) {
                         onResponse(packet);
                         return true;
                     }
@@ -168,8 +143,7 @@ class TcpConnection : IDisposable
 
                 // read data from network stream
                 int spaceLeft = _sharedBuffer.Length - _bufferCount;
-                if (spaceLeft <= 0)
-                {
+                if (spaceLeft <= 0) {
                     _bufferCount = 0; // reset buffer if overflow
                     throw new InvalidDataException("Buffer overflow: incoming data exceeds buffer size.");
                 }
@@ -178,58 +152,40 @@ class TcpConnection : IDisposable
                 if (bytesRead == 0) throw new IOException("Connection closed by remote host.");
                 _bufferCount += bytesRead;
             }
-        }
-        catch (IOException ex) when (ex.InnerException is SocketException socketException)
-        {
+        } catch (IOException ex) when (ex.InnerException is SocketException socketException) {
             Console.WriteLine($"Network error: {socketException.SocketErrorCode}");
-        }
-        catch (TimeoutException)
-        {
+        } catch (TimeoutException) {
             Console.WriteLine("Operation timed out.");
-        }
-        catch (ObjectDisposedException)
-        {
+        } catch (ObjectDisposedException) {
             Console.WriteLine("Connection was closed.");
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Console.WriteLine(ex.Message);
-        }
-        finally
-        {
+        } finally {
             _streamLock.Release();
         }
 
         return false;
     }
 
-    private async Task DisconnectAsync()
-    {
-        if (Interlocked.Exchange(ref _isConnected, false))
-        {
+    private async Task DisconnectAsync() {
+        if (Interlocked.Exchange(ref _isConnected, false)) {
             _healthCheckCTS?.Cancel();
-            try
-            {
+            try {
                 _client?.Close();
-            }
-            finally
-            {
+            } finally {
                 _client = null;
                 OnDisconnected?.Invoke();
-                if (false == _connectionCTS?.IsCancellationRequested)
-                {
+                if (false == _connectionCTS?.IsCancellationRequested) {
                     _ = Task.Run(() => BeginConnectAsync(_connectionCTS.Token));
                 }
             }
         }
     }
 
-    private void Disconnect()
-    {
+    private void Disconnect() {
         _ = DisconnectAsync();
     }
-    public void Dispose()
-    {
+    public void Dispose() {
         Stop();
         _connectLock.Dispose();
         GC.SuppressFinalize(this);

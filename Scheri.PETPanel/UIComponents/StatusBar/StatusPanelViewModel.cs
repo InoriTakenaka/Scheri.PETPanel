@@ -5,6 +5,7 @@ using Scheri.PETPanel.Network.Contract;
 using Scheri.PETPanel.Utils;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Scheri.PETPanel.UIComponents;
 
@@ -41,38 +42,49 @@ public partial class StatusPanelViewModel : ObservableObject
 
     void UpdateStatus()
     {
-        var cachedStatus = DeviceManager.Instance.Cache.ToArray();
-        int count = cachedStatus.Length;
-        if (count > 0)
+        try
         {
-            var latest = cachedStatus[count - 1];
-            CrystalAvgTemprature = latest.temp_avg.ToString("0.0") + " ℃";
-            IsConnected = DeviceManager.Instance.IsConnected;
-
-            if (count >= 3)
+            var cachedStatus = DeviceManager.Instance.Cache.ToArray();
+            int count = cachedStatus.Length;
+            if (count > 0)
             {
-                var first = cachedStatus[count - 3];
-                var last = cachedStatus[count - 1];
-                var duration = (last.last_update_ts - first.last_update_ts) / 1000.0;
-                if (duration > 0)
+                var latest = cachedStatus[count - 1];
+                CrystalAvgTemprature = latest.temp_avg.ToString("0.0") + " ℃";
+                IsConnected = DeviceManager.Instance.IsConnected;
+
+                if (count >= 3)
                 {
-                    var promptCountSum = last.collect_prompt_count - first.collect_prompt_count;
-                    PromptCountValue = (float)(promptCountSum / duration / 1000.0);
-                    if (PromptCountValue < 0) PromptCountValue = 0;
-                    PromptCount = PromptCountValue.ToString("0.00") + " K/s";
+                    var first = cachedStatus[count - 3];
+                    var last = cachedStatus[count - 1];
+                    var duration = (last.last_update_ts - first.last_update_ts) / 1000.0;
+                    if (duration > 0)
+                    {
+                        var promptCountSum = last.collect_prompt_count - first.collect_prompt_count;
+                        PromptCountValue = (float)(promptCountSum / duration / 1000.0);
+                        if (PromptCountValue < 0) PromptCountValue = 0;
+                        PromptCount = PromptCountValue.ToString("0.00") + " K/s";
+                    }
                 }
+                else
+                {
+                    PromptCount = "0.00 K/s";
+                }
+                IsConnected = DeviceManager.Instance.IsConnected;
             }
             else
             {
-                PromptCount = "0.00 K/s";
+                IsConnected = false;
+                CrystalAvgTemprature = "N/A";
+                PromptCount = "N/A";
             }
-            IsConnected = DeviceManager.Instance.IsConnected;
         }
-        else
+        catch (Exception ex)
         {
             IsConnected = false;
             CrystalAvgTemprature = "N/A";
             PromptCount = "N/A";
+            AppLogger.Warn($"Failed to update status: {ex.Message}", nameof(StatusPanelViewModel));
+            Task.Delay(500);
         }
     }
 }

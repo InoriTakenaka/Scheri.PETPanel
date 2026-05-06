@@ -17,14 +17,19 @@ public class AppConfigurationService : IConfigurationService
     public AppConfigurationService()
     {
         _configFilePath = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), _configFileName);
-        AppLogger.Info($"config_path:{_configFilePath}",nameof(AppConfigurationService));
+        AppLogger.Info($"config_path:{_configFilePath}", nameof(AppConfigurationService));
         LoadAppSettings();
     }
     public void LoadAppSettings()
     {
         if (!File.Exists(_configFilePath))
         {
-            AppSettings = new AppSettings { };
+            AppSettings = new AppSettings {
+                Workstation = new WorkStationConfiguration {
+                    Address = "192.168.1.80",
+                    Port = 8066
+                }
+            };
             SaveAppSettings();
             return;
         }
@@ -39,6 +44,7 @@ public class AppConfigurationService : IConfigurationService
 
         }
     }
+
 
     public void SaveAppSettings()
     {
@@ -55,7 +61,7 @@ public class AppConfigurationService : IConfigurationService
             );
         }
         catch (Exception ex)
-        {   
+        {
             System.Diagnostics.Debug.WriteLine(ex.Message);
             AppLogger.Error(ex.Message, nameof(SaveAppSettings));
         }

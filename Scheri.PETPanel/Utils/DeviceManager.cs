@@ -36,7 +36,7 @@ public class DeviceManager
         string ip = "192.168.1.80";
         int port = 8066;
         var config = Locator.Current.GetService<IConfigurationService>();
-        if (config!=null)
+        if (config != null)
         {
             ip = config.AppSettings.Workstation.Address;
             port = config.AppSettings.Workstation.Port;
