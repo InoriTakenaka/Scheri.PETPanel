@@ -12,7 +12,7 @@ namespace Scheri.PETPanel.Features.Camera {
         private bool _isMonitoring = false;
 
         public CameraViewModel() {
-            _libVlc = new LibVLC("--rtsp-tcp", "--avcodec-hw=none", "--no-audio", "--verbose=2");
+            _libVlc = new LibVLC("--rtsp-tcp", "--avcodec-hw=none", "--no-audio");
             _libVlc.Log += (s, e) => AppLogger.Info($"[VLC] {e.Message}", nameof(CameraViewModel));
             MediaPlayer = new MediaPlayer(_libVlc);
         }

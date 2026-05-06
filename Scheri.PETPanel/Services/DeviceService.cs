@@ -169,8 +169,6 @@ namespace Scheri.PETPanel.Services
                     {
                         string jsonData = Encoding.UTF8.GetString(response.Payload);
                         tcs.TrySetResult(jsonData);
-                        // Process status response
-                        AppLogger.Info($"Received status response with payload:\r\n{jsonData}");
                     }
                 }, timeoutMs);
 
@@ -198,7 +196,6 @@ namespace Scheri.PETPanel.Services
                     {
                         StatusCache.TryDequeue(out _);
                     }
-                    AppLogger.Info($"Status info cached. Total: {StatusCache.Count}");
                 }
             }
             catch (JsonException ex)

@@ -65,7 +65,7 @@ public static class AppLogger
 
     private static void Log(LogRecord record)
     {
-        Logger.Log(LevelMap[record.Level], 0, record, null, (state, ex) => state.Content);
+        Logger.Log(LevelMap[record.Level], 0, record, null, (state, ex) => $"{record.Content}，src = {record.Source}");
     }
 
     public static void Debug(string message, string? source = null) => Log(new LogRecord(DateTime.Now, LogLevel.Debug, message, source));
