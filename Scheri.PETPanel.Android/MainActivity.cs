@@ -10,7 +10,7 @@ using Scheri.PETPanel.Interfaces;
 using Scheri.PETPanel.Services;
 using Scheri.PETPanel.Utils;
 using Splat;
-
+using CoreApp = Scheri.PETPanel.App;
 
 namespace Scheri.PETPanel.Android;
 
@@ -26,6 +26,14 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         LibVLCSharp.Shared.Core.Initialize();
         AppLogger.Initialize(new NLogAndroidConfig());
+        
+        CoreApp.OnExitApp = () => {
+            // exit the app 
+            FinishAffinity();
+            // call java runtime to ensure the app is fully closed
+            Java.Lang.Runtime.GetRuntime()?.Exit(0);
+        };
+
         base.OnCreate(savedInstanceState);
     }
     public override bool OnKeyDown([GeneratedEnum] Keycode keyCode, KeyEvent? e)

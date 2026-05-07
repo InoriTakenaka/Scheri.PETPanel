@@ -23,13 +23,13 @@
 					<ColumnDefinition Width="*" MinWidth="150"/>
 					<ColumnDefinition Width="*" MinWidth="150"/>
 				</Grid.ColumnDefinitions>
-
 				<Button Grid.Column="0"
 						Content="DISCARD"
 						Click="OnExitClicked"
 						Height="60"
 						Background="#95A5A6"
 						Foreground="White"
+						FontWeight="Bold"
 						CornerRadius="8"
 						HorizontalAlignment="Stretch"
 						HorizontalContentAlignment="Center"
@@ -48,11 +48,9 @@
 						VerticalContentAlignment="Center"/>
 			</Grid>
 		</Grid>
-
 		<!-- configuration card area -->
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-			<WrapPanel Orientation="Horizontal" ItemWidth="450">
-			
+			<WrapPanel Orientation="Horizontal" ItemWidth="450">			
 				<!-- Workstation
 				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
 				<StackPanel Spacing="15">
@@ -83,8 +81,6 @@
 				</StackPanel>
 				</Border>
 				-->
-
-
 				<!-- App Info -->
 				<Border Background="White" CornerRadius="15" Margin="10" Padding="25" BoxShadow="0 8 20 0 #30000000">
 					<StackPanel Spacing="15">

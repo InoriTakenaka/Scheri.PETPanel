@@ -18,6 +18,7 @@ public partial class App : Application
 {
     public static WindowNotificationManager? NotificationManager;
     public static IServiceProvider? ServiceProvider { get; private set; }
+    public static Action? OnExitApp { get; set; }
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -73,5 +74,13 @@ public partial class App : Application
                 AppLogger.Error(ex.Message, nameof(App));
             }
         });
+    }
+
+    public static void ShutdownApplication() { 
+        if(Current?.ApplicationLifetime is IControlledApplicationLifetime desktop) {
+            desktop.Shutdown();
+        } else if(Current?.ApplicationLifetime is ISingleViewApplicationLifetime singleView) {
+            OnExitApp?.Invoke();
+        }
     }
 }
