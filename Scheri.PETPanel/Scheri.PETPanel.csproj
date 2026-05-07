@@ -4,14 +4,18 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<Platforms>AnyCPU;x64</Platforms>
+		<Platforms>AnyCPU;x64;arm64</Platforms>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
 		<PublishTrimmed>true</PublishTrimmed>
 		<TrimMode>full</TrimMode>
 		<SelfContained>true</SelfContained>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm64'">
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+		<Optimize>true</Optimize>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>

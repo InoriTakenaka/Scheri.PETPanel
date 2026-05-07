@@ -42,20 +42,26 @@
 		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
-		<IsAotCompatible>True</IsAotCompatible>
+		<IsAotCompatible>True</IsAotCompatible>		
+		<PublishTrimmed>true</PublishTrimmed>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
 		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<IsAotCompatible>True</IsAotCompatible>
+		<PublishTrimmed>true</PublishTrimmed>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<IsAotCompatible>True</IsAotCompatible>
+		<PublishTrimmed>true</PublishTrimmed>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
 	</PropertyGroup>
 
 	<ItemGroup>
