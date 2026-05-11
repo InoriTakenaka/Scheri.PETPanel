@@ -48,8 +48,8 @@
 							</Border.Background>
 							<Border.Transitions>
 								<Transitions>
-									<EffectTransition Property="Effect" Duration="0:0:0.6" />
-									<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+									<EffectTransition Property="Effect" Duration="0:0:0.1" />
+									<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1" />
 								</Transitions>
 							</Border.Transitions>
 

@@ -85,9 +85,11 @@
 
 			<!-- content -->
 			<TransitioningContentControl Content="{Binding CurrentView}" Background="Transparent">
+				<!--
 				<TransitioningContentControl.PageTransition>
 					<PageSlide Duration="0:0:0.2" Orientation="Horizontal"/>
 				</TransitioningContentControl.PageTransition>
+				-->
 			</TransitioningContentControl>
 
 		</DockPanel>
