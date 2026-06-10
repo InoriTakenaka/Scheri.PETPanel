@@ -10,10 +10,12 @@ using Scheri.PETPanel.Interfaces;
 using Scheri.PETPanel.Services;
 using Scheri.PETPanel.Utils;
 using Splat;
+using System.Runtime.Versioning;
 using CoreApp = Scheri.PETPanel.App;
 
 namespace Scheri.PETPanel.Android;
 
+[SupportedOSPlatform("Android")]
 [Activity(
     Label = "PETPanel",
     Theme = "@style/MyTheme.NoActionBar",
@@ -50,6 +52,12 @@ public class MainActivity : AvaloniaMainActivity<App>
         Locator.CurrentMutable.RegisterLazySingleton<INotificationService>(() => new AppNotificationService());
         Locator.CurrentMutable.RegisterLazySingleton<IConfigurationService>(() => new AppConfigurationService());
         return base.CustomizeAppBuilder(builder)
+            .With(new AndroidPlatformOptions {
+                RenderingMode = [AndroidRenderingMode.Egl],
+            })
+            .With(new SkiaOptions { 
+                MaxGpuResourceSizeBytes = 64 * 1024 * 1024, // 64MB
+            })
             .WithInterFont();
     }
 }

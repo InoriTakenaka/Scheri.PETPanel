@@ -31,15 +31,6 @@
 			<Setter Property="Height" Value="100"/>
 			<Setter Property="BorderThickness" Value="2"/>
 			<Setter Property="Background" Value="#FFF4E1" />		
-			<Setter Property="Effect">
-				<Setter.Value>
-					<DropShadowEffect Color="White"
-									  BlurRadius="10"
-									  OffsetX="0"
-									  OffsetY="0"
-									  Opacity="0.5" />
-				</Setter.Value>
-			</Setter>
 			<Setter Property="Margin" Value="0,30,0,30" />
 			<Setter Property="VerticalAlignment" Value="Stretch" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
@@ -48,10 +39,10 @@
 	<Border BorderBrush="Transparent" BorderThickness="0" Background="Transparent"
 			Padding="10,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-		<Grid ColumnDefinitions="1*,80,1*,80,1*" RowDefinitions="Auto,Auto">
+		<Grid ColumnDefinitions="1*,80,1*,80,1*" RowDefinitions="Auto,Auto">	
 			<!-- Crystal Temperature -->
 			<TextBlock Grid.Row="0" Grid.Column="0" Classes="Label" Text="Temperature" />
-			<TextBlock Grid.Row="1" Grid.Column="0" Classes="Value" Text="{Binding CrystalAvgTemprature}"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Classes="Value" Text="{CompiledBinding CrystalAvgTemprature}"/>
 
 			<Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Classes="Split"/>
 			<!-- Count Rate -->

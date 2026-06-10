@@ -17,7 +17,7 @@
 		<Setter Property="Margin" Value="10"/>
 		<Setter Property="ClipToBounds" Value="False"/>
 
-		<!-- defalut styles for the tile frame-->
+		<!-- defalut styles for the tile frame
 		<Style Selector="^ /template/ Border#MainBorder">
 			<Setter Property="Effect">
 				<Setter.Value>
@@ -28,7 +28,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-
+		-->
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Button x:Name="PART_TileButton"
@@ -93,9 +93,9 @@
 											   VerticalAlignment="Bottom"
 											   LetterSpacing="2"
 											   Margin="30,0,0,5">
-										<TextBlock.Effect>
+										<!-- TextBlock.Effect>
 											<DropShadowEffect BlurRadius="15" Opacity="0.6" OffsetX="0" OffsetY="4"/>
-										</TextBlock.Effect>
+										</TextBlock.Effect -->
 									</TextBlock>
 								</Grid>
 							</Grid>
@@ -108,9 +108,10 @@
 
 		<Style Selector="^ /template/ Button#PART_TileButton:pressed Border#MainBorder">
 			<Setter Property="BorderBrush" Value="#FFF4E1" />
-			<!-- offeset-x offset-y blur radius color -->
+			<!-- offeset-x offset-y blur radius color 
 			<Setter Property="BoxShadow" Value="0 0 25 5  #FFF4E1" />
 			<Setter Property="RenderTransform" Value="scale(0.96)" />
+			-->
 		</Style>
 
 		<!-- remove default hover and pressed background -->

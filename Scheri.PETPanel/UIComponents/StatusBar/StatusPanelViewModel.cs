@@ -46,15 +46,16 @@ public partial class StatusPanelViewModel : ObservableObject
         {
             var cachedStatus = DeviceManager.Instance.Cache.ToArray();
             int count = cachedStatus.Length;
+            LogCachedStatus(cachedStatus);
             if (count > 0)
             {
                 var latest = cachedStatus[count - 1];
                 CrystalAvgTemprature = latest.temp_avg.ToString("0.0") + " ℃";
                 IsConnected = DeviceManager.Instance.IsConnected;
 
-                if (count >= 3)
+                if (count >= 5)
                 {
-                    var first = cachedStatus[count - 3];
+                    var first = cachedStatus[0];
                     var last = cachedStatus[count - 1];
                     var duration = (last.last_update_ts - first.last_update_ts) / 1000.0;
                     if (duration > 0)
@@ -63,6 +64,8 @@ public partial class StatusPanelViewModel : ObservableObject
                         PromptCountValue = (float)(promptCountSum / duration / 1000.0);
                         if (PromptCountValue < 0) PromptCountValue = 0;
                         PromptCount = PromptCountValue.ToString("0.00") + " K/s";
+                    } else {
+                        PromptCount = "0.00 K/s";
                     }
                 }
                 else
@@ -78,7 +81,7 @@ public partial class StatusPanelViewModel : ObservableObject
                 PromptCount = "N/A";
             }
         }
-        catch (Exception ex)
+        catch (Exception ex) 
         {
             IsConnected = false;
             CrystalAvgTemprature = "N/A";
@@ -87,6 +90,15 @@ public partial class StatusPanelViewModel : ObservableObject
             Task.Delay(500);
         }
     }
+
+    private void LogCachedStatus(StatusInfo[]? statuses) {
+        AppLogger.Info($"Cached status count: {statuses?.Length ?? 0}", nameof(StatusPanelViewModel));
+        AppLogger.Info($">>>>>> PromptCount and Temp for each cached status: <<<<<<<<", nameof(StatusPanelViewModel));
+        foreach (var status in statuses ?? Array.Empty<StatusInfo>()) {
+            AppLogger.Debug($"Temp: {status.temp_avg}, PromptCount: {status.collect_prompt_count}", nameof(StatusPanelViewModel));
+        }
+        AppLogger.Info($">>>>>> Finished logging cached statuses. <<<<<<<<<<", nameof(StatusPanelViewModel));
+    }   
 }
 
 public class BoolToBrushConverter : IValueConverter
